@@ -40,6 +40,17 @@ public class Prenda {
 		this.tipoTela = tipoTela;
 	}
 	
+	public void mostrarDetalles() {
+		// TODO Auto-generated method stub
+		System.out.println("Detalle Prenda:");
+		System.out.println("Categoria: "+ tipoPrenda.getCategoria().getDescripcion());
+		System.out.println("Tipo Prenda: "+ tipoPrenda.getDescripcion());
+		System.out.println("Tipo Tela: "+ tipoTela.getDescripcion());
+		System.out.println("Color Primario: " + colorPrimario);
+		System.out.println("Color Secundario: " + colorSecundario);
+		return;
+	}
+	
 	
 	
 	

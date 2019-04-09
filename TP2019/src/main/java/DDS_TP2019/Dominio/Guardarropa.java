@@ -19,14 +19,24 @@ public class Guardarropa {
 		prendas.add(prenda);
 	}
 	
-//	public Atuendo recomendarAtuendo() {
-//		return 
-//	}
+	public Atuendo recomendarAtuendo() {		
+		List<Prenda> prendasSuperior = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().getCategoria().esSuperior());
+		List<Prenda> prendasInferior = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().getCategoria().esInferior());
+		List<Prenda> prendasCalzado = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().getCategoria().esCalzado());
+		List<Prenda> prendasAccesorio = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().getCategoria().esAccesorio());
+		return new Atuendo(prendasAccesorio);
+	}
 	
 	public Guardarropa() {
 		super();
 		this.prendas =  new ArrayList<Prenda>();
 	}
+
+	public void mostrarPrendas() {
+		// TODO Auto-generated method stub
+		prendas.forEach(prenda -> prenda.mostrarDetalles());
+	}
+
 	
 	
 	

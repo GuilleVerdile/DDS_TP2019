@@ -29,7 +29,11 @@ public class Sistema {
 		this.tiposTelas = tiposTelas;
 	}
 	
-	public Sistema(List<Persona> personas, List<TipoTela> tiposTelas, String colores) {
+	public void agregarPersona(Persona persona) {
+		personas.add(persona);
+	}
+	
+	public Sistema() {
 		super();
 		this.personas = new ArrayList<Persona>();
 		this.tiposTelas = new ArrayList<TipoTela>();

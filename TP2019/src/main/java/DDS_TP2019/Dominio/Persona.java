@@ -5,7 +5,16 @@ import java.util.List;
 
 public class Persona {
 
+	private String nombre;
 	private List<Guardarropa> guardarropas;
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
 	public List<Guardarropa> getGuardarropas() {
 		return guardarropas;
@@ -19,8 +28,9 @@ public class Persona {
 		guardarropas.add(guardarropa);
 	}
 	
-	public Persona() {
+	public Persona(String nombre) {
 		super();
+		this.nombre = nombre;
 		this.guardarropas =  new ArrayList<Guardarropa>();
 	}
 	
