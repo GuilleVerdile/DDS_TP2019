@@ -17,7 +17,7 @@ public class Atuendo {
 
 	public Atuendo(List<Prenda> prendas) {
 		super();
-		this.prendas = new ArrayList<Prenda>();;
+		this.prendas = new ArrayList<Prenda>();
 	}
 	
 	
