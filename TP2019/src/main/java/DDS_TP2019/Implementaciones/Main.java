@@ -91,7 +91,11 @@ public class Main {
 					}
 					pos = in.nextInt();
 					String colorSecundario = coloresPosibles.get(pos-1);
-					sistema.getPersonas().get(posPersona-1).agregarPrendaAguardarropa(posGuardarropa,new Prenda(colorPrimario, colorSecundario, tipoPrenda, tipoTela));
+					Prenda nuevaPrenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, tipoTela);
+					sistema.getPersonas().get(posPersona-1).agregarPrendaAguardarropa(posGuardarropa-1,nuevaPrenda);
+					System.out.println("Prenda elegida: ");
+					nuevaPrenda.mostrarDetalles();
+					System.out.println("Prenda agregada exitosamente");
 					break;
 				case 4:
 					System.out.println("Elija el usuario al cual se le desea sugerir una prenda:");				
