@@ -53,14 +53,14 @@ public class Sistema {
 		
 	public static List<TipoPrenda> importarTipoPrendas() throws JsonParseException, JsonMappingException, IOException{		
 		ObjectMapper objectMapper = new ObjectMapper();
-		List <TipoPrenda> tiposPrendas = objectMapper.readValue(new File("target/tipoPrendas.json"), new TypeReference<List<TipoPrenda>>(){});		
+		List <TipoPrenda> tiposPrendas = objectMapper.readValue(new File("tipoPrendas.json"), new TypeReference<List<TipoPrenda>>(){});		
 		return tiposPrendas;		
 	}
 	
 	public static List<String> importarColores() throws JsonParseException, JsonMappingException, IOException{		
 		List <String>colores = new ArrayList <String>();
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> map = mapper.readValue(new File("target/colores.json"),new TypeReference<Map<String, Object>>(){});
+		Map<String, Object> map = mapper.readValue(new File("colores.json"),new TypeReference<Map<String, Object>>(){});
 		@SuppressWarnings("unchecked")
 		ArrayList<String> list = (ArrayList<String>) map.get("colores");
 		for (String color : list) {
@@ -71,7 +71,7 @@ public class Sistema {
 	
 	public static List<Persona> importarUsuarios() throws JsonParseException, JsonMappingException, IOException{		
 		ObjectMapper objectMapper = new ObjectMapper();
-		List <Persona> usuarios = objectMapper.readValue(new File("target/usuarios.json"),  new TypeReference<List<Persona>>(){});		
+		List <Persona> usuarios = objectMapper.readValue(new File("usuarios.json"),  new TypeReference<List<Persona>>(){});		
 		return usuarios;		
 	}
 		
