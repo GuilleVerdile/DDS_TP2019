@@ -3,9 +3,17 @@ package DDS_TP2019.Dominio;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Persona {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+
+public class Persona {
+	
 	private String nombre;
+	
+//	@JsonIgnoreProperties
 	private List<Guardarropa> guardarropas;
 
 	public String getNombre() {
@@ -34,5 +42,12 @@ public class Persona {
 		this.guardarropas =  new ArrayList<Guardarropa>();
 	}
 	
+	public Persona() {
+		this.guardarropas =  new ArrayList<Guardarropa>();
+	}
+
+	public void agregarPrendaAguardarropa(int posGuardarropa, Prenda prenda) {
+		this.guardarropas.get(posGuardarropa).agregarPrenda(prenda);		
+	}
 	
 }

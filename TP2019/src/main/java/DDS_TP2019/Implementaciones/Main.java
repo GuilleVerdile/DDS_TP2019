@@ -1,5 +1,8 @@
 package DDS_TP2019.Implementaciones;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import DDS_TP2019.Dominio.*;
@@ -7,8 +10,16 @@ import DDS_TP2019.Dominio.*;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Sistema sistema = new Sistema();
+		Sistema sistema = new Sistema();	
+		System.out.println(java.nio.charset.Charset.defaultCharset());
+		try {			
+			sistema.setPersonas(Sistema.importarUsuarios());
+			sistema.setTiposPrendas(Sistema.importarTipoPrendas());
+			sistema.setColores(Sistema.importarColores());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		sistema.getTiposPrendas().forEach(prenda -> System.out.println(prenda.getDescripcion()));
 		System.out.println("Bienvenido al sistema ¿Que me pongo?");
 		System.out.println("Elija la opcion deseada");
 		int opcion = 0;
@@ -33,7 +44,54 @@ public class Main {
 					System.out.println("Nuevo Guardarropa agregado al Usuario: " + sistema.getPersonas().get(pos-1).getNombre());
 					break;
 				case 3:
-					
+					System.out.println("Elija el usuario al cual se le desea agregar una prenda:");				
+					sistema.getPersonas().forEach(usuario -> System.out.println(usuario.getNombre()));
+					int posPersona = in.nextInt();
+					System.out.println("Elija el N° de guardarropa:");	
+					persona = sistema.getPersonas().get(posPersona-1);
+					int posGuardarropa = in.nextInt();
+					guardarropa = persona.getGuardarropas().get(posGuardarropa-1);
+					System.out.println("Elija el tipo de prenda deseado:");
+					int i = 1;
+					for (TipoPrenda tipoPrenda : sistema.getTiposPrendas()) {
+						System.out.println(i);
+						tipoPrenda.mostrarDetalles();
+						i++;
+					}	    
+					int posPrenda = in.nextInt();
+					TipoPrenda tipoPrenda = sistema.getTiposPrendas().get(posPrenda-1);
+					System.out.println("Elija el tipo de tela deseado:");
+					i = 1;
+					for (String tipoTela : sistema.getTiposPrendas().get(posPrenda-1).getTiposTelaPosible()) {
+						System.out.println(i);
+						System.out.println(tipoTela);
+						i++;
+					}
+					int posTela = in.nextInt();
+					String tipoTela = sistema.getTiposPrendas().get(posPrenda-1).getTiposTelaPosible().get(posTela-1);
+					System.out.println("Elija el color primario deseado:");
+					i = 1;
+					for (String color : sistema.getColores()) {
+						System.out.println(i);
+						System.out.println(color);
+						i++;
+					}
+					int posColor = in.nextInt();
+					String colorPrimario = sistema.getColores().get(posColor-1);
+					System.out.println("Elija el color secundario deseado:");
+					i = 1;
+					List<String> coloresPosibles = new ArrayList<String>();
+					for (String color : sistema.getColores()) {
+						if(sistema.getColores().get(posColor-1) != color) {
+							coloresPosibles.add(color);
+							System.out.println(i);
+							System.out.println(color);
+							i++;
+						}
+					}
+					pos = in.nextInt();
+					String colorSecundario = coloresPosibles.get(pos-1);
+					sistema.getPersonas().get(posPersona-1).agregarPrendaAguardarropa(posGuardarropa,new Prenda(colorPrimario, colorSecundario, tipoPrenda, tipoTela));
 					break;
 				case 4:
 					System.out.println("Elija el usuario al cual se le desea sugerir una prenda:");				
@@ -66,15 +124,7 @@ public class Main {
 				
 			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
+				
 	}
 	
 	

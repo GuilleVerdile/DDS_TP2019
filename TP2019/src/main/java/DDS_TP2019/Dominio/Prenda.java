@@ -5,7 +5,7 @@ public class Prenda {
 	private String colorPrimario;
 	private String colorSecundario;
 	private TipoPrenda tipoPrenda;
-	private TipoTela tipoTela;
+	private String tipoTela;
 	
 	public String getColorPrimario() {
 		return colorPrimario;
@@ -25,14 +25,14 @@ public class Prenda {
 	public void setTipoPrenda(TipoPrenda tipoPrenda) {
 		this.tipoPrenda = tipoPrenda;
 	}
-	public TipoTela getTipoTela() {
+	public String getTipoTela() {
 		return tipoTela;
 	}
-	public void setTipoTela(TipoTela tipoTela) {
+	public void setTipoTela(String tipoTela) {
 		this.tipoTela = tipoTela;
 	}
 	
-	public Prenda(String colorPrimario, String colorSecundario, TipoPrenda tipoPrenda, TipoTela tipoTela) {
+	public Prenda(String colorPrimario, String colorSecundario, TipoPrenda tipoPrenda, String tipoTela) {
 		super();
 		this.colorPrimario = colorPrimario;
 		this.colorSecundario = colorSecundario;
@@ -43,9 +43,9 @@ public class Prenda {
 	public void mostrarDetalles() {
 		// TODO Auto-generated method stub
 		System.out.println("Detalle Prenda:");
-		System.out.println("Categoria: "+ tipoPrenda.getCategoria().getDescripcion());
+		System.out.println("Categoria: "+ tipoPrenda.getCategoria());
 		System.out.println("Tipo Prenda: "+ tipoPrenda.getDescripcion());
-		System.out.println("Tipo Tela: "+ tipoTela.getDescripcion());
+		System.out.println("Tipo Tela: "+ tipoTela);
 		System.out.println("Color Primario: " + colorPrimario);
 		System.out.println("Color Secundario: " + colorSecundario);
 		return;
