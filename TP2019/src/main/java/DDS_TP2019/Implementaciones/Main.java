@@ -115,7 +115,8 @@ public class Main {
 					System.out.println("Prendas presentes en el guardarropas:");
 					guardarropa.mostrarPrendas();
 					break;
-					
+				case 6:
+					break;
 				default:
 					System.out.println("Opcion Invalida");
 					break;

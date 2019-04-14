@@ -38,20 +38,8 @@ public class TipoPrenda {
 	public TipoPrenda() {
 	}
 	
-	public boolean esAccesorio() {
-		return this.categoria == "Accesorio";
-	}
-	
-	public boolean esSuperior() {
-		return this.categoria == "Superior";
-	}
-	
-	public boolean esInferior() {
-		return this.categoria == "Inferior";
-	}
-	
-	public boolean esCalzado() {
-		return this.categoria == "Calzado";
+	public boolean esCategoria(String _categoria) {
+		return this.categoria == _categoria;
 	}
 	public void mostrarDetalles() {
 		System.out.println("Detalle Prenda:");

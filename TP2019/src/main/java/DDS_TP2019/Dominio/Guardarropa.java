@@ -3,6 +3,8 @@ package DDS_TP2019.Dominio;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 public class Guardarropa {
 
 	private List<Prenda> prendas;
@@ -20,11 +22,12 @@ public class Guardarropa {
 	}
 	
 	public List<Prenda> recomendarAtuendo() {		
-		List<Prenda> prendasSuperior = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().esSuperior());
-		List<Prenda> prendasInferior = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().esInferior());
-		List<Prenda> prendasCalzado = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCalzado());
-		List<Prenda> prendasAccesorio = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().esAccesorio());
-		return prendasAccesorio;
+		List<Prenda> prendasSuperior = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("superior"));
+		List<Prenda> prendasInferior = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("inferior"));
+		List<Prenda> prendasCalzado = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("calzado"));
+		List<Prenda> prendasAccesorio = (List<Prenda>) prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("accesorio"));
+		List<List<Prenda>> atuendosPosibles = Lists.cartesianProduct(prendasSuperior,prendasInferior,prendasCalzado,prendasAccesorio);
+		return atuendosPosibles.get(0);
 	}
 	
 	public Guardarropa() {
