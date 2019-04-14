@@ -1,0 +1,17 @@
+[
+    {
+      "descripcion": "remera de manga corta",
+      "categoria": "partesuperior",
+      "tiposTelaPosible": ["seda","algodon","lana"]
+    },
+    {
+      "descripcion": "short",
+      "categoria": "parteinferior",
+      "tiposTelaPosible": ["cuero","jean","corderoy"]
+    },
+    {
+      "descripcion": "zapatosdetacon",
+      "categoria": "calzado",
+      "tiposTelaPosible": ["cuero","gamuza"]
+    }    
+]
