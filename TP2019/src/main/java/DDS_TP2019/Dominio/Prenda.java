@@ -47,7 +47,9 @@ public class Prenda {
 		System.out.println("Tipo Prenda: "+ tipoPrenda.getDescripcion());
 		System.out.println("Tipo Tela: "+ tipoTela);
 		System.out.println("Color Primario: " + colorPrimario);
-		System.out.println("Color Secundario: " + colorSecundario);
+		if(colorSecundario != "") {
+		System.out.println("Color Secundario: " + colorSecundario + "\n");
+		}
 		return;
 	}
 	

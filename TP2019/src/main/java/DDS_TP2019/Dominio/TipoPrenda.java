@@ -39,7 +39,7 @@ public class TipoPrenda {
 	}
 	
 	public boolean esCategoria(String _categoria) {
-		return this.categoria == _categoria;
+		return this.categoria.equals(_categoria);
 	}
 	public void mostrarDetalles() {
 		System.out.println("Detalle Prenda:");

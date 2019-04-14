@@ -89,8 +89,16 @@ public class Main {
 							i++;
 						}
 					}
+					System.out.println(i);
+					System.out.println("Ninguno");
 					pos = in.nextInt();
-					String colorSecundario = coloresPosibles.get(pos-1);
+					String colorSecundario;
+					if(pos == i) {
+						colorSecundario = "";
+					}
+					else{
+						colorSecundario = coloresPosibles.get(pos-1);
+					}
 					Prenda nuevaPrenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, tipoTela);
 					sistema.getPersonas().get(posPersona-1).agregarPrendaAguardarropa(posGuardarropa-1,nuevaPrenda);
 					System.out.println("Prenda elegida: ");
