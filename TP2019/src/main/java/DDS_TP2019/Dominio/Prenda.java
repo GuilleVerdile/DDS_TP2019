@@ -63,6 +63,13 @@ public class Prenda {
 		return;
 	}
 	
+	public boolean esFormal() {
+		return this.tipoPrenda.getTiposDeEvento().contains("FORMAL");
+	}
+	
+	public boolean esInformal() {
+		return this.tipoPrenda.getTiposDeEvento().contains("INFORMAL");
+	}
 	
 	
 	

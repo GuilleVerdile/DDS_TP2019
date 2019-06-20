@@ -2,19 +2,21 @@ package DDS_TP2019.Dominio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class Guardarropa {
 
-	private List<Prenda> prendas;
+	private Set<Prenda> prendas;
 
-	public List<Prenda> getPrendas() {
+	public Set<Prenda> getPrendas() {
 		return prendas;
 	}
 
-	public void setPrendas(List<Prenda> prendas) {
+	public void setPrendas(Set<Prenda> prendas) {
 		this.prendas = prendas;
 	}
 
@@ -22,7 +24,7 @@ public class Guardarropa {
 		prendas.add(prenda);
 	}
 	
-	public void recomendarAtuendo() {		
+	public void recomendarAtuendo() {	//Version Entrega 1 ... no se usa mas	
 		List<Prenda> prendasSuperior = prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("partesuperior")).collect(Collectors.toList());;
 		List<Prenda> prendasInferior = prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("parteinferior")).collect(Collectors.toList());;
 		List<Prenda> prendasCalzado = prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("calzado")).collect(Collectors.toList());;
@@ -39,18 +41,25 @@ public class Guardarropa {
 		}
 	}
 	
+	public Set<Atuendo> sugerirAtuendos(Double temperatura, String tipoDeEvento){  // VERSION ENTREGA 2  
+		return GenerarSugerencias.getInstance().ejecutar(this.prendas,temperatura,tipoDeEvento);
+	} 
+
 	public Guardarropa() {
 		super();
-		this.prendas =  new ArrayList<Prenda>();
+		this.prendas = Sets.newHashSet();
 	}
 	
-	public Guardarropa(List <Prenda> prendas) {
-		this.prendas =  prendas;
+	public Guardarropa(Set <Prenda> prendas) {
+		this.prendas = prendas;
 	}
 
 	public void mostrarPrendas() {
-		// TODO Auto-generated method stub
 		prendas.forEach(prenda -> prenda.mostrarDetalles());
+	}
+
+	public int cantidadDePrendas() {
+		return prendas.size();
 	}
 
 	

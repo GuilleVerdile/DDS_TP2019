@@ -54,18 +54,10 @@ public class Atuendo {
 		return this.prendas.stream().filter(unaPrenda -> unaPrenda.getTipoPrenda().getCategoria() == unaCategoria).collect(Collectors.toSet());
 	}
 	
-	public boolean noRepiteInferior() {
-		return this.filtrarPorCategoria("parteinferior").size() == 1;
+	public boolean noHayMasDe3DelTipo(String categoria) {
+		return this.filtrarPorCategoria(categoria).size() >= 1 && this.filtrarPorCategoria(categoria).size() <= 3;
 	}
-	
-	public boolean noRepiteCalzado() {
-		return this.filtrarPorCategoria("calzado").size() == 1;
-	}
-	
-	public boolean noRepiteAccesorio() {
-		return this.filtrarPorCategoria("accesorio").size() == 1;
-	}
-	
+		
 	public boolean esAtuendoFormal() {
 		return this.prendas.stream().allMatch(unaPrenda -> unaPrenda.getTipoPrenda().getTiposDeEvento().contains("FORMAL"));
 	}
@@ -79,9 +71,8 @@ public class Atuendo {
 	}
 
 	public boolean noRepiteNivelesDePrendas() {
-		return ((this.filtrarPorNivel(0).size() == 1 || this.filtrarPorNivel(0).size() == 0)	
-				&& (this.filtrarPorNivel(1).size() == 1 || this.filtrarPorNivel(1).size() == 0)	
-			    && (this.filtrarPorNivel(2).size() == 1 || this.filtrarPorNivel(2).size() == 0)	
+		return ((this.filtrarPorNivel(1).size() == 1)	
+			    && (this.filtrarPorNivel(2).size() == 1)	
 				&& (this.filtrarPorNivel(3).size() == 1 || this.filtrarPorNivel(3).size() == 0)	
 				&& (this.filtrarPorNivel(4).size() == 1 || this.filtrarPorNivel(4).size() == 0)	
 				&& (this.filtrarPorNivel(5).size() == 1 || this.filtrarPorNivel(5).size() == 0)) ;							
