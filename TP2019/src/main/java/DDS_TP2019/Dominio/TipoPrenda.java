@@ -9,7 +9,14 @@ public class TipoPrenda {
 	private String categoria; 
 	private List<String> tiposTelaPosible;
 	private List<String> tiposDeEvento;
+	private int nivel;
 	
+	public int getNivel() {
+		return nivel;
+	}
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -35,7 +42,7 @@ public class TipoPrenda {
 	public void setTiposDeEvento(List<String> tiposDeEvento) {
 		this.tiposDeEvento = tiposDeEvento;
 	}
-	public TipoPrenda(String descripcion, String categoria, List<String> tiposTelaPosible,List<String> tiposDeEvento) {
+	public TipoPrenda(String descripcion, String categoria, List<String> tiposTelaPosible,List<String> tiposDeEvento,int nivel) {
 		super();
 		this.descripcion = descripcion;
 		this.categoria = categoria;
@@ -43,6 +50,7 @@ public class TipoPrenda {
 //		this.tiposDeEvento = new ArrayList<String>();
 		this.tiposTelaPosible = tiposTelaPosible;
 		this.tiposDeEvento = tiposDeEvento;
+		this.nivel = nivel;
 	}
 	
 	public TipoPrenda() {
@@ -59,7 +67,7 @@ public class TipoPrenda {
 		for (String tipoTela : this.tiposTelaPosible) {
 			System.out.println(tipoTela);
 		}	    
-		
+		System.out.println("Nivel: "+ this.nivel);
 	}
 	
 }

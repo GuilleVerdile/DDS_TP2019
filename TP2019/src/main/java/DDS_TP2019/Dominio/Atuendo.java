@@ -77,6 +77,20 @@ public class Atuendo {
 	public boolean esAtuendoDiario() {
 		return this.prendas.stream().allMatch(unaPrenda -> unaPrenda.getTipoPrenda().getTiposDeEvento().contains("DIARIO"));
 	}
+
+	public boolean noRepiteNivelesDePrendas() {
+		return ((this.filtrarPorNivel(0).size() == 1 || this.filtrarPorNivel(0).size() == 0)	
+				&& (this.filtrarPorNivel(1).size() == 1 || this.filtrarPorNivel(1).size() == 0)	
+			    && (this.filtrarPorNivel(2).size() == 1 || this.filtrarPorNivel(2).size() == 0)	
+				&& (this.filtrarPorNivel(3).size() == 1 || this.filtrarPorNivel(3).size() == 0)	
+				&& (this.filtrarPorNivel(4).size() == 1 || this.filtrarPorNivel(4).size() == 0)	
+				&& (this.filtrarPorNivel(5).size() == 1 || this.filtrarPorNivel(5).size() == 0)) ;							
+	}
+	
+	private Set<Prenda> filtrarPorNivel(int nivel) {
+		return this.prendas.stream().filter(unaPrenda -> unaPrenda.getTipoPrenda().getNivel() == nivel).collect(Collectors.toSet());
+
+	}
 	
 
 }
