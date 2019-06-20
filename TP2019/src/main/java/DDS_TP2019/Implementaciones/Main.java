@@ -34,7 +34,16 @@ public class Main {
 				case 1:
 					System.out.println("Ingrese el nombre: ");
 					String nombre = in.next();
-					sistema.agregarPersona(new Persona(nombre));
+					System.out.println("Ingrese el tipo de usuario (1 = gratuito ; 2 = premium");
+					String tipoUser = in.next();
+					if(tipoUser == "1") {
+						System.out.println("Ingrese el numero maximo de prendas que podran tener sus guardarropas: ");
+						int numeroMaximoPrendas = in.nextInt();
+						sistema.agregarPersona(new Persona(nombre,new UsuarioGratuito(numeroMaximoPrendas)));
+					}
+					if(tipoUser == "2") {
+						sistema.agregarPersona(new Persona(nombre,new UsuarioPremium()));
+					}
 					break;
 				case 2:
 					System.out.println("Elija el usuario al cual se le desea agregar un guardarropa vacio:");				
@@ -59,6 +68,8 @@ public class Main {
 						i++;
 					}	    
 					int posPrenda = in.nextInt();
+					System.out.println("Escriba la cantidad de calorias de la prenda:");	
+					int calorias = in.nextInt();
 					TipoPrenda tipoPrenda = sistema.getTiposPrendas().get(posPrenda-1);
 					System.out.println("Elija el tipo de tela deseado:");
 					i = 1;
@@ -99,7 +110,7 @@ public class Main {
 					else{
 						colorSecundario = coloresPosibles.get(pos-1);
 					}
-					Prenda nuevaPrenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, tipoTela);
+					Prenda nuevaPrenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, tipoTela,calorias);
 					sistema.getPersonas().get(posPersona-1).agregarPrendaAguardarropa(posGuardarropa-1,nuevaPrenda);
 					System.out.println("Prenda elegida: ");
 					nuevaPrenda.mostrarDetalles();

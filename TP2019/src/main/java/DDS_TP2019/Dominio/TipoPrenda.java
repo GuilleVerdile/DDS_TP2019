@@ -8,6 +8,7 @@ public class TipoPrenda {
 	private String descripcion;
 	private String categoria; 
 	private List<String> tiposTelaPosible;
+	private List<String> tiposDeEvento;
 	
 	public String getDescripcion() {
 		return descripcion;
@@ -28,11 +29,20 @@ public class TipoPrenda {
 		this.tiposTelaPosible = tiposTelaPosible;
 	}
 	
-	public TipoPrenda(String descripcion, String categoria, List<String> tiposTelaPosible) {
+	public List<String> getTiposDeEvento() {
+		return tiposDeEvento;
+	}
+	public void setTiposDeEvento(List<String> tiposDeEvento) {
+		this.tiposDeEvento = tiposDeEvento;
+	}
+	public TipoPrenda(String descripcion, String categoria, List<String> tiposTelaPosible,List<String> tiposDeEvento) {
 		super();
 		this.descripcion = descripcion;
 		this.categoria = categoria;
-		this.tiposTelaPosible = new ArrayList<String>();
+//		this.tiposTelaPosible = new ArrayList<String>();
+//		this.tiposDeEvento = new ArrayList<String>();
+		this.tiposTelaPosible = tiposTelaPosible;
+		this.tiposDeEvento = tiposDeEvento;
 	}
 	
 	public TipoPrenda() {
