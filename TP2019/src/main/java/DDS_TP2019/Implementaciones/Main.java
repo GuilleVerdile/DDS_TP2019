@@ -19,7 +19,7 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		sistema.getTiposPrendas().forEach(prenda -> System.out.println(prenda.getDescripcion()));
+		sistema.getTiposPrendas().forEach(prenda -> System.out.println(prenda.getTiposDeEvento()));
 		System.out.println("Bienvenido al sistema ¿Que me pongo?");
 		System.out.println("Elija la opcion deseada");
 		int opcion = 0;

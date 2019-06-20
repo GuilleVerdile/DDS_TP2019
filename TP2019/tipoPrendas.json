@@ -2,16 +2,22 @@
     {
       "descripcion": "remera de manga corta",
       "categoria": "partesuperior",
-      "tiposTelaPosible": ["seda","algodon","lana"]
+      "tiposTelaPosible": ["seda","algodon","lana"],
+      "tiposDeEvento": ["INFORMAL"] ,
+      "nivel": "1"
     },
     {
       "descripcion": "short",
       "categoria": "parteinferior",
-      "tiposTelaPosible": ["cuero","jean","corderoy"]
+      "tiposTelaPosible": ["cuero","jean","corderoy"],
+      "tiposDeEvento": ["INFORMAL"] ,
+      "nivel": "1"
     },
     {
       "descripcion": "zapatosdetacon",
       "categoria": "calzado",
-      "tiposTelaPosible": ["cuero","gamuza"]
+      "tiposTelaPosible": ["cuero","gamuza"],
+      "tiposDeEvento": ["FORMAL"] ,
+      "nivel": "1"
     }    
 ]
