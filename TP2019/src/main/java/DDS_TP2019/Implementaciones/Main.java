@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import com.google.maps.errors.ApiException;
 
 import DDS_TP2019.Dominio.*;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args)throws ApiException, InterruptedException, IOException{
+
+                //System.out.println(GoogleAPI.buscarDireccion("Plaza Italia"));
 		Sistema sistema = new Sistema();	
 		System.out.println(java.nio.charset.Charset.defaultCharset());
 		try {			
