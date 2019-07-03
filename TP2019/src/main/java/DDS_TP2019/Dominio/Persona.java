@@ -59,6 +59,7 @@ public class Persona {
 	
 	public Persona() {
 		this.guardarropas =  new ArrayList<Guardarropa>();
+		this.eventos = new ArrayList<Evento>();
 	}
 
 	public void agregarPrendaAguardarropa(int posGuardarropa, Prenda prenda) {
@@ -74,6 +75,7 @@ public class Persona {
 	
 	public void agregarEvento(String descripcion, DateTime fecha, String ubicacion, String tipoDeEvento) throws Exception{
 		Evento evento = new Evento(descripcion, fecha, ubicacion, tipoDeEvento);
+		evento.mostrarDetalles();
 		this.eventos.add(evento);
 	}
 	

@@ -71,7 +71,7 @@ public class Sistema {
 	
 	public static List<Persona> importarUsuarios() throws JsonParseException, JsonMappingException, IOException{		
 		ObjectMapper objectMapper = new ObjectMapper();
-		List <Persona> usuarios = objectMapper.readValue(new File("usuarios.json"),  new TypeReference<List<Persona>>(){});		
+		List <Persona> usuarios = objectMapper.readValue(new File("usuarios.json"),  new TypeReference<List<Persona>>(){});
 		return usuarios;		
 	}
 		

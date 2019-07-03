@@ -22,12 +22,15 @@ public class Evento {
 			throw new Exception("La fecha introducida ya ha pasado");
 		}
 	}
-
+	public void mostrarDetalles () {
+		System.out.println(this.descripcionEvento +", el " + this.fechaEvento.toString("dd/MM/yyyy hh:mm") + " en " + this.ubicacion);
+	}
 	public boolean estaProximo(){
 		return this.diferenciaConHoy() < 3;
 	}
 
 	public boolean esFechaPasada(){
+		
 		return this.diferenciaConHoy() < 0;
 	}
 
