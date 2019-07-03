@@ -19,5 +19,33 @@
       "tiposTelaPosible": ["cuero","gamuza"],
       "tiposDeEvento": ["FORMAL"] ,
       "nivel": "1"
-    }    
+    },
+    {
+      "descripcion": "Saco",
+      "categoria": "parteSuperior",
+      "tiposTelaPosible": ["tela"],
+      "tiposDeEvento": ["FORMAL"] ,
+      "nivel": "2"
+    }, 
+    {
+      "descripcion": "Camisa",
+      "categoria": "parteSuperior",
+      "tiposTelaPosible": ["tela"],
+      "tiposDeEvento": ["FORMAL"] ,
+      "nivel": "1"
+    }, 
+    {
+      "descripcion": "Patalon de Vestir",
+      "categoria": "parteInferior",
+      "tiposTelaPosible": ["tela"],
+      "tiposDeEvento": ["FORMAL"] ,
+      "nivel": "1"
+    },
+    {
+      "descripcion": "Zapatos",
+      "categoria": "calzado",
+      "tiposTelaPosible": ["cuero"],
+      "tiposDeEvento": ["FORMAL"] ,
+      "nivel": "1"
+    }   
 ]

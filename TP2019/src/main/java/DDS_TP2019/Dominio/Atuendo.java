@@ -82,6 +82,8 @@ public class Atuendo {
 		return this.prendas.stream().filter(unaPrenda -> unaPrenda.getTipoPrenda().getNivel() == nivel).collect(Collectors.toSet());
 
 	}
-	
+	public Set<Prenda> getPrendas() {
+		return this.prendas;
+	}
 
 }

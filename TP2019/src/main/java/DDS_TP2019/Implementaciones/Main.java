@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import org.joda.time.DateTime;
 
 import com.google.maps.errors.ApiException;
 
+import DDS_TP2019.Clima.ServicioOpenWeather;
+import DDS_TP2019.Dominio.Atuendo;
 import DDS_TP2019.Dominio.Evento;
 import DDS_TP2019.Dominio.Guardarropa;
 import DDS_TP2019.Dominio.Persona;
@@ -38,7 +41,7 @@ public class Main {
 		int pos;
 		Persona persona;
 		Guardarropa guardarropa ;
-		while (opcion != 8) {
+		while (opcion != 9) {
 			menu();
 			Scanner in = new Scanner(System.in);  
 			opcion = in.nextInt();
@@ -176,6 +179,22 @@ public class Main {
 					guardarropa.recomendarAtuendo();
 					break;
 				case 6:
+					System.out.println("Elija el usuario que irá al evento: ");
+					sistema.getPersonas().forEach(usuario -> System.out.println(usuario.getNombre()));
+					pos = in.nextInt();
+					persona = sistema.getPersonas().get(pos-1);
+					System.out.println("Elija el evento para el cual recomendar el atuendo: ");
+					persona.getEventos().forEach(evento -> evento.mostrarDetalles());
+					pos = in.nextInt();
+					Evento evento = persona.getEventos().get(pos-1);
+					System.out.println("Elija el Nº guardarropas con cuyas prendas se recomendará el atuendo");
+					pos = in.nextInt();
+					guardarropa = persona.getGuardarropas().get(pos-1);
+					ServicioOpenWeather servicio = new ServicioOpenWeather();
+					Set<Atuendo> atuendos = guardarropa.sugerirAtuendos(evento.temperatura(servicio), evento.getTipoEvento());
+					atuendos.forEach(atuendo -> atuendo.getPrendas().forEach(prenda->prenda.mostrarDetalles()));
+					break;
+				case 7:
 					System.out.println("Elija el usuario del cual se desea ver todos sus pertenencias:");				
 					sistema.getPersonas().forEach(usuario -> System.out.println(usuario.getNombre()));
 					pos = in.nextInt();
@@ -187,13 +206,13 @@ public class Main {
 					System.out.println("Prendas presentes en el guardarropas:");
 					guardarropa.mostrarPrendas();
 					break;
-				case 7:
+				case 8:
 					System.out.println("Elija al usuario del cual se desea ver todos los eventos pendientes: ");
 					sistema.getPersonas().forEach(usuario -> System.out.println(usuario.getNombre()));
 					pos = in.nextInt();
-					sistema.getPersonas().get(pos-1).getEventos().get(0).mostrarDetalles();
+					sistema.getPersonas().get(pos-1).getEventos().forEach(eventos -> eventos.mostrarDetalles());
 					break;
-				case 8:break;
+				case 9:break;
 				default:
 					System.out.println("Opcion Invalida");
 					break;
@@ -212,9 +231,10 @@ public class Main {
 		System.out.println("3. Agregar Prenda");
 		System.out.println("4. Agregar Evento");
 		System.out.println("5. Sugerir Atuendo");
-		System.out.println("6. Ver Prendas de Usuario");
-		System.out.println("7. Ver Eventos de Usuario");
-		System.out.println("8. Salir");
+		System.out.println("6. Sugerir Atuendo para un evento");
+		System.out.println("7. Ver Prendas de Usuario");
+		System.out.println("8. Ver Eventos de Usuario");
+		System.out.println("9. Salir");
 	}
 
 }
