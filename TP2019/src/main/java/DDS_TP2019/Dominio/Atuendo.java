@@ -1,5 +1,6 @@
 package DDS_TP2019.Dominio;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,7 @@ public class Atuendo {
 	
 	
 	public boolean cubreTodoElCuerpo() {
-		return this.contieneDeCategoria("parteSuperior") &&
+		return this.contieneDeCategoria("partesuperior") &&
 				this.contieneDeCategoria("parteinferior") &&
 				this.contieneDeCategoria("calzado");
 	}
@@ -55,7 +56,7 @@ public class Atuendo {
 	}
 	
 	public boolean noHayMasDe3DelTipo(String categoria) {
-		return this.filtrarPorCategoria(categoria).size() >= 1 && this.filtrarPorCategoria(categoria).size() <= 3;
+		return this.filtrarPorCategoria(categoria).size() <= 3;
 	}
 		
 	public boolean esAtuendoFormal() {
@@ -69,18 +70,22 @@ public class Atuendo {
 	public boolean esAtuendoDiario() {
 		return this.prendas.stream().allMatch(unaPrenda -> unaPrenda.getTipoPrenda().getTiposDeEvento().contains("DIARIO"));
 	}
-
-	public boolean noRepiteNivelesDePrendas() {
-		return ((this.filtrarPorNivel(1).size() == 1)	
-			    && (this.filtrarPorNivel(2).size() == 1)	
-				&& (this.filtrarPorNivel(3).size() == 1 || this.filtrarPorNivel(3).size() == 0)	
-				&& (this.filtrarPorNivel(4).size() == 1 || this.filtrarPorNivel(4).size() == 0)	
-				&& (this.filtrarPorNivel(5).size() == 1 || this.filtrarPorNivel(5).size() == 0)) ;							
-	}
 	
-	private Set<Prenda> filtrarPorNivel(int nivel) {
-		return this.prendas.stream().filter(unaPrenda -> unaPrenda.getTipoPrenda().getNivel() == nivel).collect(Collectors.toSet());
-
+	public boolean noRepiteNivelPorCategoria() {
+		return (noRepiteNivel(filtrarPrendasCategoria("partesuperior"))&&
+				noRepiteNivel(filtrarPrendasCategoria("parteinferior"))&&
+				noRepiteNivel(filtrarPrendasCategoria("calzado"))&&
+				noRepiteNivel(filtrarPrendasCategoria("accesorio")));
+	}
+	private  Set<Prenda> filtrarPrendasCategoria(String categoria) {
+		return this.prendas.stream().filter(prenda -> prenda.getTipoPrenda().getCategoria() == categoria).collect(Collectors.toSet());
+	}
+	private boolean noRepiteNivel(Set<Prenda> prendaXCategoria) {
+		return ((prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 0).collect(Collectors.toSet()).size()  <= 1) &&
+		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 1).collect(Collectors.toSet()).size() == 1) &&
+		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 2).collect(Collectors.toSet()).size()  <= 1) &&
+		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 3).collect(Collectors.toSet()).size()  <= 1) &&
+		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 4).collect(Collectors.toSet()).size()  <= 1));
 	}
 	public Set<Prenda> getPrendas() {
 		return this.prendas;
