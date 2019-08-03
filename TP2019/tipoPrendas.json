@@ -22,21 +22,21 @@
     },
     {
       "descripcion": "Saco",
-      "categoria": "parteSuperior",
+      "categoria": "partesuperior",
       "tiposTelaPosible": ["tela"],
       "tiposDeEvento": ["FORMAL"] ,
       "nivel": "2"
     }, 
     {
       "descripcion": "Camisa",
-      "categoria": "parteSuperior",
+      "categoria": "partesuperior",
       "tiposTelaPosible": ["tela"],
       "tiposDeEvento": ["FORMAL"] ,
       "nivel": "1"
     }, 
     {
-      "descripcion": "Patalon de Vestir",
-      "categoria": "parteInferior",
+      "descripcion": "Pantalon de Vestir",
+      "categoria": "parteinferior",
       "tiposTelaPosible": ["tela"],
       "tiposDeEvento": ["FORMAL"] ,
       "nivel": "1"
@@ -47,5 +47,12 @@
       "tiposTelaPosible": ["cuero"],
       "tiposDeEvento": ["FORMAL"] ,
       "nivel": "1"
-    }   
+    },
+    {
+      "descripcion": "Collar",
+      "categoria": "accesorio",
+      "tiposTelaPosible": ["perlas"],
+      "tiposDeEvento": ["FORMAL"] ,
+      "nivel": "1"
+    }     
 ]

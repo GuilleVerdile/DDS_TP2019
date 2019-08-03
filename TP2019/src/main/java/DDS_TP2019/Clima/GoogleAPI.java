@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DDS_TP2019.Dominio;
+package DDS_TP2019.Clima;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;

@@ -23,7 +23,7 @@ public class Evento {
 		}
 	}
 	public void mostrarDetalles () {
-		System.out.println(this.descripcionEvento +", el " + this.fechaEvento.toString("dd/MM/yyyy hh:mm") + " en " + this.ubicacion);
+		System.out.println(this.descripcionEvento +", el " + this.fechaEvento.toString("dd/MM/yyyy hh:mm") + " en " + this.ubicacion + " "  + tipoDeEvento);
 	}
 	public boolean estaProximo(){
 		return this.diferenciaConHoy() < 3;
