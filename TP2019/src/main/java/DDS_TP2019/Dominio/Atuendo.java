@@ -6,15 +6,18 @@ import java.util.stream.Collectors;
 
 public class Atuendo {
 	private Set<Prenda> prendas;
-
+	private String estado;
+	private int calificacion;
+	
 	public Atuendo(Set<Prenda> prendas) {
-		this.prendas = prendas;		
+		this.prendas = prendas;	
+		this.estado = "NUEVO";
 	}
+	
 	/*
 	public boolean esAtuendoPosible() {
 		return this.prendas.size() >= 3;
 	}*/
-	
 	
 	public boolean cubreTodoElCuerpo() {
 		return this.contieneDeCategoria("partesuperior") &&
@@ -26,6 +29,37 @@ public class Atuendo {
 		return this.prendas.stream().anyMatch(unaPrenda -> unaPrenda.getTipoPrenda().getCategoria() == unaCategoria);
 	}
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public int getCalificacion() {
+		return calificacion;
+	}
+
+	public void setCalificacion(int calificacion) {
+		this.calificacion = calificacion;
+	}
+
+	public void setPrendas(Set<Prenda> prendas) {
+		this.prendas = prendas;
+	}
+
+
+	public void calificar(int unaCalificacion) throws Exception{
+		if(unaCalificacion < 0 || unaCalificacion > 5){   //No es una calificacion valida, usamos rango de 1 a 5 
+			throw new Exception("La calificacion no esta dentro del rango solicitado");
+		}
+		if(this.estado == "ACEPTADO"){
+			this.calificacion = unaCalificacion;
+			this.setEstado("CALIFICADO");
+		}
+	}
+	
 	public boolean esMuyAbrigado() {
 		return this.sumaNivelDeAbrigo(90,100);
 	}
@@ -90,5 +124,12 @@ public class Atuendo {
 	public Set<Prenda> getPrendas() {
 		return this.prendas;
 	}
-
+	
+	public void setPrendasDisponibles(boolean disponibilidad) {
+		this.prendas.forEach(unaPrenda -> unaPrenda.setEstaDisponible(disponibilidad));
+	}
+	
+	public boolean estaDisponible() {
+		return this.prendas.stream().allMatch(unaPrenda -> unaPrenda.isEstaDisponible());
+	}
 }

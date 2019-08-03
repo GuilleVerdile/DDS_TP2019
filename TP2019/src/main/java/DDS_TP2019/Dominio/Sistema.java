@@ -74,5 +74,16 @@ public class Sistema {
 		List <Persona> usuarios = objectMapper.readValue(new File("usuarios.json"),  new TypeReference<List<Persona>>(){});
 		return usuarios;		
 	}
+	
+	public boolean esGuardarropasCompartido(Guardarropa unGuardarropa) {
+		int cantidadUsuariosQueLoContienen = 0;
+		
+		for(int i = 0; i < (this.personas.size()); i++) {
+			if(personas.get(i).getGuardarropas().contains(unGuardarropa)) {
+				cantidadUsuariosQueLoContienen++;
+			}
+		} 
+		return cantidadUsuariosQueLoContienen >= 2;
+	}
 		
 }

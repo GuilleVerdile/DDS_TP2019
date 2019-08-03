@@ -22,6 +22,7 @@ public class FiltrarCombinaciones {
 										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("calzado")) 
 										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("accesorio"))
 										.filter(unAtuendo -> unAtuendo.noRepiteNivelPorCategoria())
+										.filter(unAtuendo -> unAtuendo.estaDisponible())
 										.collect(Collectors.toSet());
 				
 		if(temperatura >= 0 && temperatura < 10) {
