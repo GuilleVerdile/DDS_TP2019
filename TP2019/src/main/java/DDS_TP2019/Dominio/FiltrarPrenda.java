@@ -3,6 +3,8 @@ package DDS_TP2019.Dominio;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.google.common.collect.Sets;
+
 public class FiltrarPrenda {
 
 	public static FiltrarPrenda instancia;
@@ -15,16 +17,7 @@ public class FiltrarPrenda {
 	}
 	
 	public Set<Prenda> ejecutar(Set<Prenda> prendas, String tipoDeEvento){
-		Set<Prenda> prendasAcordesAlEvento = null;
-		if(tipoDeEvento == "FORMAL") {
-			prendasAcordesAlEvento = prendas.stream()
-													.filter(unaPrenda -> unaPrenda.esFormal())
+		return prendas.stream().filter(unaPrenda -> unaPrenda.getTipoPrenda().getTiposDeEvento().contains(tipoDeEvento))
 													.collect(Collectors.toSet());
-		} else if(tipoDeEvento == "INFORMAL"){
-			prendasAcordesAlEvento = prendas.stream()
-													.filter(unaPrenda -> unaPrenda.esInformal())
-													.collect(Collectors.toSet());
-		} 
-		return prendasAcordesAlEvento;
 	}
 }
