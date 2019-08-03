@@ -62,7 +62,17 @@ public class Guardarropa {
 		return prendas.size();
 	}
 
+	public boolean contienePrenda(Prenda prenda) {
+		return this.prendas.contains(prenda);
+	}
+
+	public boolean poseePrendaCompartida(Guardarropa guardarropa) {
+		return this.prendas.stream().anyMatch(unaPrenda -> guardarropa.getPrendas().contains(unaPrenda));
+	}
 	
-	
+	public boolean estaCompartido() {
+		Sistema s = new Sistema();
+		return s.esGuardarropasCompartido(this);
+	}
 	
 }
