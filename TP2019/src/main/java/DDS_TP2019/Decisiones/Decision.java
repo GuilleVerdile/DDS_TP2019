@@ -1,5 +1,4 @@
 package DDS_TP2019.Decisiones;
-import DDS_TP2019.*;
 import DDS_TP2019.Dominio.Atuendo;
 
 public abstract class Decision {
@@ -13,6 +12,6 @@ public abstract class Decision {
 	
 	public abstract void tomarDecision(int unaCalificacion);
 	
-	public abstract  void deshacerDecision(); //Me permite ir para atras en la que sea la decision que haya tomado, va a depender de cada decision (si estoy en aceptado voy a volver a nuevo, si estoy en calificado vuelvo a aceptado... etc)
+	public abstract void deshacerDecision(); //Me permite ir para atras en la que sea la decision que haya tomado, va a depender de cada decision (si estoy en aceptado voy a volver a nuevo, si estoy en calificado vuelvo a aceptado... etc)
 	
 }

@@ -16,6 +16,5 @@ public class Aceptar extends Decision {
 	
 	public void tomarDecision(int unaCalificacion) {
 		atuendo.setEstado("ACEPTADO");
-		atuendo.setPrendasDisponibles(false);
 	}
 }

@@ -139,11 +139,11 @@ public class Main {
 					System.out.println("Ingrese una descripcion para el evento");
 					in.nextLine();
 					String descripcionEvento = in.nextLine();
-					System.out.println("Ingrese el año del evento");
+					System.out.println("Ingrese el año de inicio del evento");
 					int anio = in.nextInt();
-					System.out.println("Ingrese el mes del evento");
+					System.out.println("Ingrese el mes de inicio del evento");
 					int mes = in.nextInt();
-					System.out.println("Ingrese el dia del evento");
+					System.out.println("Ingrese el dia de inicio del evento");
 					int dia = in.nextInt();
 					System.out.println("Ingrese la hora de inicio del evento");
 					int hora = in.nextInt();
@@ -152,7 +152,18 @@ public class Main {
 					System.out.println("Ingrese la ciudad en la que se ubicará el evento");
 					in.nextLine();
 					String ubicacion = in.nextLine();
-					DateTime fecha = new DateTime(anio,mes,dia,hora,minutos);
+					DateTime fechaInicio = new DateTime(anio,mes,dia,hora,minutos);
+					System.out.println("Ingrese el año de fin del evento");
+					anio = in.nextInt();
+					System.out.println("Ingrese el mes de fin del evento");
+					mes = in.nextInt();
+					System.out.println("Ingrese el dia de fin del evento");
+					dia = in.nextInt();
+					System.out.println("Ingrese la hora de fin del evento");
+					hora = in.nextInt();
+					System.out.println("Ingrese los minutos de fin del evento");
+					minutos = in.nextInt();
+					DateTime fechaFin = new DateTime(anio,mes,dia,hora,minutos);
 					System.out.println("Indique el nivel de formalidad del evento");
 					String formalidad ="";
 					System.out.println("1. Formal");
@@ -162,7 +173,7 @@ public class Main {
 						case 2 :formalidad = "INFORMAL";break;
 					}
 					try {
-						sistema.getPersonas().get(pos-1).agregarEvento(descripcionEvento, fecha, ubicacion, formalidad);
+						sistema.getPersonas().get(pos-1).agregarEvento(descripcionEvento, fechaInicio, fechaFin, ubicacion, formalidad);
 					}
 					catch(Exception e) {
 						e.printStackTrace();
@@ -191,7 +202,7 @@ public class Main {
 					pos = in.nextInt();
 					guardarropa = persona.getGuardarropas().get(pos-1);
 					ServicioOpenWeather servicio = new ServicioOpenWeather();
-					Set<Atuendo> atuendos = guardarropa.sugerirAtuendos(evento.temperatura(servicio), evento.getTipoEvento());
+					Set<Atuendo> atuendos = guardarropa.sugerirAtuendos(evento.temperatura(servicio), evento.getTipoEvento(),evento.getFechaInicioEvento(),evento.getFechaFinEvento());
 					atuendos.forEach(atuendo -> atuendo.getPrendas().forEach(prenda->prenda.mostrarDetalles()));
 					break;
 				case 7:
