@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.joda.time.DateTime;
+
 public class Atuendo {
 	private Set<Prenda> prendas;
 	private String estado;
@@ -82,7 +84,7 @@ public class Atuendo {
 	
 	public boolean sumaNivelDeAbrigo(int unMinimo,int unMaximo) {
 		int nivelDeAbrigo = this.prendas.stream().mapToInt(unaPrenda -> unaPrenda.getCalorias()).sum();
-		return nivelDeAbrigo > unMinimo && nivelDeAbrigo <= unMaximo;
+		return nivelDeAbrigo >= unMinimo && nivelDeAbrigo <= unMaximo;
 	}
 	
 	public Set<Prenda> filtrarPorCategoria(String unaCategoria) {
@@ -106,30 +108,37 @@ public class Atuendo {
 	}
 	
 	public boolean noRepiteNivelPorCategoria() {
-		return (noRepiteNivel(filtrarPrendasCategoria("partesuperior"))&&
-				noRepiteNivel(filtrarPrendasCategoria("parteinferior"))&&
-				noRepiteNivel(filtrarPrendasCategoria("calzado"))&&
-				noRepiteNivel(filtrarPrendasCategoria("accesorio")));
+		if(this.contieneDeCategoria("accesorio")) {     // Si el atuendo contiene algun accesorio, se fija tambien que cumpla la regla de las capas
+			return (noRepiteNivel(filtrarPrendasCategoria("partesuperior"))&&
+					noRepiteNivel(filtrarPrendasCategoria("parteinferior"))&&
+					noRepiteNivel(filtrarPrendasCategoria("calzado"))&&
+					noRepiteNivel(filtrarPrendasCategoria("accesorio")));  
+		}
+		else {
+			return (noRepiteNivel(filtrarPrendasCategoria("partesuperior"))&&
+					noRepiteNivel(filtrarPrendasCategoria("parteinferior"))&&
+					noRepiteNivel(filtrarPrendasCategoria("calzado"))); 
+		}
 	}
-	private  Set<Prenda> filtrarPrendasCategoria(String categoria) {
+	private Set<Prenda> filtrarPrendasCategoria(String categoria) {
 		return this.prendas.stream().filter(prenda -> prenda.getTipoPrenda().getCategoria() == categoria).collect(Collectors.toSet());
 	}
-	private boolean noRepiteNivel(Set<Prenda> prendaXCategoria) {
-		return ((prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 0).collect(Collectors.toSet()).size()  <= 1) &&
-		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 1).collect(Collectors.toSet()).size() == 1) &&
-		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 2).collect(Collectors.toSet()).size()  <= 1) &&
-		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 3).collect(Collectors.toSet()).size()  <= 1) &&
-		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 4).collect(Collectors.toSet()).size()  <= 1));
+	private boolean noRepiteNivel(Set<Prenda> prendaXCategoria) {    // en ninguna parte del cuerpo puede haber dos prendas del mismo nivel
+		return ((prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 0).collect(Collectors.toSet()).size()  <= 1) &&    //prenda nivel 0 es optativa          
+		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 1).collect(Collectors.toSet()).size() == 1) &&   // prenda nivel 1 es obligatoria
+		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 2).collect(Collectors.toSet()).size()  == 1) &&  // prenda nivel 2 es obligatoria
+		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 3).collect(Collectors.toSet()).size()  <= 1) &&  //prenda nivel 3 es optativa 
+		(prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 4).collect(Collectors.toSet()).size()  <= 1));  //prenda nivel 4 es optativa 
 	}
 	public Set<Prenda> getPrendas() {
 		return this.prendas;
 	}
 	
-	public void setPrendasDisponibles(boolean disponibilidad) {
-		this.prendas.forEach(unaPrenda -> unaPrenda.setEstaDisponible(disponibilidad));
+	public void agregarUso(DateTime fechaInicioEvento, DateTime fechaFinEvento) {
+		this.prendas.forEach(unaPrenda -> unaPrenda.agregarUso(fechaInicioEvento,fechaFinEvento));
 	}
 	
-	public boolean estaDisponible() {
-		return this.prendas.stream().allMatch(unaPrenda -> unaPrenda.isEstaDisponible());
+	public boolean estaDisponible(DateTime fechaInicioEvento, DateTime fechaFinEvento) {
+		return this.prendas.stream().allMatch(unaPrenda -> unaPrenda.isEstaDisponible(fechaInicioEvento,fechaFinEvento));
 	}
 }

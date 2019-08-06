@@ -9,7 +9,8 @@ import DDS_TP2019.Clima.ServicioMeteorologico;
 
 public class Evento {	
 	private String descripcionEvento; 
-	public DateTime fechaEvento;
+	public DateTime fechaInicioEvento;
+	public DateTime fechaFinEvento;
 	private String ubicacion;
 	private String tipoDeEvento;
 	private boolean poseeSugerencias;
@@ -18,9 +19,10 @@ public class Evento {
 	private Set<Atuendo> atuendosRechazados;
 	private Set<Atuendo> atuendosCalificados; // Los atuendos calificados van a ir aca para poder acceder a la temperatura del evento
 	
-	public Evento(String descripcionEvento, DateTime fechaEvento, String ubicacion, String tipoDeEvento) throws Exception {
+	public Evento(String descripcionEvento, DateTime fechaInicioEvento,DateTime fechaFinEvento, String ubicacion, String tipoDeEvento) throws Exception {
 		this.descripcionEvento = descripcionEvento;
-		this.fechaEvento = fechaEvento;
+		this.fechaInicioEvento = fechaInicioEvento;
+		this.fechaFinEvento = fechaFinEvento;
 		this.ubicacion = ubicacion;
 		this.tipoDeEvento = tipoDeEvento;
 		if(this.esFechaPasada()){
@@ -28,7 +30,7 @@ public class Evento {
 		}
 	}
 	public void mostrarDetalles () {
-		System.out.println(this.descripcionEvento +", el " + this.fechaEvento.toString("dd/MM/yyyy hh:mm") + " en " + this.ubicacion + " "  + tipoDeEvento);
+		System.out.println(this.descripcionEvento +", desde " + this.fechaInicioEvento.toString("dd/MM/yyyy hh:mm") +", hasta " + this.fechaFinEvento.toString("dd/MM/yyyy hh:mm") + " en " + this.ubicacion + " "  + tipoDeEvento);
 	}
 	
 	public boolean estaProximo(){
@@ -42,12 +44,12 @@ public class Evento {
 
 	public int diferenciaConHoy(){
 		DateTime fechaActual = new DateTime();
-		int dias = Days.daysBetween(fechaActual,this.fechaEvento).getDays();
+		int dias = Days.daysBetween(fechaActual,this.fechaInicioEvento).getDays();
 		return dias;
 	}
 	
 	public double temperatura(ServicioMeteorologico servicioMeteorologico) throws IOException{
-		return servicioMeteorologico.obtenerTemperaturaFutura(this.fechaEvento);
+		return servicioMeteorologico.obtenerTemperaturaFutura(this.fechaInicioEvento);
 	}
 
 	public String getTipoEvento(){
@@ -59,11 +61,17 @@ public class Evento {
 	public void setDescripcionEvento(String descripcionEvento) {
 		this.descripcionEvento = descripcionEvento;
 	}
-	public DateTime getFechaEvento() {
-		return fechaEvento;
+	public DateTime getFechaInicioEvento() {
+		return fechaInicioEvento;
 	}
-	public void setFechaEvento(DateTime fechaEvento) {
-		this.fechaEvento = fechaEvento;
+	public void setFechaInicioEvento(DateTime fechaInicioEvento) {
+		this.fechaInicioEvento = fechaInicioEvento;
+	}
+	public DateTime getFechaFinEvento() {
+		return fechaFinEvento;
+	}
+	public void setFechaFinEvento(DateTime fechaFinEvento) {
+		this.fechaFinEvento = fechaFinEvento;
 	}
 	public String getUbicacion() {
 		return ubicacion;

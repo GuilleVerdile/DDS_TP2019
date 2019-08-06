@@ -3,6 +3,8 @@ package DDS_TP2019.Dominio;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.joda.time.DateTime;
+
 public class FiltrarCombinaciones {
 
 	public static FiltrarCombinaciones instancia;
@@ -14,7 +16,7 @@ public class FiltrarCombinaciones {
 		return instancia;
 	}
 	
-	public Set<Atuendo> ejecutar(Set<Atuendo> atuendosPosibles, Double temperatura){	
+	public Set<Atuendo> ejecutar(Set<Atuendo> atuendosPosibles, Double temperatura,DateTime fechaInicioEvento, DateTime fechaFinEvento){	
 		Set<Atuendo> atuendosAEvaluar = atuendosPosibles.stream()
 										.filter(unAtuendo -> unAtuendo.cubreTodoElCuerpo())
 										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("parteinferior"))  
@@ -22,7 +24,7 @@ public class FiltrarCombinaciones {
 										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("calzado")) 
 										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("accesorio"))
 										.filter(unAtuendo -> unAtuendo.noRepiteNivelPorCategoria())
-										.filter(unAtuendo -> unAtuendo.estaDisponible())
+										.filter(unAtuendo -> unAtuendo.estaDisponible(fechaInicioEvento,fechaFinEvento))
 										.collect(Collectors.toSet());
 				
 		if(temperatura >= 0 && temperatura < 10) {
