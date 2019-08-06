@@ -10,4 +10,14 @@ public class UsuarioGratuito implements TipoDeUsuario{
 	public boolean permiteAgregarPrendaA(Guardarropa guardarropa) {
 		return numeroMaximoPrendas > guardarropa.cantidadDePrendas();
 	}
+
+	@Override
+	public boolean esGratuito() {
+		return true;
+	}
+
+	@Override
+	public boolean esPremium() {
+		return false;
+	}
 }

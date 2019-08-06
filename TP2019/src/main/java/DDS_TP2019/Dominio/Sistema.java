@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -75,9 +76,13 @@ public class Sistema {
 		return usuarios;		
 	}
 	
-	public boolean esGuardarropasCompartido(Guardarropa unGuardarropa) {
+	public boolean esGuardarropasCompartido(Guardarropa unGuardarropa) throws Exception {
 		int cantidadUsuariosQueLoContienen = 0;
-		
+		List <Persona> personasConGuardarropaCompartido = this.personas.stream().filter(persona -> persona.poseeGuardarropa(unGuardarropa)).collect(Collectors.toList());
+		if(personasConGuardarropaCompartido.stream().anyMatch(persona -> persona.getTipoDeUsuario().esGratuito()) &&
+			(personasConGuardarropaCompartido.stream().anyMatch(persona -> persona.getTipoDeUsuario().esPremium()))) {
+			throw new Exception("No se puede compartir un guardarropa entre usuarios de distinto tipo");
+		}
 		for(int i = 0; i < (this.personas.size()); i++) {
 			if(personas.get(i).getGuardarropas().contains(unGuardarropa)) {
 				cantidadUsuariosQueLoContienen++;

@@ -108,10 +108,6 @@ public class Persona {
 		this.eventos = new ArrayList<Evento>();
 	}
 
-	public void agregarPrendaAguardarropa(int posGuardarropa, Prenda prenda) {
-		this.guardarropas.get(posGuardarropa).agregarPrenda(prenda);		
-	}
-	
 	public void agregarPrendaAGuardarropa(int posGuardarropa, Prenda prenda) throws Exception {	
 		if (this.poseePrendaEnOtroGuardarropa(prenda)) {
 			throw new Exception("La prenda a agregar pertenece a un guardarropa del usuario");

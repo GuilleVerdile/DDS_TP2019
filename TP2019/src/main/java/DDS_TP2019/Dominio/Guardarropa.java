@@ -72,7 +72,7 @@ public class Guardarropa {
 		return this.prendas.stream().anyMatch(unaPrenda -> guardarropa.getPrendas().contains(unaPrenda));
 	}
 	
-	public boolean estaCompartido() {
+	public boolean estaCompartido() throws Exception {
 		Sistema s = new Sistema();
 		return s.esGuardarropasCompartido(this);
 	}

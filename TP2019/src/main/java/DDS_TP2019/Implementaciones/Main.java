@@ -126,7 +126,12 @@ public class Main {
 						colorSecundario = coloresPosibles.get(pos-1);
 					}
 					Prenda nuevaPrenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, tipoTela,calorias);
-					sistema.getPersonas().get(posPersona-1).agregarPrendaAguardarropa(posGuardarropa-1,nuevaPrenda);
+					try {
+						sistema.getPersonas().get(posPersona-1).agregarPrendaAGuardarropa(posGuardarropa-1,nuevaPrenda);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					System.out.println("Prenda elegida: ");
 					nuevaPrenda.mostrarDetalles();
 					System.out.println("Prenda agregada exitosamente");
