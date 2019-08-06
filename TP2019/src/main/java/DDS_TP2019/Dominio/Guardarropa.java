@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.joda.time.DateTime;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -41,8 +43,8 @@ public class Guardarropa {
 		}
 	}
 	
-	public Set<Atuendo> sugerirAtuendos(Double temperatura, String tipoDeEvento){  // VERSION ENTREGA 2  
-		return GenerarSugerencias.getInstance().ejecutar(this.prendas,temperatura,tipoDeEvento);
+	public Set<Atuendo> sugerirAtuendos(Double temperatura, String tipoDeEvento, DateTime fechaInicioEvento, DateTime fechaFinEvento){  // VERSION ENTREGA 2  
+		return GenerarSugerencias.getInstance().ejecutar(this.prendas,temperatura,tipoDeEvento,fechaInicioEvento,fechaFinEvento);
 	} 
 
 	public Guardarropa() {

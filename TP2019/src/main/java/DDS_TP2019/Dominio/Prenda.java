@@ -6,8 +6,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
+
+import org.joda.time.DateTime;
+
+import com.google.common.collect.Sets;
 
 public class Prenda {
 
@@ -18,7 +23,7 @@ public class Prenda {
 	private int calorias;
 	private BufferedImage imagen;
 	private String pathImagen;
-	private boolean estaDisponible = true;
+	private Set<Uso> usos;
 	
 	public int getCalorias() {
 		return calorias;
@@ -63,12 +68,19 @@ public class Prenda {
 	public void setPathImagen(String pathImagen) {
 		this.pathImagen = pathImagen;
 	}
-	public boolean isEstaDisponible() {
-		return estaDisponible;
+	public boolean isEstaDisponible(DateTime fechaInicioEvento, DateTime fechaFinEvento) {
+		return !this.usos.stream().anyMatch(uso -> uso.superponeUsoPrenda(fechaInicioEvento,fechaFinEvento));
 	}
-	public void setEstaDisponible(boolean estaDisponible) {
-		this.estaDisponible = estaDisponible;
+	public Set<Uso> getUsos() {
+		return usos;
 	}
+	public void setUsos(Set<Uso> usos) {
+		this.usos = usos;
+	}
+	public void agregarUso(DateTime fechaInicioEvento, DateTime fechaFinEvento) {
+		this.usos.add(new Uso(fechaInicioEvento,fechaFinEvento));
+	}
+	
 	public Prenda(String colorPrimario, String colorSecundario, TipoPrenda tipoPrenda, String tipoTela, int calorias) {
 		super();
 		this.colorPrimario = colorPrimario;
@@ -76,6 +88,7 @@ public class Prenda {
 		this.tipoPrenda = tipoPrenda;
 		this.tipoTela = tipoTela;
 		this.calorias = calorias;
+		this.usos = Sets.newHashSet();
 	}
 	
 	public void mostrarDetalles() {

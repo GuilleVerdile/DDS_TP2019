@@ -122,8 +122,8 @@ public class Persona {
 		this.guardarropas.get(posGuardarropa).agregarPrenda(prenda);
 	}
 	
-	public void agregarEvento(String descripcion, DateTime fecha, String ubicacion, String tipoDeEvento) throws Exception{
-		Evento evento = new Evento(descripcion, fecha, ubicacion, tipoDeEvento);
+	public void agregarEvento(String descripcion, DateTime fechaInicio, DateTime fechaFin, String ubicacion, String tipoDeEvento) throws Exception{
+		Evento evento = new Evento(descripcion, fechaInicio, fechaFin, ubicacion, tipoDeEvento);
 		evento.mostrarDetalles();
 		this.eventos.add(evento);
 	}
@@ -144,16 +144,16 @@ public class Persona {
 		return guardarropas.contains(guardarropa);
 	}
 	
-	public Set<Set<Atuendo>> sugerirATodosLosGuardarropas(Double temperatura, String evento) {  //Si son sugerencias random, le mando la temperatura actual (servicioMeteorologico.obtenerTemperatura())
-		return guardarropas.stream().map(guardarropa -> guardarropa.sugerirAtuendos(temperatura, evento)).collect(Collectors.toSet());
+	public Set<Set<Atuendo>> sugerirATodosLosGuardarropas(Double temperatura, String tipoEvento, DateTime fechaInicioEvento,DateTime fechaFinEvento) {  //Si son sugerencias random, le mando la temperatura actual (servicioMeteorologico.obtenerTemperatura())
+		return guardarropas.stream().map(guardarropa -> guardarropa.sugerirAtuendos(temperatura, tipoEvento, fechaInicioEvento, fechaFinEvento)).collect(Collectors.toSet());
 	}
 	
-	public void sugerirAtuendosParaEventosProximos(ServicioMeteorologico servicioMeteorologico){
+	public void sugerirAtuendosParaEventosProximos(ServicioMeteorologico servicioMeteorologico, DateTime fechaInicioEvento,DateTime fechaFinEvento){
 		List<Evento> eventosProximos = this.eventosProximos();
 		eventosProximos.stream().forEach(evento -> {
 			Set<Set<Atuendo>> atuendosSugeridosPorDiferentesGuardarropas = null;
 			try {
-				atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(evento.temperatura(servicioMeteorologico),evento.getTipoEvento());
+				atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(evento.temperatura(servicioMeteorologico),evento.getTipoEvento(),fechaInicioEvento,fechaFinEvento);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -175,6 +175,7 @@ public class Persona {
 		aceptado.tomarDecision(0); // Esto está bien? Pongo 0 porque todavía no lo clasifiqué
 		decisiones.add(aceptado);
 		evento.agregarAtuendoAceptado(atuendo);
+		atuendo.agregarUso(evento.getFechaInicioEvento(),evento.getFechaFinEvento());
 	}
 	
 	public void rechazarAtuendo(Evento evento, Atuendo atuendo) {
