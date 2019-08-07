@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 
 import DDS_TP2019.Clima.ServicioMeteorologico;
+import com.google.maps.errors.ApiException;
 
 public class Evento {	
 	private String descripcionEvento; 
@@ -48,8 +49,8 @@ public class Evento {
 		return dias;
 	}
 	
-	public double temperatura(ServicioMeteorologico servicioMeteorologico) throws IOException{
-		return servicioMeteorologico.obtenerTemperaturaFutura(this.fechaInicioEvento);
+	public double temperatura(ServicioMeteorologico servicioMeteorologico) throws IOException, ApiException, InterruptedException{
+		return servicioMeteorologico.obtenerTemperaturaFutura(this.fechaInicioEvento, this.ubicacion);
 	}
 
 	public String getTipoEvento(){

@@ -8,13 +8,15 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 import com.google.gson.Gson;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.LatLng;
 
 public class ServicioApixU extends ServicioMeteorologico {
 
-	public double obtenerTemperatura() throws IOException {
-		
+	public double obtenerTemperatura(String ubicacion) throws IOException, ApiException, InterruptedException  {
+		LatLng coords = GoogleAPI.obtenerCoordenadas(ubicacion + ", Argentina");
 		URL url = new URL(
-				"http://api.apixu.com/v1/current.json?key=4bbc11298d18402eb07201229192505&q=buenos%20aires");
+				"http://api.apixu.com/v1/current.json?key=4bbc11298d18402eb07201229192505&q="+coords.lat+","+coords.lng);
 		
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		
@@ -27,13 +29,14 @@ public class ServicioApixU extends ServicioMeteorologico {
 				.getTemp_c();
 	}
 	
-	public double obtenerTemperaturaFutura(DateTime fecha) throws IOException{
-		DateTime fechaRedondeada = redondearHorario(fecha);
+	public double obtenerTemperaturaFutura(DateTime fecha, String ubicacion) throws IOException, ApiException, InterruptedException {
+                LatLng coords = GoogleAPI.obtenerCoordenadas(ubicacion + ", Argentina");
+                DateTime fechaRedondeada = redondearHorario(fecha);
 
 		long timestamp = this.obtenerTimestamp(fechaRedondeada);
 
 		URL url = new URL(
-				"http://api.apixu.com/v1/forecast.json?key=4bbc11298d18402eb07201229192505&q=buenos%20aires&days=3");
+				"http://api.apixu.com/v1/forecast.json?key=4bbc11298d18402eb07201229192505&q="+coords.lat+","+coords.lng+"&days=3");
 
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 

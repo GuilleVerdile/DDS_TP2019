@@ -14,6 +14,9 @@ import DDS_TP2019.Decisiones.Calificar;
 import DDS_TP2019.Decisiones.Decision;
 import DDS_TP2019.Decisiones.Rechazar;
 import DDS_TP2019.Notificaciones.Accion;
+import com.google.maps.errors.ApiException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Persona {
 	
@@ -140,7 +143,7 @@ public class Persona {
 		return guardarropas.contains(guardarropa);
 	}
 	
-	public Set<Set<Atuendo>> sugerirATodosLosGuardarropas(Double temperatura, String tipoEvento, DateTime fechaInicioEvento,DateTime fechaFinEvento) {  //Si son sugerencias random, le mando la temperatura actual (servicioMeteorologico.obtenerTemperatura())
+	public Set<Set<Atuendo>> sugerirATodosLosGuardarropas(Double temperatura, String tipoEvento, DateTime fechaInicioEvento,DateTime fechaFinEvento){  //Si son sugerencias random, le mando la temperatura actual (servicioMeteorologico.obtenerTemperatura())
 		return guardarropas.stream().map(guardarropa -> guardarropa.sugerirAtuendos(temperatura, tipoEvento, fechaInicioEvento, fechaFinEvento)).collect(Collectors.toSet());
 	}
 	
@@ -153,7 +156,11 @@ public class Persona {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			} catch (ApiException ex) {
+                        Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 			Set<Atuendo>atuendosSugeridosParaEvento = atuendosSugeridosPorDiferentesGuardarropas.stream().flatMap(atuendos -> atuendos.stream()).collect(Collectors.toSet());
 			evento.setAtuendosSugeridos(atuendosSugeridosParaEvento);
 		});

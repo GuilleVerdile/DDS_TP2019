@@ -29,6 +29,7 @@ import DDS_TP2019.Dominio.Prenda;
 import DDS_TP2019.Dominio.TipoPrenda;
 import DDS_TP2019.Dominio.UsuarioGratuito;
 import DDS_TP2019.Dominio.UsuarioPremium;
+import com.google.maps.errors.ApiException;
 
 public class TestCombinaciones {
 //	@Test 
@@ -343,9 +344,9 @@ public class TestCombinaciones {
 	
 	
 	 @Test
-	    public void obtenerTemperaturaServicioImpostor() throws IOException {
+	    public void obtenerTemperaturaServicioImpostor() throws IOException, ApiException, InterruptedException {
 	        double temperatura;
-	        temperatura = servicioImpostor.obtenerTemperatura();
+	        temperatura = servicioImpostor.obtenerTemperatura("Buenos Aires");
 	        Assert.assertEquals(14.0, temperatura, 0);
 	    }
 	    

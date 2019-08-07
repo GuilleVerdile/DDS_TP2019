@@ -1,5 +1,6 @@
 package DDS_TP2019.Implementaciones;
 
+import DDS_TP2019.Clima.GoogleAPI;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,10 @@ public class Main {
 
 	public static void main(String[] args)throws ApiException, InterruptedException, IOException{
 
-                //System.out.println(GoogleAPI.buscarDireccion("Plaza Italia"));
+                System.out.println(GoogleAPI.buscarDireccion("La Plata, Argentina"));
+                System.out.println(GoogleAPI.obtenerCoordenadas("La Plata, Argentina"));                
+                System.out.println(new ServicioOpenWeather().obtenerTemperatura("La Plata"));                
+                System.out.println(new ServicioOpenWeather().obtenerTemperatura("Tierra del Fuego"));
 		Sistema sistema = new Sistema();	
 		System.out.println(java.nio.charset.Charset.defaultCharset());
 		try {			

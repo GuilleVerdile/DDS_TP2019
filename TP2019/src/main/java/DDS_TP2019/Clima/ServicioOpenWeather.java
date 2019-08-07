@@ -9,12 +9,17 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 import com.google.gson.Gson;
+import com.google.maps.model.LatLng;
+
+import DDS_TP2019.Clima.GoogleAPI;
+import com.google.maps.errors.ApiException;
 
 public class ServicioOpenWeather extends ServicioMeteorologico {
 
-	public double obtenerTemperatura() throws IOException {
+	public double obtenerTemperatura(String ubicacion) throws IOException, ApiException, InterruptedException{
+                LatLng coords = GoogleAPI.obtenerCoordenadas(ubicacion + ", Argentina");
 		URL url = new URL(
-				"http://api.openweathermap.org/data/2.5/weather?q=Buenos%20Aires,Argentina&units=metric&appid=5d69aeb3fb117fa7e7db02e25e3eeb54");
+				"http://api.openweathermap.org/data/2.5/weather?lat="+coords.lat+"&lon="+coords.lng+"&units=metric&appid=5d69aeb3fb117fa7e7db02e25e3eeb54");
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		String response = obtenerRespuesta(con);
 
@@ -25,14 +30,14 @@ public class ServicioOpenWeather extends ServicioMeteorologico {
 				.getTemp();
 	}
 
-	public double obtenerTemperaturaFutura(DateTime fecha) throws IOException {
-
+	public double obtenerTemperaturaFutura(DateTime fecha, String ubicacion) throws IOException, ApiException, InterruptedException {
+                LatLng coords = GoogleAPI.obtenerCoordenadas(ubicacion + ", Argentina");
 		DateTime fechaRedondeada = redondearHorario(fecha);
 
 		long timestamp = this.obtenerTimestamp(fechaRedondeada);
 
 		URL url = new URL(
-				"http://api.openweathermap.org/data/2.5/forecast?id=3435910&appid=5d69aeb3fb117fa7e7db02e25e3eeb54&units=metric");
+				"http://api.openweathermap.org/data/2.5/forecast?lat="+coords.lat+"&lon="+coords.lng+"&appid=5d69aeb3fb117fa7e7db02e25e3eeb54&units=metric");
 
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
