@@ -4,9 +4,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
 import org.joda.time.DateTime;
+
+import com.google.maps.errors.ApiException;
 
 import DDS_TP2019.Clima.ServicioMeteorologico;
 import DDS_TP2019.Decisiones.Aceptar;
@@ -14,19 +28,32 @@ import DDS_TP2019.Decisiones.Calificar;
 import DDS_TP2019.Decisiones.Decision;
 import DDS_TP2019.Decisiones.Rechazar;
 import DDS_TP2019.Notificaciones.Accion;
-import com.google.maps.errors.ApiException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+@Entity
 public class Persona {
 	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	public long id;
+
+	public long getId() {
+		return id;
+	}
+	public void setId(long _id) {
+		this.id=_id;
+	}
 	private String nombre;
+	@ManyToOne
+	@JoinColumn(name="tipoDeUsuario_id", nullable=false)
 	public TipoDeUsuario tipoDeUsuario;
+	@ManyToMany(mappedBy="personas")
 	private List<Guardarropa> guardarropas;
+	@OneToMany(mappedBy="persona")
 	private List<Evento> eventos;
 	private String mail;
 	private String password;
+	@Transient
 	private List<Accion> acciones;
+	@Transient
 	public List<Decision> decisiones;
 	
 	public TipoDeUsuario getTipoDeUsuario() {
@@ -105,7 +132,7 @@ public class Persona {
 		this.decisiones = new ArrayList<Decision>();
 		this.acciones = new ArrayList<Accion>();
 	}
-	
+
 	public Persona() {
 		this.guardarropas =  new ArrayList<Guardarropa>();
 		this.eventos = new ArrayList<Evento>();
@@ -208,5 +235,7 @@ public class Persona {
 			//accion.notificarAlertaMeteorologica(this);
 		});
 	}
+	
+	
 	
 }

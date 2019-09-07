@@ -9,21 +9,49 @@ import java.io.FileOutputStream;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import org.joda.time.DateTime;
 
 import com.google.common.collect.Sets;
-
+@Entity
 public class Prenda {
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	public long id;
 
+	public long getId() {
+		return id;
+	}
+	public void setId(long _id) {
+		this.id=_id;
+	}
 	private String colorPrimario;
 	private String colorSecundario;
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tipoPrenda_id", referencedColumnName = "id")
 	private TipoPrenda tipoPrenda;
 	private String tipoTela;
 	private int calorias;
+	@Transient
 	private BufferedImage imagen;
 	private String pathImagen;
+	@OneToMany(mappedBy="prenda")
 	private Set<Uso> usos;
+	@ManyToOne
+	@JoinColumn(name="guardarropa_id", nullable=false)
+	private Guardarropa guardarropa; 
+	@ManyToMany(mappedBy="prendas")
+	private Set<Atuendo> atuendos;
 	
 	public int getCalorias() {
 		return calorias;
@@ -81,6 +109,9 @@ public class Prenda {
 		this.usos.add(new Uso(fechaInicioEvento,fechaFinEvento));
 	}
 	
+	public Prenda() {
+		super();
+	}
 	public Prenda(String colorPrimario, String colorSecundario, TipoPrenda tipoPrenda, String tipoTela, int calorias) {
 		super();
 		this.colorPrimario = colorPrimario;

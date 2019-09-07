@@ -5,13 +5,30 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 import org.joda.time.DateTime;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
+@Entity
 public class Guardarropa {
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	public long id;
 
+	public long getId() {
+		return id;
+	}
+	public void setId(long _id) {
+		this.id=_id;
+	}
+	@OneToMany(mappedBy="guardarropa")
 	private Set<Prenda> prendas;
 
 	public Set<Prenda> getPrendas() {
@@ -26,6 +43,10 @@ public class Guardarropa {
 		prendas.add(prenda);
 	}
 	
+	 @ManyToMany
+	 private List<Persona> personas;
+	 
+	 
 	public void recomendarAtuendo() {	//Version Entrega 1 ... no se usa mas	
 		List<Prenda> prendasSuperior = prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("partesuperior")).collect(Collectors.toList());;
 		List<Prenda> prendasInferior = prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("parteinferior")).collect(Collectors.toList());;

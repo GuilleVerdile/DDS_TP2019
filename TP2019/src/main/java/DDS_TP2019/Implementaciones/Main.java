@@ -1,7 +1,8 @@
 package DDS_TP2019.Implementaciones;
 
-import DDS_TP2019.Clima.GoogleAPI;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ import org.joda.time.DateTime;
 
 import com.google.maps.errors.ApiException;
 
+import DDS_TP2019.Clima.GoogleAPI;
 import DDS_TP2019.Clima.ServicioOpenWeather;
 import DDS_TP2019.Dominio.Atuendo;
 import DDS_TP2019.Dominio.Evento;
@@ -26,6 +28,18 @@ public class Main {
 
 	public static void main(String[] args)throws ApiException, InterruptedException, IOException{
 
+		 String connectionUrl = "jdbc:sqlserver://192.168.0.18:1433;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
+
+	        try {
+	            // Load SQL Server JDBC driver and establish connection.
+	            System.out.print("Connecting to SQL Server ... ");
+	            try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+	                System.out.println("Done.");
+	            }
+	        } catch (Exception e) {
+	            System.out.println();
+	            e.printStackTrace();
+	        }
                 System.out.println(GoogleAPI.buscarDireccion("La Plata, Argentina"));
                 System.out.println(GoogleAPI.obtenerCoordenadas("La Plata, Argentina"));                
                 System.out.println(new ServicioOpenWeather().obtenerTemperatura("La Plata"));                

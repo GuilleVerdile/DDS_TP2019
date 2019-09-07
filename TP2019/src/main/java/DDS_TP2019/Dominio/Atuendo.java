@@ -4,17 +4,33 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.joda.time.DateTime;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
+import org.joda.time.DateTime;
+@Entity
 public class Atuendo {
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	public long id;
+
+	public long getId() {
+		return id;
+	}
+	public void setId(long _id) {
+		this.id=_id;
+	}
+	@ManyToMany
 	private Set<Prenda> prendas;
 	private String estado;
 	private int calificacion;
-	
 	public Atuendo(Set<Prenda> prendas) {
 		this.prendas = prendas;	
 		this.estado = "NUEVO";
 	}
+	public Atuendo() {}
 	
 	/*
 	public boolean esAtuendoPosible() {

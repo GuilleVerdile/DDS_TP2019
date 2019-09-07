@@ -2,24 +2,50 @@ package DDS_TP2019.Dominio;
 import java.io.IOException;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
-import DDS_TP2019.Clima.ServicioMeteorologico;
 import com.google.maps.errors.ApiException;
 
-public class Evento {	
+import DDS_TP2019.Clima.ServicioMeteorologico;
+@Entity
+public class Evento {
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	public long id;
+
+	public long getId() {
+		return id;
+	}
+	public void setId(long _id) {
+		this.id=_id;
+	}
 	private String descripcionEvento; 
 	public DateTime fechaInicioEvento;
 	public DateTime fechaFinEvento;
 	private String ubicacion;
 	private String tipoDeEvento;
 	private boolean poseeSugerencias;
+	@Transient
 	private Set<Atuendo> atuendosSugeridos; // Los atuendos que se sugieren para los eventos proximos se guardaran en el evento. Esto se debe a que en un futuro el programa debe poder tener en cuenta que atuendos acepta y rechaza el usuario para cierto tipo de evento.
+	@Transient
 	private Set<Atuendo> atuendosAceptados;
+	@Transient
 	private Set<Atuendo> atuendosRechazados;
+	@Transient
 	private Set<Atuendo> atuendosCalificados; // Los atuendos calificados van a ir aca para poder acceder a la temperatura del evento
+	@ManyToOne
+	@JoinColumn(name="persona_id", nullable=false)
+	private Persona persona;
 	
+	public Evento() {};
 	public Evento(String descripcionEvento, DateTime fechaInicioEvento,DateTime fechaFinEvento, String ubicacion, String tipoDeEvento) throws Exception {
 		this.descripcionEvento = descripcionEvento;
 		this.fechaInicioEvento = fechaInicioEvento;
