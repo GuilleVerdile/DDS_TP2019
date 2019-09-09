@@ -38,9 +38,11 @@ public class Atuendo {
 	}*/
 	
 	public boolean cubreTodoElCuerpo() {
+		System.out.println("hola");
 		return this.contieneDeCategoria("partesuperior") &&
 				this.contieneDeCategoria("parteinferior") &&
 				this.contieneDeCategoria("calzado");
+
 	}
 	
 	public boolean contieneDeCategoria(String unaCategoria) {

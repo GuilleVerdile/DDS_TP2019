@@ -19,6 +19,7 @@ public class GenerarSugerencias {
 		Set<Prenda> prendasAcordesAlEvento = FiltrarPrenda.getInstance().ejecutar(prendas,tipoDeEvento);
 		Set<Atuendo> atuendosPosibles =  Combinar.getInstance().ejecutar(prendasAcordesAlEvento);
 		Set<Atuendo> atuendosRecomendados = FiltrarCombinaciones.getInstance().ejecutar(atuendosPosibles,temperatura, fechaInicioEvento, fechaFinEvento);
+		System.out.println(atuendosRecomendados);
 		return atuendosRecomendados;
 	}
 	
