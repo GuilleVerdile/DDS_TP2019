@@ -1,10 +1,12 @@
 package DDS_TP2019.Dominio;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Prueba {
-
+@Id @GeneratedValue
 	private int edad;
 	private String nombre;
 	public int getEdad() {
