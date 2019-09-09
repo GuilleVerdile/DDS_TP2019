@@ -2,12 +2,15 @@ package DDS_TP2019.Dominio;
 import java.io.IOException;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.joda.time.DateTime;
@@ -33,13 +36,14 @@ public class Evento {
 	private String ubicacion;
 	private String tipoDeEvento;
 	private boolean poseeSugerencias;
-	@Transient
+	@OneToMany(mappedBy="eventoSugerido")
 	private Set<Atuendo> atuendosSugeridos; // Los atuendos que se sugieren para los eventos proximos se guardaran en el evento. Esto se debe a que en un futuro el programa debe poder tener en cuenta que atuendos acepta y rechaza el usuario para cierto tipo de evento.
-	@Transient
-	private Set<Atuendo> atuendosAceptados;
-	@Transient
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "evento_id", referencedColumnName = "id")
+	private Atuendo atuendoAceptado;
+	@OneToMany(mappedBy="eventoRechazado")
 	private Set<Atuendo> atuendosRechazados;
-	@Transient
+	@OneToMany(mappedBy="eventoCalificado")
 	private Set<Atuendo> atuendosCalificados; // Los atuendos calificados van a ir aca para poder acceder a la temperatura del evento
 	@ManyToOne
 	@JoinColumn(name="persona_id", nullable=false)
@@ -124,11 +128,11 @@ public class Evento {
 	public void setAtuendosSugeridos(Set<Atuendo> atuendosSugeridos) {
 		this.atuendosSugeridos = atuendosSugeridos;
 	}
-	public Set<Atuendo> getAtuendosAceptados() {
-		return atuendosAceptados;
+	public Atuendo getAtuendoAceptado() {
+		return atuendoAceptado;
 	}
-	public void setAtuendosAceptados(Set<Atuendo> atuendosAceptados) {
-		this.atuendosAceptados = atuendosAceptados;
+	public void setAtuendoAceptado(Atuendo atuendoAceptado) {
+		this.atuendoAceptado = atuendoAceptado;
 	}
 	public Set<Atuendo> getAtuendosRechazados() {
 		return atuendosRechazados;
@@ -143,7 +147,7 @@ public class Evento {
 		this.atuendosCalificados = atuendosCalificados;
 	}
 	public void agregarAtuendoAceptado(Atuendo atuendo) {
-		this.atuendosAceptados.add(atuendo);
+		this.atuendoAceptado = atuendo;
 	}
 
 	public void agregarAtuendoRechazado(Atuendo atuendo) {

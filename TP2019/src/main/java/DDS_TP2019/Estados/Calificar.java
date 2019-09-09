@@ -1,19 +1,23 @@
-package DDS_TP2019.Decisiones;
+package DDS_TP2019.Estados;
 
-import DDS_TP2019.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import DDS_TP2019.Dominio.Atuendo;
 
-public class Calificar extends Decision {  
+@Entity
+@DiscriminatorValue(value="Calificar")
+public class Calificar extends Estado {  
 	
-	public Calificar(Atuendo atuendo, String estado) {
-		super(atuendo, estado);
+	public Calificar(String estado) {
+		super(estado);
+	}
+	public Calificar() {}
+	public void deshacerDecision(Atuendo atuendo) {
+		atuendo.setEstado(new Nuevo("NUEVO"));
 	}
 	
-	public void deshacerDecision() {
-		estado = "ACEPTADO";
-	}
-	
-	public void tomarDecision(int unaCalificacion) {
+	public void tomarDecision(int unaCalificacion, Atuendo atuendo) {
 		try {
 			atuendo.calificar(unaCalificacion);
 		} catch (Exception e) {

@@ -1,6 +1,5 @@
 package DDS_TP2019.Dominio;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -8,9 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.joda.time.DateTime;
+
+import DDS_TP2019.Estados.Calificar;
+import DDS_TP2019.Estados.Estado;
 @Entity
 public class Atuendo {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,12 +29,32 @@ public class Atuendo {
 	}
 	@ManyToMany
 	private Set<Prenda> prendas;
-	private String estado;
+	private Estado estado;
 	private int calificacion;
+	@ManyToOne
+	@JoinColumn(name="persona_id", nullable=true)
+	private Persona persona;
+	
 	public Atuendo(Set<Prenda> prendas) {
 		this.prendas = prendas;	
-		this.estado = "NUEVO";
+//		this.estado = new Nuevo("NUEVO");
 	}
+	
+	@OneToOne(mappedBy = "atuendoAceptado")
+	private Evento eventoAceptado;
+	
+	@ManyToOne
+	@JoinColumn(name="eventoRechazado_id", nullable=true)
+	private Evento eventoRechazado;
+	
+	@ManyToOne
+	@JoinColumn(name="eventoCalificado_id", nullable=true)
+	private Evento eventoCalificado;
+	
+	@ManyToOne
+	@JoinColumn(name="eventoSugerido_id", nullable=true)
+	private Evento eventoSugerido;
+	
 	public Atuendo() {}
 	
 	/*
@@ -47,11 +72,11 @@ public class Atuendo {
 		return this.prendas.stream().anyMatch(unaPrenda -> unaPrenda.getTipoPrenda().getCategoria() == unaCategoria);
 	}
 
-	public String getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 
@@ -72,9 +97,9 @@ public class Atuendo {
 		if(unaCalificacion < 0 || unaCalificacion > 5){   //No es una calificacion valida, usamos rango de 1 a 5 
 			throw new Exception("La calificacion no esta dentro del rango solicitado");
 		}
-		if(this.estado == "ACEPTADO"){
+		if(this.estado.getEstado() == "ACEPTADO"){
 			this.calificacion = unaCalificacion;
-			this.setEstado("CALIFICADO");
+			this.setEstado(new Calificar("CALIFICADO"));
 		}
 	}
 	
