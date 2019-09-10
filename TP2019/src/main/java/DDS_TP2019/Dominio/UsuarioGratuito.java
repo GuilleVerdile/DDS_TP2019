@@ -9,16 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class UsuarioGratuito implements TipoDeUsuario{
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	public long id;
-
-	public long getId() {
-		return id;
-	}
-	public void setId(long _id) {
-		this.id=_id;
-	}
+public class UsuarioGratuito extends TipoDeUsuario{
 	int numeroMaximoPrendas;
 	@OneToMany(mappedBy="tipoUsuario")
 	private List <Persona> personas;

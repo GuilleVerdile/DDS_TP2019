@@ -20,7 +20,7 @@ import com.google.common.collect.Sets;
 @Entity
 public class Guardarropa {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	public long id;
+	private long id;
 
 	public long getId() {
 		return id;

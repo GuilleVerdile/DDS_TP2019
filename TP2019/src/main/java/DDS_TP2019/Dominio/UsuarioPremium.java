@@ -9,17 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class UsuarioPremium implements TipoDeUsuario{
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	public long id;
-
-	public long getId() {
-		return id;
-	}
-	public void setId(long _id) {
-		this.id=_id;
-	}
-	@OneToMany(mappedBy="tipoDeUsuario")
+public class UsuarioPremium extends TipoDeUsuario{
+	@OneToMany(mappedBy="tipoUsuario")
 	private List <Persona> personas;
 	
 	public boolean permiteAgregarPrendaA(Guardarropa guardarropa) {

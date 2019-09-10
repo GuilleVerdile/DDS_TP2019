@@ -6,17 +6,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 
 import DDS_TP2019.Dominio.Atuendo;
-@
-Entity
+import DDS_TP2019.Dominio.Prenda;
+@Entity
 @DiscriminatorColumn(name="tipo")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Estado {
 	protected String estado;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	public long id;
-
+	private long id;
+	@OneToOne(mappedBy = "estado")
+	private Atuendo atuendo;
 	public long getId() {
 		return id;
 	}

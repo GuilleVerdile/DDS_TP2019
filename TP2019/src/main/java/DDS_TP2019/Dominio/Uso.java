@@ -12,7 +12,7 @@ import org.joda.time.Interval;
 @Entity
 public class Uso {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	public long id;
+	private long id;
 
 	public long getId() {
 		return id;

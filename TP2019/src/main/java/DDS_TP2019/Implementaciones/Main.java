@@ -28,7 +28,7 @@ public class Main {
 
 	public static void main(String[] args)throws ApiException, InterruptedException, IOException{
 
-		 String connectionUrl = "jdbc:sqlserver://192.168.0.18:1433;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
+		/* String connectionUrl = "jdbc:mysql://localhost:3306/dds_2019;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
 
 	        try {
 	            // Load SQL Server JDBC driver and establish connection.
@@ -39,7 +39,7 @@ public class Main {
 	        } catch (Exception e) {
 	            System.out.println();
 	            e.printStackTrace();
-	        }
+	        }*/
                 System.out.println(GoogleAPI.buscarDireccion("La Plata, Argentina"));
                 System.out.println(GoogleAPI.obtenerCoordenadas("La Plata, Argentina"));                
                 System.out.println(new ServicioOpenWeather().obtenerTemperatura("La Plata"));                

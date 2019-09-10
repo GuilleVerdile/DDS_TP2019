@@ -22,7 +22,7 @@ import DDS_TP2019.Clima.ServicioMeteorologico;
 @Entity
 public class Evento {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	public long id;
+	private long id;
 
 	public long getId() {
 		return id;
@@ -31,8 +31,8 @@ public class Evento {
 		this.id=_id;
 	}
 	private String descripcionEvento; 
-	public DateTime fechaInicioEvento;
-	public DateTime fechaFinEvento;
+	private DateTime fechaInicioEvento;
+	private DateTime fechaFinEvento;
 	private String ubicacion;
 	private String tipoDeEvento;
 	private boolean poseeSugerencias;

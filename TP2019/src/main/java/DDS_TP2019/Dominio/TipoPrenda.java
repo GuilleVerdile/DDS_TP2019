@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class TipoPrenda {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	public long id;
+	private long id;
 
 	public long getId() {
 		return id;

@@ -33,7 +33,7 @@ import DDS_TP2019.Notificaciones.Accion;
 public class Persona {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	public long id;
+	private long id;
 
 	public long getId() {
 		return id;
@@ -44,7 +44,7 @@ public class Persona {
 	private String nombre;
 	@ManyToOne
 	@JoinColumn(name="tipoDeUsuario_id", nullable=false)
-	public TipoDeUsuario tipoDeUsuario;
+	private TipoDeUsuario tipoUsuario;
 	@ManyToMany(mappedBy="personas")
 	private List<Guardarropa> guardarropas;
 	@OneToMany(mappedBy="persona")
@@ -54,14 +54,14 @@ public class Persona {
 	@Transient
 	private List<Accion> acciones;
 	@OneToMany(mappedBy="persona")
-	public List<Atuendo> historialAtuendos;
+	private List<Atuendo> historialAtuendos;
 	
 	public TipoDeUsuario getTipoDeUsuario() {
-		return tipoDeUsuario;
+		return tipoUsuario;
 	}
 
 	public void setTipoDeUsuario(TipoDeUsuario tipoDeUsuario) {
-		this.tipoDeUsuario = tipoDeUsuario;
+		this.tipoUsuario = tipoDeUsuario;
 	}
 
 	public List<Evento> getEventos() {
@@ -128,7 +128,7 @@ public class Persona {
 		this.nombre = nombre;
 		this.guardarropas =  new ArrayList<Guardarropa>();
 		this.eventos =  new ArrayList<Evento>();
-		this.tipoDeUsuario = tipoDeUsuario;
+		this.tipoUsuario = tipoDeUsuario;
 		this.historialAtuendos = new ArrayList<Atuendo>();
 		this.acciones = new ArrayList<Accion>();
 	}
@@ -142,7 +142,7 @@ public class Persona {
 		if (this.poseePrendaEnOtroGuardarropa(prenda)) {
 			throw new Exception("La prenda a agregar pertenece a un guardarropa del usuario");
 		}
-		if(!this.tipoDeUsuario.permiteAgregarPrendaA(this.guardarropas.get(posGuardarropa))){
+		if(!this.tipoUsuario.permiteAgregarPrendaA(this.guardarropas.get(posGuardarropa))){
 			throw new Exception("El guardarropas alcanzo el maximo de prendas permitido");
 		}
 		this.guardarropas.get(posGuardarropa).agregarPrenda(prenda);
