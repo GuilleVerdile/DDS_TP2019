@@ -17,10 +17,6 @@ import DDS_TP2019.Clima.ServicioApixU;
 import DDS_TP2019.Clima.ServicioMeteorologico;
 import DDS_TP2019.Clima.ServicioMock;
 import DDS_TP2019.Clima.ServicioOpenWeather;
-import DDS_TP2019.Decisiones.Aceptar;
-import DDS_TP2019.Decisiones.Calificar;
-import DDS_TP2019.Decisiones.Decision;
-import DDS_TP2019.Decisiones.Rechazar;
 import DDS_TP2019.Dominio.Atuendo;
 import DDS_TP2019.Dominio.Evento;
 import DDS_TP2019.Dominio.Guardarropa;
@@ -29,6 +25,11 @@ import DDS_TP2019.Dominio.Prenda;
 import DDS_TP2019.Dominio.TipoPrenda;
 import DDS_TP2019.Dominio.UsuarioGratuito;
 import DDS_TP2019.Dominio.UsuarioPremium;
+import DDS_TP2019.Estados.Aceptar;
+import DDS_TP2019.Estados.Calificar;
+import DDS_TP2019.Estados.Estado;
+import DDS_TP2019.Estados.Rechazar;
+
 import com.google.maps.errors.ApiException;
 
 public class TestCombinaciones {
@@ -90,9 +91,9 @@ public class TestCombinaciones {
     private Evento evento2;
     private Evento evento3;
 
-    private Decision decision1;
-    private Decision decision2;
-    private Decision decision3;
+    private Estado decision1;
+    private Estado decision2;
+    private Estado decision3;
     
     Guardarropa guardarropaCompartido;
     UsuarioGratuito tipoDeUsuarioQueComparte1;
@@ -275,9 +276,9 @@ public class TestCombinaciones {
 			}
 	        
 	        //////////////////////////Decisiones////////////////////////
-	        decision1 = new Aceptar(atuendo1,"ACEPTADO");
-	        decision2 = new Calificar(atuendo2,"CALIFICADO");
-	        decision3 = new Rechazar(atuendo3,"RECHAZADO");
+//	        decision1 = new Aceptar(atuendo1,"ACEPTADO");
+//	        decision2 = new Calificar(atuendo2,"CALIFICADO");
+//	        decision3 = new Rechazar(atuendo3,"RECHAZADO");
 	        
 	        /////////
 	        

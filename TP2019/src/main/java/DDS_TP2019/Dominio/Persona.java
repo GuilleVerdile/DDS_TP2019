@@ -23,10 +23,10 @@ import org.joda.time.DateTime;
 import com.google.maps.errors.ApiException;
 
 import DDS_TP2019.Clima.ServicioMeteorologico;
-import DDS_TP2019.Decisiones.Aceptar;
-import DDS_TP2019.Decisiones.Calificar;
-import DDS_TP2019.Decisiones.Decision;
-import DDS_TP2019.Decisiones.Rechazar;
+import DDS_TP2019.Estados.Aceptar;
+import DDS_TP2019.Estados.Calificar;
+import DDS_TP2019.Estados.Estado;
+import DDS_TP2019.Estados.Rechazar;
 import DDS_TP2019.Notificaciones.Accion;
 
 @Entity
@@ -53,8 +53,8 @@ public class Persona {
 	private String password;
 	@Transient
 	private List<Accion> acciones;
-	@Transient
-	public List<Decision> decisiones;
+	@OneToMany(mappedBy="persona")
+	public List<Atuendo> historialAtuendos;
 	
 	public TipoDeUsuario getTipoDeUsuario() {
 		return tipoDeUsuario;
@@ -107,12 +107,12 @@ public class Persona {
 		this.acciones = acciones;
 	}
 
-	public List<Decision> getDecisiones() {
-		return decisiones;
+	public List<Atuendo> getHistorialAtuendos() {
+		return historialAtuendos;
 	}
 
-	public void setDecisiones(List<Decision> decisiones) {
-		this.decisiones = decisiones;
+	public void setHistorialAtuendos(List<Atuendo> historialAtuendos) {
+		this.historialAtuendos = historialAtuendos;
 	}
 
 	public void setGuardarropas(List<Guardarropa> guardarropas) {
@@ -129,7 +129,7 @@ public class Persona {
 		this.guardarropas =  new ArrayList<Guardarropa>();
 		this.eventos =  new ArrayList<Evento>();
 		this.tipoDeUsuario = tipoDeUsuario;
-		this.decisiones = new ArrayList<Decision>();
+		this.historialAtuendos = new ArrayList<Atuendo>();
 		this.acciones = new ArrayList<Accion>();
 	}
 
@@ -193,32 +193,30 @@ public class Persona {
 		});
 	}
 	
-	public void calificarAtuendo(Atuendo atuendo, Evento evento, int calificacion) {
-		Calificar calificado = new Calificar(atuendo, "CALIFICADO");
-		calificado.tomarDecision(calificacion);
-		decisiones.add(calificado);
+	public void calificarAtuendo(Atuendo atuendo, Evento evento, int calificacion) throws Exception {
+		atuendo.setEstado(new Calificar("CALIFICADO"));
+		atuendo.calificar(calificacion);
+		historialAtuendos.add(atuendo);
 		evento.getAtuendosCalificados().add(atuendo);
 	}
 	
 	public void aceptarAtuendo(Evento evento, Atuendo atuendo) {
-		Aceptar aceptado = new Aceptar(atuendo, "ACEPTADO");
-		aceptado.tomarDecision(0); // Esto está bien? Pongo 0 porque todavía no lo clasifiqué
-		decisiones.add(aceptado);
+		atuendo.setEstado(new Aceptar("ACEPTADO"));
+		historialAtuendos.add(atuendo);
 		evento.agregarAtuendoAceptado(atuendo);
 		atuendo.agregarUso(evento.getFechaInicioEvento(),evento.getFechaFinEvento());
 	}
 	
 	public void rechazarAtuendo(Evento evento, Atuendo atuendo) {
-		Rechazar rechazado = new Rechazar(atuendo, "RECHAZADO");
-		rechazado.tomarDecision(0); // Esto está bien? Pongo 0 porque todavía no lo clasifiqué
-		decisiones.add(rechazado);
+		atuendo.setEstado(new Rechazar("RECHAZADO"));
+		historialAtuendos.add(atuendo);
 		evento.agregarAtuendoRechazado(atuendo);
 	}
 	
 	public void deshacerDecision() {
-		Decision ultimaDecision = decisiones.get(0);
-		ultimaDecision.deshacerDecision();
-		decisiones.remove(ultimaDecision);
+		Atuendo atuendo = historialAtuendos.get(0);
+		atuendo.getEstado().deshacerDecision(atuendo);
+		historialAtuendos.remove(atuendo);
 	}
 	
 	public void agregarAccion(Accion accion) {
