@@ -132,7 +132,18 @@ public class Persona {
 		this.historialAtuendos = new ArrayList<Atuendo>();
 		this.acciones = new ArrayList<Accion>();
 	}
-
+	
+	public Persona(String nombre, TipoDeUsuario tipoUsuario, String mail, String password) {
+		super();
+		this.nombre = nombre;
+		this.tipoUsuario = tipoUsuario;
+		this.mail = mail;
+		this.password = password;
+		this.guardarropas =  new ArrayList<Guardarropa>();
+		this.eventos =  new ArrayList<Evento>();
+		this.historialAtuendos = new ArrayList<Atuendo>();
+		this.acciones = new ArrayList<Accion>();
+	}
 	public Persona() {
 		this.guardarropas =  new ArrayList<Guardarropa>();
 		this.eventos = new ArrayList<Evento>();

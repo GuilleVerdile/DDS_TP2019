@@ -32,7 +32,7 @@
             <property name="hibernate.show_sql" value="true" /> 
             <property name="hibernate.format_sql" value="true" /> 
             <property name="use_sql_comments" value="true" /> 
-            <property name="hibernate.hbm2ddl.auto" value="create" /> 
+            <property name="hibernate.hbm2ddl.auto" value="update" />  <!-- Cambiar por "update" para que no cree todas las tablas de vuelta cada vez que se corra el programa-->
         </properties>
           
     </persistence-unit> 
