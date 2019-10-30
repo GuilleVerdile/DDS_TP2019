@@ -1,33 +1,31 @@
 package DDS_TP2019.Implementaciones;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
-
-import org.joda.time.DateTime;
 
 import com.google.maps.errors.ApiException;
 
-import DDS_TP2019.Clima.GoogleAPI;
-import DDS_TP2019.Clima.ServicioOpenWeather;
-import DDS_TP2019.Dominio.Atuendo;
-import DDS_TP2019.Dominio.Evento;
-import DDS_TP2019.Dominio.Guardarropa;
-import DDS_TP2019.Dominio.Persona;
-import DDS_TP2019.Dominio.Prenda;
-import DDS_TP2019.Dominio.Sistema;
-import DDS_TP2019.Dominio.TipoPrenda;
-import DDS_TP2019.Dominio.UsuarioGratuito;
-import DDS_TP2019.Dominio.UsuarioPremium;
+import DDS_2019.Controllers.ControllerLogin;
+import DDS_2019.Controllers.ControllerPersona;
+import spark.Spark;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Main {
 
 	public static void main(String[] args)throws ApiException, InterruptedException, IOException{
 
+		Spark.port(9000);
+		Spark.staticFiles.location("/public"); 
+        Spark.init();
+       
+        ControllerPersona controllerPersona = new ControllerPersona();
+        ControllerLogin controllerLoggin = new ControllerLogin();
+        HandlebarsTemplateEngine transformer = new HandlebarsTemplateEngine();
+        
+        Spark.get("/usuarioHome", controllerLoggin::login, transformer);		
+		Spark.before("/persona/*", ControllerPersona::chequearClienteLogueado);
+		Spark.get("/persona/:id/perfil",controllerPersona::mostrarPerfil,transformer);
+		Spark.post("/usuarioHome",controllerLoggin::redirigirAPerfil,new HandlebarsTemplateEngine());
+		
 		/* String connectionUrl = "jdbc:mysql://localhost:3306/dds_2019;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
 
 	        try {
@@ -40,6 +38,9 @@ public class Main {
 	            System.out.println();
 	            e.printStackTrace();
 	        }*/
+		
+	/*
+		
                 System.out.println(GoogleAPI.buscarDireccion("La Plata, Argentina"));
                 System.out.println(GoogleAPI.obtenerCoordenadas("La Plata, Argentina"));                
                 System.out.println(new ServicioOpenWeather().obtenerTemperatura("La Plata"));                
@@ -255,7 +256,7 @@ public class Main {
 				
 			
 		}
-				
+	*/			
 	}
 	
 	

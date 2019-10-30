@@ -29,7 +29,6 @@
 	<classpathentry kind="lib" path="src/main/java/lib/copy/quartz-jobs-2.4.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/copy/slf4j-api-1.7.7.jar"/>
 	<classpathentry kind="lib" path="src/main/java/lib/copy/slf4j-log4j12-1.7.7.jar"/>
-	
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

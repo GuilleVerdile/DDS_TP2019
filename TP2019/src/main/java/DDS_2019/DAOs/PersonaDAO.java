@@ -1,6 +1,9 @@
 package DDS_2019.DAOs;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import DDS_TP2019.Dominio.Persona;
 import db.EntityManagerHelper;
@@ -27,6 +30,28 @@ public class PersonaDAO {
 		}
 		
 		return persona;
+	}
+	
+	public Persona obtenerPersonaByMail(String mail,String contrasenia) throws Exception 
+	{
+		Query query = entityManager.createQuery("SELECT p FROM Persona p WHERE mail = :mail and password = :contrasenia", Persona.class);
+		query.setParameter("mail", mail);
+		query.setParameter("contrasenia", contrasenia);
+		
+		List<Persona> personas = (List<Persona>)query.getResultList();
+		
+		if(personas.isEmpty()) {
+//			throw new Exception("No existe un usuario con el mail: " + mail);
+			System.out.println("No encontre al usuario");
+			return null;
+		}
+		
+		if(personas.size() > 1) {
+			throw new Exception("Existen mas de un usuario con el mail: " + mail);
+		}
+		System.out.println("Devolviendo al usuario..");
+		System.out.println(personas.get(0).getNombre());
+		return personas.get(0);
 	}
 	
 	public long guardarPersona(Persona persona) {
