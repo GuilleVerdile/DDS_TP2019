@@ -5,7 +5,9 @@
     <link rel="stylesheet" href="../../main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -16,8 +18,8 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="#">Perfil <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Features</a>
+      <a class="nav-item nav-link action="/persona/{{id}}/perfil" href="/persona/{{id}}/perfil" active" href="#">Perfil <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" action="/misguardarropas" href="/misguardarropas" method="GET">Mis Guardarropas</a>
       <a class="nav-item nav-link" href="#">Pricing</a>
       <a class="nav-item nav-link  action="/usuarioHome" href="/usuarioHome"><i class="fas fa-sign-out-alt"></i> Cerrar Sesi&oacuten</a>
     </div>
@@ -25,7 +27,18 @@
 </nav>
 
 
+
+
 {{#block "custom-body"}}{{/block}}
 
+
+ <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; ¿Que me pongo? 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+  
 </body>
 </html>

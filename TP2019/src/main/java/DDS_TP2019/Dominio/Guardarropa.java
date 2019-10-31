@@ -43,10 +43,16 @@ public class Guardarropa {
 		prendas.add(prenda);
 	}
 	
-	 @ManyToMany
+	@ManyToMany
 	 private List<Persona> personas;
 	 
-	 
+	 public List<Persona> getPersonas() {
+		return personas;
+	}
+	public void setPersonas(List<Persona> personas) {
+		this.personas = personas;
+	}
+	
 	public void recomendarAtuendo() {	//Version Entrega 1 ... no se usa mas	
 		List<Prenda> prendasSuperior = prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("partesuperior")).collect(Collectors.toList());;
 		List<Prenda> prendasInferior = prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("parteinferior")).collect(Collectors.toList());;

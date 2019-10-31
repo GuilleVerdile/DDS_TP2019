@@ -3,6 +3,7 @@ package DDS_2019.DAOs;
 import javax.persistence.EntityManager;
 
 import DDS_TP2019.Dominio.Guardarropa;
+import db.EntityManagerHelper;
 
 public class GuardarropaDAO{
 	
@@ -41,8 +42,11 @@ public class GuardarropaDAO{
 			}
 		}
 		
-		entityManager.persist(guardarropa);
-		entityManager.getTransaction().commit();
+		EntityManagerHelper.beginTransaction();
+    	EntityManagerHelper.getEntityManager().persist(guardarropa);
+    	EntityManagerHelper.getEntityManager().getTransaction().commit();
+//		entityManager.persist(guardarropa);
+//		entityManager.getTransaction().commit();
 		idGuardarropa = guardarropa.getId();
 
 		return idGuardarropa;

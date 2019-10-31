@@ -1,0 +1,82 @@
+{{#partial "custom-body"}}
+    <h1>
+       Listado de Guardarropas
+    </h1>
+
+	<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Operacion Completada</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Guardarropa agregado exitosamente
+      </div>
+      <div class="modal-footer">
+        <button type="button" action="/agregarGuardarropa" href="/agregarGuardarropa" method="POST" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       	  <form action="/agregarGuardarropa" method="POST">
+                    <input type="submit" class="btn btn-success btn-block" value="Volver">
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+       <button type="button" class="btn btn-default btn-sm data-toggle="modal" data-target="#myModal">
+          <span class="glyphicon glyphicon-plus"></span> Nuevo
+        </button>
+        
+         <!-- Modal -->
+		  <div class="modal fade" id="myModal" role="dialog">
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Operacion Completada</h4>
+		        </div>
+		        <div class="modal-body">
+		          <p>Guardarropa agregado exitosamente</p>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" action="/agregarGuardarropa" method="POST" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
+        
+   <div class="card-deck">
+    {{#each guardarropas}}
+ 
+	            <div class="card h-70 bg-light text-dark ">
+	              <a href="#"><img class="card-img-top" src="/guardarropa.png" height="150" width="80" alt="guardarropa"></a>
+	              <div class="card-body">
+	                <h4 class="card-title">
+	                  <a href="#">Guardarropa #{{id}}</a>
+	                </h4>
+	                <a href="#" class="btn btn-primary btn-sm">Ver prendas</a>
+	                 <a href="#" class="btn btn-danger btn-sm">Eliminar</a>
+	              </div>
+	              <div class="card-footer">
+	           		 <a href="#" class="btn btn-primary btn-sm">Compartir </a>
+	        	  </div>
+	            </div>
+	            
+    {{/each}}
+    
+    </div>
+
+{{/partial}}
+{{>layout.hbs}}

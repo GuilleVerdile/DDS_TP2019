@@ -87,7 +87,8 @@ public class PersonaDAO {
 				e.printStackTrace();
 			}
 		}
-		
+		entityManager.getTransaction().begin();
+		entityManager.merge(persona);
 		entityManager.getTransaction().commit();
 	}
 }

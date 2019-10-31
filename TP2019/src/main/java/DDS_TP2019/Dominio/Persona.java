@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,6 @@ import com.google.maps.errors.ApiException;
 import DDS_TP2019.Clima.ServicioMeteorologico;
 import DDS_TP2019.Estados.Aceptar;
 import DDS_TP2019.Estados.Calificar;
-import DDS_TP2019.Estados.Estado;
 import DDS_TP2019.Estados.Rechazar;
 import DDS_TP2019.Notificaciones.Accion;
 
