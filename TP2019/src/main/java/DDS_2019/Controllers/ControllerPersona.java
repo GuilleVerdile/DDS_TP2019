@@ -53,10 +53,10 @@ public class ControllerPersona implements WithGlobalEntityManager {
 		 persona.agregarGuardarropa(guardarropa);
 		 System.out.println("Actualizando usuario..");
 		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
-		 personaDAO.actualizarPersona(persona);
+//		 personaDAO.actualizarPersona(persona);
 		 System.out.println("Guardando nuevo guardarropa..");
 		 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
-		 guardarropa.getPersonas().add(persona);
+		 guardarropa.agregarPersona(persona);
 		 guardarropaDAO.guardarGuardarropa(guardarropa);
 		 res.redirect("/misguardarropas");
 		 return null;

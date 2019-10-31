@@ -45,7 +45,7 @@ public class Persona {
 	@ManyToOne
 	@JoinColumn(name="tipoDeUsuario_id", nullable=false)
 	private TipoDeUsuario tipoUsuario;
-	@ManyToMany(mappedBy="personas")
+	@ManyToMany(mappedBy="personas",cascade = CascadeType.ALL)
 	private List<Guardarropa> guardarropas;
 	@OneToMany(mappedBy="persona")
 	private List<Evento> eventos;

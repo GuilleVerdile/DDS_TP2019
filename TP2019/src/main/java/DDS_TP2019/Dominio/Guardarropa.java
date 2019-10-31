@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,7 +44,7 @@ public class Guardarropa {
 		prendas.add(prenda);
 	}
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	 private List<Persona> personas;
 	 
 	 public List<Persona> getPersonas() {
@@ -51,6 +52,10 @@ public class Guardarropa {
 	}
 	public void setPersonas(List<Persona> personas) {
 		this.personas = personas;
+	}
+	
+	public void agregarPersona(Persona p) {
+		this.personas.add(p);
 	}
 	
 	public void recomendarAtuendo() {	//Version Entrega 1 ... no se usa mas	
@@ -77,6 +82,7 @@ public class Guardarropa {
 	public Guardarropa() {
 		super();
 		this.prendas = Sets.newHashSet();
+		this.personas = new ArrayList<Persona>();
 	}
 	
 	public Guardarropa(Set <Prenda> prendas) {
