@@ -42,7 +42,7 @@ public class Persona {
 		this.id=_id;
 	}
 	private String nombre;
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="tipoDeUsuario_id", nullable=false)
 	private TipoDeUsuario tipoUsuario;
 	@ManyToMany(mappedBy="personas",cascade = {CascadeType.PERSIST, CascadeType.MERGE})

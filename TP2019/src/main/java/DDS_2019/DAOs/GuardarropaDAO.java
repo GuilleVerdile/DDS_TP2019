@@ -44,11 +44,13 @@ public class GuardarropaDAO{
 			}
 		}
 		
-		EntityManagerHelper.beginTransaction();
-    	EntityManagerHelper.getEntityManager().persist(guardarropa);
-    	EntityManagerHelper.getEntityManager().getTransaction().commit();
-//		entityManager.persist(guardarropa);
-//		entityManager.getTransaction().commit();
+//		EntityManagerHelper.beginTransaction();
+//    	EntityManagerHelper.getEntityManager().persist(guardarropa);
+//    	EntityManagerHelper.getEntityManager().getTransaction().commit();
+//    	EntityManagerHelper.closeEntityManager();	  
+		entityManager.getTransaction().begin();
+		entityManager.persist(guardarropa);
+		entityManager.getTransaction().commit();
 		idGuardarropa = guardarropa.getId();
 
 		return idGuardarropa;
@@ -71,10 +73,9 @@ public class GuardarropaDAO{
 
 	public void eliminarGuardarropa(Guardarropa guardarropa) {
 		// TODO Auto-generated method stub
-		EntityManagerHelper.beginTransaction();
-    	EntityManagerHelper.getEntityManager().remove(guardarropa);
-    	EntityManagerHelper.getEntityManager().getTransaction().commit();
-			  
+		entityManager.getTransaction().begin();
+		entityManager.remove(guardarropa);
+		entityManager.getTransaction().commit();
 	}
 	
 	public void eliminarGuardarropa(Long idGuardarropaAeliminar) {
