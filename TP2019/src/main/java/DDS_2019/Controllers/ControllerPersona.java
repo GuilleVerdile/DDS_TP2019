@@ -36,14 +36,7 @@ public class ControllerPersona implements WithGlobalEntityManager {
 	 public ModelAndView listarGuardarropas(Request req, Response res){
 	    
 		 Persona persona = req.session().attribute("persona");
-//		 Guardarropa guardarropa1 = new Guardarropa();
-//		 Guardarropa guardarropa2 = new Guardarropa();
-//		 Guardarropa guardarropa3 = new Guardarropa();
-//		 Set <Guardarropa> g = Sets.newHashSet();
-//		 persona.agregarGuardarropa(guardarropa1);
-//		 persona.agregarGuardarropa(guardarropa2);
-//		 persona.agregarGuardarropa(guardarropa3);
-	        return new ModelAndView(persona, "listadoGuardarropas.hbs");
+	     return new ModelAndView(persona, "listadoGuardarropas.hbs");
 	    }
 	 
 	 public ModelAndView agregarGuardarropa(Request req, Response res){
@@ -51,13 +44,27 @@ public class ControllerPersona implements WithGlobalEntityManager {
 		 Persona persona = req.session().attribute("persona");
 		 Guardarropa guardarropa = new Guardarropa();
 		 persona.agregarGuardarropa(guardarropa);
-		 System.out.println("Actualizando usuario..");
-		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
-//		 personaDAO.actualizarPersona(persona);
 		 System.out.println("Guardando nuevo guardarropa..");
 		 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
 		 guardarropa.agregarPersona(persona);
-		 guardarropaDAO.guardarGuardarropa(guardarropa);
+		 long nuevoId = guardarropaDAO.guardarGuardarropa(guardarropa);
+		 guardarropa.setId(nuevoId);
+		 System.out.println("id nuevo guardarropa: " + guardarropa.getId());
+		 res.redirect("/misguardarropas");
+		 return null;
+	 }
+	 
+	 public ModelAndView eliminarGuardarropa(Request req, Response res){
+		 
+		 System.out.println("Eliminando guardarropa..");
+		 Long idGuardarropaAeliminar = Long.valueOf(req.params(":id"));
+		 System.out.println("idGuardarropaAeliminar: " + idGuardarropaAeliminar);
+		 Persona persona = req.session().attribute("persona");
+		 persona.eliminarGuardarropaConId(idGuardarropaAeliminar);
+		 System.out.println("Guardarropa eliminado de la persona en memoria..");
+		 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
+		 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropaAeliminar);
+		 guardarropaDAO.eliminarGuardarropa(guardarropa);
 		 res.redirect("/misguardarropas");
 		 return null;
 	    }

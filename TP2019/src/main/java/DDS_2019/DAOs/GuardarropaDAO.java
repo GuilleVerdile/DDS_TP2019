@@ -1,8 +1,10 @@
 package DDS_2019.DAOs;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import DDS_TP2019.Dominio.Guardarropa;
+import DDS_TP2019.Dominio.Persona;
 import db.EntityManagerHelper;
 
 public class GuardarropaDAO{
@@ -65,5 +67,22 @@ public class GuardarropaDAO{
 		}
 		
 		entityManager.getTransaction().commit();
+	}
+
+	public void eliminarGuardarropa(Guardarropa guardarropa) {
+		// TODO Auto-generated method stub
+		EntityManagerHelper.beginTransaction();
+    	EntityManagerHelper.getEntityManager().remove(guardarropa);
+    	EntityManagerHelper.getEntityManager().getTransaction().commit();
+			  
+	}
+	
+	public void eliminarGuardarropa(Long idGuardarropaAeliminar) {
+		// TODO Auto-generated method stub
+		Query query = entityManager.createQuery("DELETE FROM guardarropa_persona gp WHERE gp.guardarropas_id = :id");
+		query.setParameter("id", idGuardarropaAeliminar).executeUpdate();
+		 query = entityManager.createQuery("DELETE FROM Guardarropa g WHERE g.id = :id");
+		query.setParameter("id", idGuardarropaAeliminar).executeUpdate();
+			  
 	}
 }

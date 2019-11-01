@@ -27,7 +27,7 @@ public class Main {
 		Spark.post("/usuarioHome",controllerLoggin::redirigirAPerfil,new HandlebarsTemplateEngine());
 		Spark.get("/misguardarropas", controllerPersona::listarGuardarropas,transformer);
 		Spark.post("/agregarGuardarropa", controllerPersona::agregarGuardarropa,transformer);
-		
+		Spark.post("/eliminarGuardarropa/:id",controllerPersona::eliminarGuardarropa,transformer);
 		
 		/* String connectionUrl = "jdbc:mysql://localhost:3306/dds_2019;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
 

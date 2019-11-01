@@ -44,7 +44,7 @@ public class Guardarropa {
 		prendas.add(prenda);
 	}
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	 private List<Persona> personas;
 	 
 	 public List<Persona> getPersonas() {

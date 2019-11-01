@@ -45,7 +45,7 @@ public class Persona {
 	@ManyToOne
 	@JoinColumn(name="tipoDeUsuario_id", nullable=false)
 	private TipoDeUsuario tipoUsuario;
-	@ManyToMany(mappedBy="personas",cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy="personas",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Guardarropa> guardarropas;
 	@OneToMany(mappedBy="persona")
 	private List<Evento> eventos;
@@ -243,6 +243,10 @@ public class Persona {
 			accion.notificarSugerenciasListas(this);
 			//accion.notificarAlertaMeteorologica(this);
 		});
+	}
+	public void eliminarGuardarropaConId(Long idGuardarropaAeliminar) {
+		// TODO Auto-generated method stub
+		this.guardarropas.removeIf(g -> g.getId() == idGuardarropaAeliminar);
 	}
 	
 	
