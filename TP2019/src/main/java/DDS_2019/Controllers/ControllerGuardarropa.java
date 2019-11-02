@@ -8,6 +8,7 @@ import DDS_2019.DAOs.GuardarropaDAO;
 import DDS_2019.DAOs.PrendaDAO;
 import DDS_2019.DAOs.TipoPrendaDAO;
 import DDS_TP2019.Dominio.Guardarropa;
+import DDS_TP2019.Dominio.Persona;
 import DDS_TP2019.Dominio.Prenda;
 import DDS_TP2019.Dominio.Sistema;
 import DDS_TP2019.Dominio.TipoPrenda;
@@ -96,8 +97,6 @@ public class ControllerGuardarropa implements WithGlobalEntityManager{
    	 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
    	 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropa);
   	System.out.println(" idGuardarropa BD: " + guardarropa.getId());
-//     Prenda prenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, prenda_tipoTela, calorias);
-   	 // HACER OTRA VENTANA PARA INGRESAR LAS CALORIAS DE LA PRENDA
   	int calorias = Integer.valueOf(req.queryParams("calorias"));
      Prenda prenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, prenda_tipoTela, calorias);
    	 guardarropa.agregarPrenda(prenda);
@@ -105,19 +104,84 @@ public class ControllerGuardarropa implements WithGlobalEntityManager{
  	System.out.println("Se agrego la nueva prenda al guardarropa en memoria. " );
  	
    	guardarropaDAO.actualizarGuardarropa(guardarropa);
-//	PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
+	PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
 //	prendaDAO.guardarPrenda(prenda);
- 	System.out.println("id nueva prenda: " + prenda.getId());
    	
+	Long idPrenda = prendaDAO.obtenerUltimoIDPrendaInsertada();
+   	prenda.setId(idPrenda);
+   	
+ 	System.out.println("id nueva prenda: " + prenda.getId());
+ 	System.out.println("cantidad de prendas en guardarropa: " + guardarropa.getPrendas().size());
    	
    	
    	//MOSTRAR UN MODAL O ALGUN CARTEL DICIENDO Q LA PRENDA SE CREO BIEN
    	// PONER EN CADA VENTANA UN BOTON DE VOLVER ATRAS
    	
-   	
-	 res.redirect("/misguardarropas");
-	 return null;
+ 	 return new ModelAndView(guardarropa, "listadoPrendasDeGuardarropa.hbs");
+ 	 
+ 	 
+ 	 
+//	 res.redirect("/misguardarropas");
+	 
+	 
+	 
+	 
+	 
+//	 return null;
        
     }
 
+    
+    public ModelAndView verPrendas(Request req, Response res) throws Exception {
+    	Long idGuardarropa;
+    	 idGuardarropa = Long.valueOf(req.params("id"));
+    	 res.cookie("g_id", req.params("id"));
+    	 req.session().attribute("guardarropaID",req.params("id"));
+//    	try {
+//    		idGuardarropa = Long.valueOf(req.session().attribute("guardarropaID"));
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			 idGuardarropa = Long.valueOf(req.params("id"));
+//		}
+//    	 System.out.println(idGuardarropa); 
+    	
+//    	Long idGuardarropa = Long.valueOf(req.session().attribute("guardarropaID"));
+//    	 System.out.println(idGuardarropa); 
+//    	 if(idGuardarropa == null) {
+//    		 idGuardarropa = Long.valueOf(req.params("id"));
+//    	 }
+    	 
+	  	System.out.println("cookie idGuardarropa : " + idGuardarropa);
+	   	 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
+	   	 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropa);
+	   	 
+	 	System.out.println("cantidad de prendas en guardarropa: " + guardarropa.getPrendas().size());
+	 	
+        return new ModelAndView(guardarropa, "listadoPrendasDeGuardarropa.hbs");
+    }
+    
+    public ModelAndView eliminarPrenda(Request req, Response res){
+		 
+		 System.out.println("Eliminando prenda..");
+		 Long idPrendaAeliminar = Long.valueOf(req.params(":id"));
+		 System.out.println("idPrendaAeliminar: " + idPrendaAeliminar);
+		 
+		 Long idGuardarropa = Long.valueOf(req.session().attribute("guardarropaID"));
+	     System.out.println("cookie idGuardarropa : " + idGuardarropa);
+		 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
+		 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropa);
+		 
+		 guardarropa.eliminarPrendaConId(idPrendaAeliminar);
+		 
+		 System.out.println("Prenda eliminado del guardarropa en memoria..");
+		 
+		 PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
+		 Prenda prendaAEliminaar = prendaDAO.obtenerPrenda(idPrendaAeliminar);
+		 prendaDAO.eliminarPrenda(prendaAEliminaar);
+		 System.out.println("Prenda eliminado del guardarropa en BD..");
+		 
+		 res.redirect("/guardarropa/" + idGuardarropa + "/verPrendas");
+		 return null;
+	    }
+    
 }

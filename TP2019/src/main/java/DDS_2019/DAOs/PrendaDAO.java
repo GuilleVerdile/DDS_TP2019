@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import DDS_TP2019.Dominio.Guardarropa;
 import DDS_TP2019.Dominio.Prenda;
 import db.EntityManagerHelper;
 
@@ -69,4 +70,22 @@ public class PrendaDAO {
 		entityManager.merge(prenda);
 		entityManager.getTransaction().commit();
 	}
+	
+	public void eliminarPrenda(Prenda prenda) {
+		// TODO Auto-generated method stub
+		entityManager.getTransaction().begin();
+		entityManager.remove(prenda);
+		entityManager.getTransaction().commit();
+	}
+	
+	public Long obtenerUltimoIDPrendaInsertada() {
+		// TODO Auto-generated method stub
+		Query query = entityManager.createQuery("SELECT max(p.id) from Prenda p");
+		Long idPrenda = (Long)query.getSingleResult();
+		System.out.println("idPrenda: " + idPrenda);
+		return idPrenda;
+	}
+	
+	
+	
 }

@@ -37,7 +37,7 @@ public class Prenda {
 	}
 	private String colorPrimario;
 	private String colorSecundario;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "tipoPrenda_id", referencedColumnName = "id")
 	private TipoPrenda tipoPrenda;
 	private String tipoTela;

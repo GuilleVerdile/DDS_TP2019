@@ -58,6 +58,11 @@ public class Guardarropa {
 		this.personas.add(p);
 	}
 	
+	public void eliminarPrendaConId(Long idPrendaAeliminar) {
+		// TODO Auto-generated method stub
+		this.prendas.removeIf(p -> p.getId() == idPrendaAeliminar);
+	}
+	
 	public void recomendarAtuendo() {	//Version Entrega 1 ... no se usa mas	
 		List<Prenda> prendasSuperior = prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("partesuperior")).collect(Collectors.toList());;
 		List<Prenda> prendasInferior = prendas.stream().filter(prenda -> prenda.getTipoPrenda().esCategoria("parteinferior")).collect(Collectors.toList());;

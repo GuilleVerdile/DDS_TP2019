@@ -25,6 +25,9 @@ import DDS_TP2019.Dominio.TipoDeUsuario;
 import DDS_TP2019.Dominio.TipoPrenda;
 import DDS_TP2019.Dominio.UsuarioPremium;
 import db.EntityManagerHelper;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 
 public class JPATests {
 
@@ -130,25 +133,47 @@ public class JPATests {
 //			 assertEquals(usuarioDBActual.getGuardarropas().size(), 3);
 //		}
 	    
-	    @Test
-	  	public void persistirPrenda() {
-	    	Guardarropa guardarropa = new Guardarropa(); 
-	    	List<String> telas =  new ArrayList<String>();
-			telas.add("fibra");
-			telas.add("lana");
-		    List<String> tipoEventoFormal = new ArrayList<String>();
-		    tipoEventoFormal.add("FORMAL");
-	    	Prenda prenda = new Prenda("rojo", "blanco", new TipoPrenda("musculosa", "partesuperior", telas, tipoEventoFormal, 1), "seda", 100);
-    	   	 guardarropa.agregarPrenda(prenda);
-    	   	 prenda.setGuardarropa(guardarropa);
-    	 	System.out.println("Se agrego la nueva prenda al guardarropa en memoria. " );
-    	 	
-//	    	guardarropaDAO.guardarGuardarropa(guardarropa);
-	    	PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
-	    	prendaDAO.guardarPrenda(prenda);
-//    		PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
-//    		prendaDAO.guardarPrenda(prenda);
-	    	
-	    }
+//	    @Test
+//	  	public void persistirPrenda() {
+//	    	Guardarropa guardarropa = new Guardarropa(); 
+//	    	List<String> telas =  new ArrayList<String>();
+//			telas.add("fibra");
+//			telas.add("lana");
+//		    List<String> tipoEventoFormal = new ArrayList<String>();
+//		    tipoEventoFormal.add("FORMAL");
+//	    	Prenda prenda = new Prenda("rojo", "blanco", new TipoPrenda("musculosa", "partesuperior", telas, tipoEventoFormal, 1), "seda", 100);
+//    	   	 guardarropa.agregarPrenda(prenda);
+//    	   	 prenda.setGuardarropa(guardarropa);
+//    	 	System.out.println("Se agrego la nueva prenda al guardarropa en memoria. " );
+//    	 	
+////	    	guardarropaDAO.guardarGuardarropa(guardarropa);
+//	    	PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
+//	    	prendaDAO.guardarPrenda(prenda);
+////    		PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
+////    		prendaDAO.guardarPrenda(prenda);
+//	    	
+//	    }
+	    
+	    @Test 
+	    public void eliminarPrenda(){
+			 
+			 System.out.println("Eliminando prenda..");
+			 Long idPrendaAeliminar = (long) 13;
+			 
+			 Long idGuardarropa = (long) 89;
+			 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
+			 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropa);
+			 
+			 guardarropa.eliminarPrendaConId(idPrendaAeliminar);
+			 
+			 System.out.println("Prenda eliminado del guardarropa en memoria..");
+			 
+			 PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
+			 Prenda prendaAEliminaar = prendaDAO.obtenerPrenda(idPrendaAeliminar);
+			 prendaDAO.eliminarPrenda(prendaAEliminaar);
+			 System.out.println("Prenda eliminado del guardarropa en BD..");
+			 
+		    }
+	    
 	    
 }
