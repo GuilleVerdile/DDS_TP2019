@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
 public class TipoPrenda {
@@ -19,8 +20,8 @@ public class TipoPrenda {
 	public void setId(long _id) {
 		this.id=_id;
 	}
-	@OneToOne(mappedBy = "tipoPrenda")
-	private Prenda prenda;
+	@OneToMany(mappedBy = "tipoPrenda")
+	private List<Prenda> prenda;
 	private String descripcion;
 	private String categoria; 
 	@ElementCollection
@@ -53,7 +54,12 @@ public class TipoPrenda {
 	public void setTiposTelaPosible(List<String> tiposTelaPosible) {
 		this.tiposTelaPosible = tiposTelaPosible;
 	}
-	
+	public List<Prenda> getPrenda() {
+		return prenda;
+	}
+	public void setPrenda(List<Prenda> prenda) {
+		this.prenda = prenda;
+	}
 	public List<String> getTiposDeEvento() {
 		return tiposDeEvento;
 	}
