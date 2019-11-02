@@ -53,6 +53,18 @@ public class Prenda {
 	@ManyToMany(mappedBy="prendas")
 	private Set<Atuendo> atuendos;
 	
+	public Guardarropa getGuardarropa() {
+		return guardarropa;
+	}
+	public void setGuardarropa(Guardarropa guardarropa) {
+		this.guardarropa = guardarropa;
+	}
+	public Set<Atuendo> getAtuendos() {
+		return atuendos;
+	}
+	public void setAtuendos(Set<Atuendo> atuendos) {
+		this.atuendos = atuendos;
+	}
 	public int getCalorias() {
 		return calorias;
 	}

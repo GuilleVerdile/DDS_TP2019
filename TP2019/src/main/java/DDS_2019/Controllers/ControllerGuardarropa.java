@@ -1,14 +1,13 @@
 package DDS_2019.Controllers;
 
-import java.awt.List;
 import java.io.IOException;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import DDS_2019.DAOs.GuardarropaDAO;
+import DDS_2019.DAOs.PrendaDAO;
 import DDS_2019.DAOs.TipoPrendaDAO;
 import DDS_TP2019.Dominio.Guardarropa;
-import DDS_TP2019.Dominio.Persona;
 import DDS_TP2019.Dominio.Prenda;
 import DDS_TP2019.Dominio.Sistema;
 import DDS_TP2019.Dominio.TipoPrenda;
@@ -23,6 +22,10 @@ public class ControllerGuardarropa implements WithGlobalEntityManager{
     public ModelAndView agregarPrenda(Request req, Response res) {
         System.out.println("id guardarropa elegido: " + req.params("id"));
    	    res.cookie("g_id", req.params("id"));
+   	 System.out.println("cookie id guardarropa elegido: " + req.cookie("g_id"));
+   	 
+   	req.session().attribute("guardarropaID",req.params("id"));
+   	 
    	    Sistema sistema = new Sistema();
 //	   	 try {			
 //				sistema.setTiposPrendas(Sistema.importarTipoPrendas());
@@ -65,24 +68,42 @@ public class ControllerGuardarropa implements WithGlobalEntityManager{
     }
     
     public ModelAndView construirPrenda(Request req, Response res) throws Exception {
+    	
+    	  System.out.println("idGuardarropa elegido: " +  	req.session().attribute("guardarropaID"));   
+     	
      System.out.println("colorPrimario: " +  req.queryParams("colorPrimario"));
      System.out.println("colorSecundario: " +  req.queryParams("colorSecundario"));
    	 String colorSecundario =  req.queryParams("colorSecundario");
    	 String colorPrimario =  req.queryParams("colorPrimario");
    	 String prenda_tipoTela = req.cookie("prenda_tipoTela");
+     System.out.println("tipoTela: " + prenda_tipoTela); 
    	 Long prenda_idTipoPrenda = Long.valueOf(req.cookie("prenda_idTipoPrenda"));
    	 TipoPrendaDAO tipoPrendaDAO = new TipoPrendaDAO(EntityManagerHelper.getEntityManager());
    	 TipoPrenda tipoPrenda = tipoPrendaDAO.obtenerTipoPrendaById(prenda_idTipoPrenda);
-   	 Long idGuardarropa = Long.valueOf(req.cookie("g_id"));
+     System.out.println("tipoPrenda: " +  tipoPrenda.getDescripcion());
+//   	 Long idGuardarropa = Long.valueOf(req.cookie("g_id"));
+     
+     Long idGuardarropa = Long.valueOf(req.session().attribute("guardarropaID"));
+     
+  	System.out.println("cookie idGuardarropa : " + idGuardarropa);
    	 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
    	 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropa);
+  	System.out.println(" idGuardarropa BD: " + guardarropa.getId());
 //     Prenda prenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, prenda_tipoTela, calorias);
    	 // HACER OTRA VENTANA PARA INGRESAR LAS CALORIAS DE LA PRENDA
      Prenda prenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, prenda_tipoTela, 100);
    	 guardarropa.agregarPrenda(prenda);
+   	 prenda.setGuardarropa(guardarropa);
+ 	System.out.println("Se agrego la nueva prenda al guardarropa en memoria. " );
+ 	
    	guardarropaDAO.actualizarGuardarropa(guardarropa);
-   	System.out.println("id nueva prenda: " + prenda.getId());
-   	 //MOSTRAR UN MODAL O ALGUN CARTEL DICIENDO Q LA PRENDA SE CREO BIEN
+//	PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
+//	prendaDAO.guardarPrenda(prenda);
+ 	System.out.println("id nueva prenda: " + prenda.getId());
+   	
+   	
+   	
+   	//MOSTRAR UN MODAL O ALGUN CARTEL DICIENDO Q LA PRENDA SE CREO BIEN
    	// PONER EN CADA VENTANA UN BOTON DE VOLVER ATRAS
    	
    	

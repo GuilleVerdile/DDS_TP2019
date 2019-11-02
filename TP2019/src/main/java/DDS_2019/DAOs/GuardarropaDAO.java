@@ -68,6 +68,8 @@ public class GuardarropaDAO{
 			}
 		}
 		//Ver si anda asi o hay q hacer merge antes del commit..
+		entityManager.getTransaction().begin();
+		entityManager.merge(guardarropa);
 		entityManager.getTransaction().commit();
 	}
 

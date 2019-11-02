@@ -17,6 +17,7 @@ import org.junit.Test;
 import DDS_2019.DAOs.EventoDAO;
 import DDS_2019.DAOs.GuardarropaDAO;
 import DDS_2019.DAOs.PersonaDAO;
+import DDS_2019.DAOs.PrendaDAO;
 import DDS_TP2019.Dominio.Guardarropa;
 import DDS_TP2019.Dominio.Persona;
 import DDS_TP2019.Dominio.Prenda;
@@ -87,47 +88,67 @@ public class JPATests {
 	        emf.close();
 	    }
 
-	    @Test
-		public void persistirUsuario() {
-//	    	persona1.setId(1);
-//	    	EntityManagerHelper.beginTransaction();
-//	    	EntityManagerHelper.getEntityManager().persist(tipoDeUsuarioPremium);
-//	    	EntityManagerHelper.getEntityManager().getTransaction().commit();
-			long idUsuario = personaDAO.guardarPersona(persona2);
-			
-			Persona usuarioDB = personaDAO.obtenerPersona(idUsuario);
-			System.out.println("Se guardo una nueva persona - id nueva persona: " + usuarioDB.getId());
-			GuardarropaDAO guardarropaDAO2 = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
-			Guardarropa g1 = new Guardarropa();
-			 persona2.agregarGuardarropa(g1);
-			 System.out.println("Guardando nuevo guardarropa..");
-			 g1.agregarPersona(usuarioDB);
-			 long nuevoId = guardarropaDAO2.guardarGuardarropa(g1);
-			 g1.setId(nuevoId);
-			 System.out.println("Se agrego un nuevo g1: id nuevo guardarropa: " + g1.getId());
-		
-			 Guardarropa g2 = new Guardarropa();
-			 GuardarropaDAO guardarropaDAO3 = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
-			 persona2.agregarGuardarropa(g2);
-			 System.out.println("Guardando nuevo guardarropa..");
-			 g2.agregarPersona(usuarioDB);
-			 long nuevoId2 = guardarropaDAO3.guardarGuardarropa(g2);
-			 g2.setId(nuevoId2);
-			 System.out.println("Se agrego un nuevo g2: id nuevo guardarropa: " + g2.getId());
-			 
-			 Guardarropa g3 = new Guardarropa();
-			 GuardarropaDAO guardarropaDAO1 = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
-			 persona2.agregarGuardarropa(g3);
-			 System.out.println("Guardando g3 guardarropa..");
-			 g3.agregarPersona(usuarioDB);
-			 long nuevoId3 = guardarropaDAO1.guardarGuardarropa(g3);
-			 g3.setId(nuevoId3);
-			 System.out.println("Se agrego un nuevo guardarropa: id nuevo guardarropa: " + g3.getId());
-			
-			 Persona usuarioDBActual = personaDAO.obtenerPersona(idUsuario);
-			 
-			 assertEquals(usuarioDBActual.getGuardarropas().size(), 3);
-		}
+//	    @Test
+//		public void persistirUsuario() {
+////	    	persona1.setId(1);
+////	    	EntityManagerHelper.beginTransaction();
+////	    	EntityManagerHelper.getEntityManager().persist(tipoDeUsuarioPremium);
+////	    	EntityManagerHelper.getEntityManager().getTransaction().commit();
+//			long idUsuario = personaDAO.guardarPersona(persona2);
+//			
+//			Persona usuarioDB = personaDAO.obtenerPersona(idUsuario);
+//			System.out.println("Se guardo una nueva persona - id nueva persona: " + usuarioDB.getId());
+//			GuardarropaDAO guardarropaDAO2 = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
+//			Guardarropa g1 = new Guardarropa();
+//			 persona2.agregarGuardarropa(g1);
+//			 System.out.println("Guardando nuevo guardarropa..");
+//			 g1.agregarPersona(usuarioDB);
+//			 long nuevoId = guardarropaDAO2.guardarGuardarropa(g1);
+//			 g1.setId(nuevoId);
+//			 System.out.println("Se agrego un nuevo g1: id nuevo guardarropa: " + g1.getId());
+//		
+//			 Guardarropa g2 = new Guardarropa();
+//			 GuardarropaDAO guardarropaDAO3 = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
+//			 persona2.agregarGuardarropa(g2);
+//			 System.out.println("Guardando nuevo guardarropa..");
+//			 g2.agregarPersona(usuarioDB);
+//			 long nuevoId2 = guardarropaDAO3.guardarGuardarropa(g2);
+//			 g2.setId(nuevoId2);
+//			 System.out.println("Se agrego un nuevo g2: id nuevo guardarropa: " + g2.getId());
+//			 
+//			 Guardarropa g3 = new Guardarropa();
+//			 GuardarropaDAO guardarropaDAO1 = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
+//			 persona2.agregarGuardarropa(g3);
+//			 System.out.println("Guardando g3 guardarropa..");
+//			 g3.agregarPersona(usuarioDB);
+//			 long nuevoId3 = guardarropaDAO1.guardarGuardarropa(g3);
+//			 g3.setId(nuevoId3);
+//			 System.out.println("Se agrego un nuevo guardarropa: id nuevo guardarropa: " + g3.getId());
+//			
+//			 Persona usuarioDBActual = personaDAO.obtenerPersona(idUsuario);
+//			 
+//			 assertEquals(usuarioDBActual.getGuardarropas().size(), 3);
+//		}
 	    
+	    @Test
+	  	public void persistirPrenda() {
+	    	Guardarropa guardarropa = new Guardarropa(); 
+	    	List<String> telas =  new ArrayList<String>();
+			telas.add("fibra");
+			telas.add("lana");
+		    List<String> tipoEventoFormal = new ArrayList<String>();
+		    tipoEventoFormal.add("FORMAL");
+	    	Prenda prenda = new Prenda("rojo", "blanco", new TipoPrenda("musculosa", "partesuperior", telas, tipoEventoFormal, 1), "seda", 100);
+    	   	 guardarropa.agregarPrenda(prenda);
+    	   	 prenda.setGuardarropa(guardarropa);
+    	 	System.out.println("Se agrego la nueva prenda al guardarropa en memoria. " );
+    	 	
+//	    	guardarropaDAO.guardarGuardarropa(guardarropa);
+	    	PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
+	    	prendaDAO.guardarPrenda(prenda);
+//    		PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
+//    		prendaDAO.guardarPrenda(prenda);
+	    	
+	    }
 	    
 }
