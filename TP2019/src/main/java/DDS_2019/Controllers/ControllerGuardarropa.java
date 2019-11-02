@@ -67,14 +67,21 @@ public class ControllerGuardarropa implements WithGlobalEntityManager{
         return new ModelAndView(sistema, "altaPrendaPaso3.hbs");
     }
     
+    public ModelAndView agregarPrendaPaso4(Request req, Response res) throws Exception {
+        System.out.println("tipo tela elegido: " +  req.queryParams("tipoTela"));
+   	    res.cookie("prenda_colorPrimario", req.queryParams("colorPrimario"));
+   	    res.cookie("prenda_colorSecundario", req.queryParams("colorSecundario"));
+        return new ModelAndView(null, "altaPrendaPaso4.hbs");
+    }
+    
     public ModelAndView construirPrenda(Request req, Response res) throws Exception {
     	
     	  System.out.println("idGuardarropa elegido: " +  	req.session().attribute("guardarropaID"));   
      	
-     System.out.println("colorPrimario: " +  req.queryParams("colorPrimario"));
-     System.out.println("colorSecundario: " +  req.queryParams("colorSecundario"));
-   	 String colorSecundario =  req.queryParams("colorSecundario");
-   	 String colorPrimario =  req.queryParams("colorPrimario");
+//     System.out.println("colorPrimario: " +  req.queryParams("colorPrimario"));
+//     System.out.println("colorSecundario: " +  req.queryParams("colorSecundario"));
+   	 String colorSecundario =  req.cookie("prenda_colorSecundario");
+   	 String colorPrimario =  req.cookie("prenda_colorPrimario");
    	 String prenda_tipoTela = req.cookie("prenda_tipoTela");
      System.out.println("tipoTela: " + prenda_tipoTela); 
    	 Long prenda_idTipoPrenda = Long.valueOf(req.cookie("prenda_idTipoPrenda"));
@@ -91,7 +98,8 @@ public class ControllerGuardarropa implements WithGlobalEntityManager{
   	System.out.println(" idGuardarropa BD: " + guardarropa.getId());
 //     Prenda prenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, prenda_tipoTela, calorias);
    	 // HACER OTRA VENTANA PARA INGRESAR LAS CALORIAS DE LA PRENDA
-     Prenda prenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, prenda_tipoTela, 100);
+  	int calorias = Integer.valueOf(req.queryParams("calorias"));
+     Prenda prenda = new Prenda(colorPrimario, colorSecundario, tipoPrenda, prenda_tipoTela, calorias);
    	 guardarropa.agregarPrenda(prenda);
    	 prenda.setGuardarropa(guardarropa);
  	System.out.println("Se agrego la nueva prenda al guardarropa en memoria. " );

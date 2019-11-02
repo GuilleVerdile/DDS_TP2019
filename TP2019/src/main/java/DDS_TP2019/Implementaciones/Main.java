@@ -42,6 +42,7 @@ public class Main {
 		Spark.post("/guardarropa/:id/agregarPrenda",controllerGuardarropa::agregarPrenda,transformer);
 		Spark.post("/guardarropa/agregarPrendaPaso2",controllerGuardarropa::agregarPrendaPaso2,transformer);
 		Spark.post("/guardarropa/agregarPrendaPaso3",controllerGuardarropa::agregarPrendaPaso3,transformer);
+		Spark.post("/guardarropa/agregarPrendaPaso4",controllerGuardarropa::agregarPrendaPaso4,transformer);
 		Spark.post("/guardarropa/construirPrenda",controllerGuardarropa::construirPrenda,transformer);
 		/* String connectionUrl = "jdbc:mysql://localhost:3306/dds_2019;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
 

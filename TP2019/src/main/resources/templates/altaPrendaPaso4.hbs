@@ -1,14 +1,14 @@
 {{#partial "custom-body"}}
 	
 	<div class="progress">
-		<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 25%;">
-			Step 1 of 4
+		<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="3" aria-valuemin="1" aria-valuemax="4" style="width: 100%;">
+			Step 4 of 4
 		</div>
 	</div>
 	<div class="navbar">
 		<div class="navbar-inner">
 			<ul class="nav nav-pills nav-wizard">
-				<li class="active">
+				<li class="disabled">
 					<a class="hidden-xs" href="#step1" data-toggle="tab" data-step="1">1. Tipo Prenda</a>
 					<a class="visible-xs" href="#step1" data-toggle="tab" data-step="1">1.</a>
 					<div class="nav-arrow"></div>
@@ -25,7 +25,7 @@
 					<a class="visible-xs" href="#step3" data-toggle="tab" data-step="3">3.</a>
 					<div class="nav-arrow"></div>
 				</li>
-				<li class="disabled">
+				<li class="active">
 					<div class="nav-wedge"></div>
 					<a class="hidden-xs" href="#step4" data-toggle="tab" data-step="4">4. Calorias</a>
 					<a class="visible-xs" href="#step4" data-toggle="tab" data-step="4">4.</a>
@@ -35,24 +35,24 @@
 		</div>
 	</div>
 	
-	<form action="/guardarropa/agregarPrendaPaso2" method="POST">
+	 <form action="/guardarropa/construirPrenda" method="POST">
 		<div class="form-row align-items-center col-md-6">
 			<div class="col-auto my-1">
-			  <h6 class="mr-sm-2" for="restriccion">Tipo de Prenda</h6>
-			  <select class="form-control" data-live-search="true" name="tipoPrenda" id="tipoPrenda" required="">
-				<option selected value="">Elegi Tipo Prenda</option>
-				 {{#each tiposPrendas}}
-					<option value={{id}}>{{descripcion}}</option>	
-				 {{/each}}
-			  </select>
+			  <div class="col-xs-5 col-md-5 pull-right">
+                    <div class="form-group">
+                        <h6 class="mr-sm-2" for="restriccion">Calorias</h6>
+                        <input class="form-control input-lg" name="calorias" required="">
+                    </div>
+                </div>
 			</div>
 		</div>
-			
+	
+	 <div class="form-group">
 		<div class="col-xs-12">
-	       	  <button class="btn btn-primary btn-lg btn-block next" type="submit">Continue&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></button>
+	         <button class="btn btn-primary btn-lg btn-block next" type="submit">Continue&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></button>
 	    </div>
-	    
-	 </form>
+	 </div>
+	</form>
     
     {{/partial}}
 {{>layout.hbs}}
