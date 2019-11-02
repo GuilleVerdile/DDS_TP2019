@@ -1,0 +1,51 @@
+{{#partial "custom-body"}}
+	
+	<div class="progress">
+		<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="2" aria-valuemin="1" aria-valuemax="3" style="width: 25%;">
+			Step 2 of 4
+		</div>
+	</div>
+	<div class="navbar">
+		<div class="navbar-inner">
+			<ul class="nav nav-pills nav-wizard">
+				<li class="disabled">
+					<a class="hidden-xs" href="#step1" data-toggle="tab" data-step="1">1. Tipo Prenda</a>
+					<a class="visible-xs" href="#step1" data-toggle="tab" data-step="1">1.</a>
+					<div class="nav-arrow"></div>
+				</li>
+				<li class="active">
+					<div class="nav-wedge"></div>
+					<a class="hidden-xs" href="#step2" data-toggle="tab" data-step="2">2. Tipo Tela</a>
+					<a class="visible-xs" href="#step2" data-toggle="tab" data-step="2">2.</a>
+					<div class="nav-arrow"></div>
+				</li>
+				<li class="disabled">
+					<div class="nav-wedge"></div>
+					<a class="hidden-xs" href="#step3" data-toggle="tab" data-step="3">3. Colores</a>
+					<a class="visible-xs" href="#step3" data-toggle="tab" data-step="3">3.</a>
+					<div class="nav-arrow"></div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	 <form action="/guardarropa/agregarPrendaPaso3" method="POST">
+		<div class="form-row align-items-center col-md-6">
+			<div class="col-auto my-1">
+			  <h6 class="mr-sm-2" for="restriccion">Tipo de Tela</h6> 
+			  <select class="selectpicker" data-live-search="true" name="tipoTela" id="tipoTela">
+				<option selected>Elegi Tipo Tela</option>
+				 {{#each tiposTelaPosible}}
+					<option value={{this}}>{{this}}</option>	
+				 {{/each}}
+			  </select>
+			</div>
+		</div>
+			
+		<div class="col-xs-12">
+	         <button class="btn btn-primary btn-lg btn-block next" type="submit">Continue&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></button>
+	    </div>
+	</form>
+    
+    {{/partial}}
+{{>layout.hbs}}

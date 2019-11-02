@@ -29,7 +29,7 @@ public class Guardarropa {
 	public void setId(long _id) {
 		this.id=_id;
 	}
-	@OneToMany(mappedBy="guardarropa")
+	@OneToMany(mappedBy="guardarropa",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Prenda> prendas;
 
 	public Set<Prenda> getPrendas() {

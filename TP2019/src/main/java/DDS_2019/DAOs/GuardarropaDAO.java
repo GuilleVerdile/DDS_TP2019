@@ -67,7 +67,7 @@ public class GuardarropaDAO{
 				e.printStackTrace();
 			}
 		}
-		
+		//Ver si anda asi o hay q hacer merge antes del commit..
 		entityManager.getTransaction().commit();
 	}
 

@@ -4,21 +4,32 @@ import java.io.IOException;
 
 import com.google.maps.errors.ApiException;
 
+import DDS_2019.Controllers.ControllerGuardarropa;
 import DDS_2019.Controllers.ControllerLogin;
 import DDS_2019.Controllers.ControllerPersona;
+import DDS_TP2019.Dominio.Sistema;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Main {
 
 	public static void main(String[] args)throws ApiException, InterruptedException, IOException{
-
+		
+		Sistema sistema = new Sistema();
+		try {			
+			sistema.setTiposPrendas(Sistema.importarTipoPrendas());
+			sistema.setColores(Sistema.importarColores());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		Spark.port(9000);
 		Spark.staticFiles.location("/public"); 
         Spark.init();
        
         ControllerPersona controllerPersona = new ControllerPersona();
         ControllerLogin controllerLoggin = new ControllerLogin();
+        ControllerGuardarropa controllerGuardarropa = new ControllerGuardarropa();
         HandlebarsTemplateEngine transformer = new HandlebarsTemplateEngine();
         
         Spark.get("/usuarioHome", controllerLoggin::login, transformer);		
@@ -28,7 +39,10 @@ public class Main {
 		Spark.get("/misguardarropas", controllerPersona::listarGuardarropas,transformer);
 		Spark.post("/agregarGuardarropa", controllerPersona::agregarGuardarropa,transformer);
 		Spark.post("/eliminarGuardarropa/:id",controllerPersona::eliminarGuardarropa,transformer);
-		
+		Spark.post("/guardarropa/:id/agregarPrenda",controllerGuardarropa::agregarPrenda,transformer);
+		Spark.post("/guardarropa/agregarPrendaPaso2",controllerGuardarropa::agregarPrendaPaso2,transformer);
+		Spark.post("/guardarropa/agregarPrendaPaso3",controllerGuardarropa::agregarPrendaPaso3,transformer);
+		Spark.post("/guardarropa/construirPrenda",controllerGuardarropa::construirPrenda,transformer);
 		/* String connectionUrl = "jdbc:mysql://localhost:3306/dds_2019;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
 
 	        try {

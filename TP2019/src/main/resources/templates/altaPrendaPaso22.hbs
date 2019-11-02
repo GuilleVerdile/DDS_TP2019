@@ -1,0 +1,31 @@
+{{#partial "custom-body"}}
+    <h1>
+        Alta de Prendas
+    </h1>
+    <hr>
+    <form action="/prendaPaso2" method="POST">
+    <div class="row">
+        <div class="card col-md-4 border-dark" style="margin-left: 60px;">
+            <div class="card-header" style="background-color: #E1E1C8;">Paso 4:</div>
+            <div class="card-body">
+                <h5 class="card-title"><strong>Color primario</strong>:</h5>
+                <div class="form-group">
+                    Select your favorite color: <input type="color" name="colorPrimario" value="#ff0000">
+                </div>
+            </div>
+        </div>
+        <div class="card col-md-4 offset-md-3 border-dark">
+            <div class="card-header" style="background-color: #E1E1C8;">Paso 5 (opcional):</div>
+            <div class="card-body">
+                <h5 class="card-title"><strong>Color secundario</strong>:</h5>
+                <div class="form-group">
+                    Select your favorite color: <input type="color" name="colorSecundario" value="#ff0000">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <input type="submit" class="btn btn-success btn-block" value="Crear!">
+    </form>
+{{/partial}}
+{{>layout.hbs}}

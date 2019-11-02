@@ -40,6 +40,9 @@
 	                  <a href="#">Guardarropa #{{id}}</a>
 	                </h4>
 	                <a href="#" class="btn btn-primary btn-sm">Ver prendas</a>
+	                 <form action="/guardarropa/{{id}}/agregarPrenda" method="POST">
+                     	   <input type="submit" class="btn btn-success btn-block" value="Agregar Nueva Prenda">
+         			 </form>
 	                 <form action="/eliminarGuardarropa/{{id}}" method="POST">
                      	   <input type="submit" class="btn btn-success btn-block" value="Eliminar">
          			 </form>

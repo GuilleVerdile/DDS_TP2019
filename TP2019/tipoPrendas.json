@@ -1,5 +1,6 @@
 [
     {
+      "id": "1",
       "descripcion": "remera de manga corta",
       "categoria": "partesuperior",
       "tiposTelaPosible": ["seda","algodon","lana"],
@@ -7,6 +8,7 @@
       "nivel": "1"
     },
     {
+      "id": "2",
       "descripcion": "short",
       "categoria": "parteinferior",
       "tiposTelaPosible": ["cuero","jean","corderoy"],
@@ -14,6 +16,7 @@
       "nivel": "1"
     },
     {
+      "id": "3",
       "descripcion": "zapatosdetacon",
       "categoria": "calzado",
       "tiposTelaPosible": ["cuero","gamuza"],
@@ -21,6 +24,7 @@
       "nivel": "1"
     },
     {
+     "id": "4",
       "descripcion": "Saco",
       "categoria": "partesuperior",
       "tiposTelaPosible": ["tela"],
@@ -28,6 +32,7 @@
       "nivel": "2"
     }, 
     {
+    "id": "5",
       "descripcion": "Camisa",
       "categoria": "partesuperior",
       "tiposTelaPosible": ["tela"],
@@ -35,6 +40,7 @@
       "nivel": "1"
     }, 
     {
+    "id": "6",
       "descripcion": "Pantalon de Vestir",
       "categoria": "parteinferior",
       "tiposTelaPosible": ["tela"],
@@ -42,6 +48,7 @@
       "nivel": "1"
     },
     {
+    "id": "7",
       "descripcion": "Zapatos",
       "categoria": "calzado",
       "tiposTelaPosible": ["cuero"],
@@ -49,6 +56,7 @@
       "nivel": "1"
     },
     {
+    "id": "8",
       "descripcion": "Collar",
       "categoria": "accesorio",
       "tiposTelaPosible": ["perlas"],

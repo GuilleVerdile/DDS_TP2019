@@ -1,0 +1,81 @@
+{{#partial "custom-body"}}
+
+<h1>
+    Alta de Prendas
+</h1>
+<hr>
+<form action="/prendaPaso1" method="POST">
+<div class="row">
+    <div class="card col-md-3 border-dark" style="margin-left: 60px;">
+        <div class="card-header" style="background-color: #E1E1C8;">Paso 1:</div>
+        <div class="card-body">
+            <h5 class="card-title">Seleccione el <strong>tipo de prenda</strong>:</h5>
+            <div class="form-group">
+                <select class="form-control" name="tipoPrenda" id="selectTipoPrenda">
+                    <optgroup label="Prendas Superiores"></optgroup>
+                    <option value="MUSCULOSA">Musculosa</option>
+                    <option value="REMERA">Remera</option>
+                    <option value="CAMISAMANGACORTA">Camisa (manga corta)</option>
+                    <option value="CAMISA">Camisa (manga larga)</option>
+                    <option value="SACO">Saco</option>
+                    <option value="CAMPERA">Campera</option>
+                    <optgroup label="Prendas Inferiores"></optgroup>
+                    <option value="SHORT">Short</option>
+                    <option value="PANTALON">Pantalón</option>
+                    <optgroup label="Calzado"></optgroup>
+                    <option value="OJOTAS">Ojotas</option>
+                    <option value="ZAPATILLA">Zapatillas</option>
+                    <option value="ZAPATO">Zapatos</option>
+                    <optgroup label="Accesorios"></optgroup>
+                    <option value="GORRO">Gorro</option>
+                    <option value="GUANTES">Guantes</option>
+                    <option value="BUFANDA">Bufanda</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card col-md-3 offset-md-1 border-dark">
+        <div class="card-header" style="background-color: #E1E1C8;">Paso 2:</div>
+        <div class="card-body">
+            <h5 class="card-title">Seleccione el <strong>material</strong>:</h5>
+            <div class="form-group">
+                <select class="form-control" name="material" id="selectMaterial">
+                    <option value="CUERO">Cuero</option>
+                    <option value="ALGODON">Algodón</option>
+                    <option value="LANA">Lana</option>
+                    <option value="SEDA">Seda</option>
+                    <option value="SINTETICO">Sintético</option>
+                    <option value="JEAN">Jean</option>
+                    <option value="GABARDINA">Gabardina</option>
+                    <option value="CORDEROY">Corderoy</option>
+                    <option value="PLASTICO">Plástico</option>
+                    <option value="ORO">Oro</option>
+                    <option value="PLATA">Plata</option>
+                    <option value="GOMA">Goma</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card col-md-3 offset-md-1 border-dark">
+        <div class="card-header" style="background-color: #E1E1C8;">Paso 3:</div>
+        <div class="card-body">
+            <h5 class="card-title">Seleccione la <strong>trama</strong>:</h5>
+            <div class="form-group">
+                <select class="form-control" name="trama" id="selectTrama">
+                    <option value="LISA">Lisa</option>
+                    <option value="RAYADA"v>Rayada</option>
+                    <option value="LUNARES">Lunares</option>
+                    <option value="CUADRILLE">Cuadrillé</option>
+                    <option value="ESTAMPADO">Estampado</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+    <input type="submit" class="btn btn-success btn-block" value="Colores!">
+</form>
+{{/partial}}
+{{>layout.hbs}}
