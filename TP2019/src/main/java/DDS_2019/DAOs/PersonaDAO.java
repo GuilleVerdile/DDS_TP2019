@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import DDS_TP2019.Dominio.Persona;
+import DDS_TP2019.Dominio.TipoPrenda;
 import db.EntityManagerHelper;
 
 public class PersonaDAO {
@@ -76,7 +77,6 @@ public class PersonaDAO {
 		return idUsuario;
 	}
 	
-
 	public void actualizarPersona(Persona persona) {
 		
 		if(persona.getId() == 0) {
@@ -90,5 +90,15 @@ public class PersonaDAO {
 		entityManager.getTransaction().begin();
 		entityManager.merge(persona);
 		entityManager.getTransaction().commit();
+	}
+	
+	public List<Persona> obtenerPersonasDistintasA(Long id) throws Exception 
+	{
+		Query query = entityManager.createQuery("SELECT p FROM Persona p where not (id = :id)", Persona.class);
+		query.setParameter("id", id);
+		List<Persona> personas = (List<Persona>)query.getResultList();
+		
+		System.out.println("Devolviendo las personas..");
+		return personas;
 	}
 }

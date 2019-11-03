@@ -248,6 +248,14 @@ public class Persona {
 		// TODO Auto-generated method stub
 		this.guardarropas.removeIf(g -> g.getId() == idGuardarropaAeliminar);
 	}
+	public boolean esUsuarioPremium() {
+		// TODO Auto-generated method stub
+		return this.tipoUsuario.esPremium();
+	}
+	public boolean esUsuarioGratuito() {
+		// TODO Auto-generated method stub
+		return this.tipoUsuario.esGratuito();
+	}
 	
 	
 	

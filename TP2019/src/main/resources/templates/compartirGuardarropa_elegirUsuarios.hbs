@@ -1,0 +1,32 @@
+{{#partial "custom-body"}}
+	
+	
+	
+	<form action="/agregarGuardarropaCompartido" method="POST">
+		<div class="form-row align-items-center col-md-6">
+			<div class="col-auto my-1">
+			  <h6 class="mr-sm-2" for="restriccion">Personas a compartir el guardarropa</h6>
+			  <select class="selectpicker" multiple data-live-search="true" name="usuariosAcompartir" id="usuariosAcompartir" required="">
+				 {{#each personas}}
+					<option value={{id}}>{{nombre}}</option>	
+				 {{/each}}
+			  </select>
+			</div>
+		</div>
+			
+		<div class="col-xs-12">
+	       	<input type="submit" class="btn btn-success btn-block" value="Compartir" id="compartirButton">
+	    </div>
+	    
+	   	<input type="hidden" class="codigosUsuarios" name="codigosUsuarios" id="codigosUsuarios"> 
+	    
+	 </form>
+    
+    <script>
+		$("#compartirButton").click(function() {
+		  	$("#codigosUsuarios").val($("#usuariosAcompartir").val());
+		});
+	</script>
+    
+    {{/partial}}
+{{>layout.hbs}}
