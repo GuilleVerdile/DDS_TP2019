@@ -48,8 +48,8 @@ public class ControllerPersona implements WithGlobalEntityManager {
 		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
 		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
 		 Guardarropa guardarropa = new Guardarropa();
-		 persona.agregarGuardarropa(guardarropa);
 		 System.out.println("Guardando nuevo guardarropa..");
+		 guardarropa.agregarPersona(persona);
 		 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
 		 long nuevoId = guardarropaDAO.guardarGuardarropa(guardarropa);
 		 persona.agregarGuardarropa(guardarropa);
@@ -65,9 +65,9 @@ public class ControllerPersona implements WithGlobalEntityManager {
 		 Long idGuardarropaAeliminar = Long.valueOf(req.params(":id"));
 		 System.out.println("idGuardarropaAeliminar: " + idGuardarropaAeliminar);
 //		 Persona persona = req.session().attribute("persona");
-		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
-		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
-		 persona.eliminarGuardarropaConId(idGuardarropaAeliminar);
+//		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
+//		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
+//		 persona.eliminarGuardarropaConId(idGuardarropaAeliminar);
 		 System.out.println("Guardarropa eliminado de la persona en memoria..");
 		 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
 		 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropaAeliminar);
