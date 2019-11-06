@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,7 +46,7 @@ public class Persona {
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="tipoDeUsuario_id", nullable=false)
 	private TipoDeUsuario tipoUsuario;
-	@ManyToMany(mappedBy="personas",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy="personas",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Guardarropa> guardarropas;
 	@OneToMany(mappedBy="persona")
 	private List<Evento> eventos;
