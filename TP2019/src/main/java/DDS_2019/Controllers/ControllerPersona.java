@@ -36,7 +36,7 @@ public class ControllerPersona implements WithGlobalEntityManager {
 	 public ModelAndView listarGuardarropas(Request req, Response res){
 	    
 //		 Persona persona = req.session().attribute("persona");
-		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
+		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.emf.createEntityManager());
 		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
 		
 	     return new ModelAndView(persona, "listadoGuardarropas.hbs");
@@ -65,13 +65,14 @@ public class ControllerPersona implements WithGlobalEntityManager {
 		 Long idGuardarropaAeliminar = Long.valueOf(req.params(":id"));
 		 System.out.println("idGuardarropaAeliminar: " + idGuardarropaAeliminar);
 //		 Persona persona = req.session().attribute("persona");
-//		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
-//		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
-//		 persona.eliminarGuardarropaConId(idGuardarropaAeliminar);
+		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
+		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
+		 persona.eliminarGuardarropaConId(idGuardarropaAeliminar);
 		 System.out.println("Guardarropa eliminado de la persona en memoria..");
 		 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
 		 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropaAeliminar);
 		 guardarropaDAO.eliminarGuardarropa(guardarropa);
+		 personaDAO.actualizarPersona(persona);
 		 res.redirect("/misguardarropas");
 		 return null;
 	 }

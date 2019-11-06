@@ -10,7 +10,7 @@ import javax.persistence.Query;
 
 public class EntityManagerHelper {
 
-    private static EntityManagerFactory emf;
+    public static EntityManagerFactory emf;
 
     private static ThreadLocal<EntityManager> threadLocal;
 
