@@ -114,10 +114,13 @@ public class ControllerGuardarropa implements WithGlobalEntityManager{
  	System.out.println("cantidad de prendas en guardarropa: " + guardarropa.getPrendas().size());
    	
    	
+ 	 res.redirect("/guardarropa/" + idGuardarropa + "/verPrendas");
+	 return null;
+	 
    	//MOSTRAR UN MODAL O ALGUN CARTEL DICIENDO Q LA PRENDA SE CREO BIEN
    	// PONER EN CADA VENTANA UN BOTON DE VOLVER ATRAS
    	
- 	 return new ModelAndView(guardarropa, "listadoPrendasDeGuardarropa.hbs");
+// 	 return new ModelAndView(guardarropa, "listadoPrendasDeGuardarropa.hbs");
  	 
  	 
  	 
@@ -152,7 +155,7 @@ public class ControllerGuardarropa implements WithGlobalEntityManager{
 //    	 }
     	 
 	  	System.out.println("cookie idGuardarropa : " + idGuardarropa);
-	   	 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
+	   	 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.emf.createEntityManager());
 	   	 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropa);
 	   	 
 	 	System.out.println("cantidad de prendas en guardarropa: " + guardarropa.getPrendas().size());
@@ -178,6 +181,7 @@ public class ControllerGuardarropa implements WithGlobalEntityManager{
 		 PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
 		 Prenda prendaAEliminaar = prendaDAO.obtenerPrenda(idPrendaAeliminar);
 		 prendaDAO.eliminarPrenda(prendaAEliminaar);
+		 guardarropaDAO.actualizarGuardarropa(guardarropa);
 		 System.out.println("Prenda eliminado del guardarropa en BD..");
 		 
 		 res.redirect("/guardarropa/" + idGuardarropa + "/verPrendas");

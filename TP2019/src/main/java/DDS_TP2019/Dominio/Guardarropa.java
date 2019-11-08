@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Guardarropa {
 	public void setId(long _id) {
 		this.id=_id;
 	}
-	@OneToMany(mappedBy="guardarropa",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="guardarropa",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Prenda> prendas;
 
 	public Set<Prenda> getPrendas() {
