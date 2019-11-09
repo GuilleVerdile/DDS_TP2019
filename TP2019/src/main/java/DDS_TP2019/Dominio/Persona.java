@@ -186,12 +186,12 @@ public class Persona {
 		return guardarropas.stream().map(guardarropa -> guardarropa.sugerirAtuendos(temperatura, tipoEvento, fechaInicioEvento, fechaFinEvento)).collect(Collectors.toSet());
 	}
 	
-	public void sugerirAtuendosParaEventosProximos(ServicioMeteorologico servicioMeteorologico, DateTime fechaInicioEvento,DateTime fechaFinEvento){
+	public void sugerirAtuendosParaEventosProximos(ServicioMeteorologico servicioMeteorologico){
 		List<Evento> eventosProximos = this.eventosProximos();
 		eventosProximos.stream().forEach(evento -> {
 			Set<Set<Atuendo>> atuendosSugeridosPorDiferentesGuardarropas = null;
 			try {
-				atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(evento.temperatura(servicioMeteorologico),evento.getTipoEvento(),fechaInicioEvento,fechaFinEvento);
+				atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(evento.temperatura(servicioMeteorologico),evento.getTipoEvento(),evento.getFechaInicioEvento(),evento.getFechaFinEvento());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

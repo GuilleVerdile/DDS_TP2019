@@ -17,6 +17,17 @@ public class PersonaDAO {
 		this.entityManager = entityManager;		
 	}
 
+	public List<Persona> cargarUsuarios() throws Exception 
+	{
+		Query query = entityManager.createQuery("SELECT p FROM Persona", Persona.class);
+		List<Persona> personas = (List<Persona>)query.getResultList();
+		if(personas.isEmpty()) {
+			System.out.println("No hay usuarios en el sistema");
+			return null;
+		}
+		return personas;
+	}
+	
 	public Persona obtenerPersona(long idUsuario) {
 		
 		Persona persona = entityManager.find(Persona.class, idUsuario);
