@@ -111,11 +111,11 @@ public class Atuendo {
 	}
 	
 	public boolean esAbrigado() {
-		return this.sumaNivelDeAbrigo(65,90);
+		return this.sumaNivelDeAbrigo(75,90);
 	}
 	
 	public boolean esChill() {
-		return this.sumaNivelDeAbrigo(50,65);
+		return this.sumaNivelDeAbrigo(50,75);
 	}
 	
 	public boolean esTemplado() {
@@ -176,6 +176,9 @@ public class Atuendo {
 	}
 	public Set<Prenda> getPrendas() {
 		return this.prendas;
+	}
+	public void mostrarPrendas() {
+		this.prendas.stream().forEach(p -> p.mostrarDetalles());
 	}
 	
 	public void agregarUso(DateTime fechaInicioEvento, DateTime fechaFinEvento) {

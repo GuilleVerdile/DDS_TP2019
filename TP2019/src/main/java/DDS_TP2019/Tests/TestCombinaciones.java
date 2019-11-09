@@ -96,6 +96,7 @@ public class TestCombinaciones {
     private Estado decision3;
     
     Guardarropa guardarropaCompartido;
+    Guardarropa guardarropaTest1;
     UsuarioGratuito tipoDeUsuarioQueComparte1;
     UsuarioGratuito tipoDeUsuarioQueComparte2;
     Persona usuarioQueComparte1;
@@ -127,47 +128,67 @@ public class TestCombinaciones {
 	Prenda zapatillasCalle;
 	Prenda medias1 ;
 	Prenda medias2 ;
-    
+	List<String> telas;
+	 List<String> tipoEventoFormal;
+	 List<String> tipoEventoInformal;
+	 List<String> tipoEventoMixto;
     private Persona usuarioNotificar;
 	
 	  @Before
 	  public void initialize(){
-		List<String> telas =  new ArrayList<String>();
+		telas =  new ArrayList<String>();
 		telas.add("algodon");
-	    List<String> tipoEventoFormal = new ArrayList<String>();
+	    tipoEventoFormal = new ArrayList<String>();
 	    tipoEventoFormal.add("FORMAL");
-	    List<String> tipoEventoInformal = new ArrayList<String>();
+	    tipoEventoInformal = new ArrayList<String>();
 	    tipoEventoInformal.add("INFORMAL");
-	    List<String> tipoEventoMixto =  new ArrayList<String>();
+	    tipoEventoMixto =  new ArrayList<String>();
 	    tipoEventoMixto.add("FORMAL");
 	    tipoEventoMixto.add("INFORMAL");
-		Prenda camisaMixta = new Prenda("negro","",new TipoPrenda("camisa","partesuperior",telas,tipoEventoMixto,1),"algodon",50);
-		Prenda remeraBlancaSport = new Prenda("blanco","rojo",new TipoPrenda("remera","partesuperior",telas,tipoEventoInformal,1),"algodon",20);
-		Prenda remeraReunionNegra = new Prenda("negro","",new TipoPrenda("remera","partesuperior",telas,tipoEventoFormal,1),"algodon",30);
-		Prenda remeraReunionGris = new Prenda("gris","",new TipoPrenda("remera","partesuperior",telas,tipoEventoFormal,1),"algodon",30);
-		Prenda sweterReunionAzul = new Prenda("azul","",new TipoPrenda("sweter","partesuperior",telas,tipoEventoFormal,2),"lana",70);
-		Prenda camisetaBlancaMixta = new Prenda("blanco","",new TipoPrenda("camiseta","partesuperior",telas,tipoEventoMixto,0),"algodon",10);
-		Prenda camisetaVerdeMixta = new Prenda("verde","",new TipoPrenda("camiseta","partesuperior",telas,tipoEventoMixto,0),"algodon",10);
-		Prenda sacoVestirFormal = new Prenda("rojo","negro",new TipoPrenda("saco","partesuperior",telas,tipoEventoFormal,2),"algodon",70);
-		Prenda sacoAdidasInformal = new Prenda("amarillo","azul",new TipoPrenda("saco","partesuperior",telas,tipoEventoInformal,2),"algodon",70);
-		Prenda sacoTrabajo = new Prenda("blanco","negro",new TipoPrenda("saco","partesuperior",telas,tipoEventoFormal,2),"algodon",80);
-		Prenda sacoConverse = new Prenda("celeste","blanco",new TipoPrenda("saco","partesuperior",telas,tipoEventoMixto,2),"algodon",65);
-		Prenda camperaInviernoMixta = new Prenda("azul","blanco",new TipoPrenda("campera","partesuperior",telas,tipoEventoMixto,3),"algodon",90);
-		Prenda guantes = new Prenda("azul","blanco",new TipoPrenda("guantes","accesorio",telas,tipoEventoMixto,0),"algodon",20);
-		Prenda bufanda = new Prenda("verde","negro",new TipoPrenda("bufanda","accesorio",telas,tipoEventoMixto,0),"algodon",20);
-		Prenda gorroRF = new Prenda("rojo","blanco",new TipoPrenda("gorro","accesorio",telas,tipoEventoInformal,0),"algodon",10);
-		Prenda shortNike = new Prenda("negro","violeta",new TipoPrenda("short","parteinferior",telas,tipoEventoInformal,2),"algodon",10);
-		Prenda jean = new Prenda("azul","",new TipoPrenda("jean","parteinferior",telas,tipoEventoMixto,2),"gabardina",20);
-		Prenda boxerNegro = new Prenda("negro","",new TipoPrenda("boxer","parteinferior",telas,tipoEventoMixto,1),"algodon",5);
-		Prenda boxerAzul = new Prenda("azul","",new TipoPrenda("boxer","parteinferior",telas,tipoEventoMixto,1),"algodon",5);
-		Prenda boxerblanco = new Prenda("blanco","",new TipoPrenda("boxer","parteinferior",telas,tipoEventoMixto,1),"algodon",5);
-		Prenda jogging = new Prenda("negro","rojo",new TipoPrenda("jogging","parteinferior",telas,tipoEventoInformal,2),"seda",20);
-		Prenda jeanTrabajo = new Prenda("gris","",new TipoPrenda("jean","parteinferior",telas,tipoEventoFormal,2),"gabardina",20);
-		Prenda zapatos = new Prenda("negro","",new TipoPrenda("zapatos","calzado",telas,tipoEventoFormal,2),"cuero",10);
-		Prenda zapatillasCalle = new Prenda("rojo","negro",new TipoPrenda("zapatillas","calzado",telas,tipoEventoInformal,2),"cuero",10);
-		Prenda medias1 = new Prenda("negro","",new TipoPrenda("zapatos","calzado",telas,tipoEventoMixto,1),"algodon",5);
-		Prenda medias2 = new Prenda("rojo","negro",new TipoPrenda("zapatillas","calzado",telas,tipoEventoMixto,1),"algodon",5);
+		 camisaMixta = new Prenda("negro","",new TipoPrenda("camisa","partesuperior",telas,tipoEventoMixto,2),"algodon",20);
+		 remeraBlancaSport = new Prenda("blanco","rojo",new TipoPrenda("remera","partesuperior",telas,tipoEventoInformal,2),"algodon",20);
+		 remeraReunionNegra = new Prenda("negro","",new TipoPrenda("remera","partesuperior",telas,tipoEventoFormal,2),"algodon",20);
+		 remeraReunionGris = new Prenda("gris","",new TipoPrenda("remera","partesuperior",telas,tipoEventoFormal,2),"algodon",20);
+		 sweterReunionAzul = new Prenda("azul","",new TipoPrenda("sweter","partesuperior",telas,tipoEventoFormal,3),"lana",70);
+		 camisetaBlancaMixta = new Prenda("blanco","",new TipoPrenda("camiseta","partesuperior",telas,tipoEventoMixto,1),"algodon",10);
+		 camisetaVerdeMixta = new Prenda("verde","",new TipoPrenda("camiseta","partesuperior",telas,tipoEventoMixto,1),"algodon",10);
+		 sacoVestirFormal = new Prenda("rojo","negro",new TipoPrenda("saco","partesuperior",telas,tipoEventoFormal,3),"algodon",70);
+		 sacoAdidasInformal = new Prenda("amarillo","azul",new TipoPrenda("saco","partesuperior",telas,tipoEventoInformal,3),"algodon",70);
+		 sacoTrabajo = new Prenda("blanco","negro",new TipoPrenda("saco","partesuperior",telas,tipoEventoFormal,3),"algodon",80);
+		 sacoConverse = new Prenda("celeste","blanco",new TipoPrenda("saco","partesuperior",telas,tipoEventoMixto,3),"algodon",65);
+		 camperaInviernoMixta = new Prenda("azul","blanco",new TipoPrenda("campera","partesuperior",telas,tipoEventoMixto,4),"algodon",90);
+		 guantes = new Prenda("azul","blanco",new TipoPrenda("guantes","accesorio",telas,tipoEventoMixto,0),"algodon",20);
+		 bufanda = new Prenda("verde","negro",new TipoPrenda("bufanda","accesorio",telas,tipoEventoMixto,0),"algodon",20);
+		 gorroRF = new Prenda("rojo","blanco",new TipoPrenda("gorro","accesorio",telas,tipoEventoInformal,0),"algodon",10);
+		 shortNike = new Prenda("negro","violeta",new TipoPrenda("short","parteinferior",telas,tipoEventoInformal,2),"algodon",10);
+		 boxerNegro = new Prenda("negro","",new TipoPrenda("boxer","parteinferior",telas,tipoEventoMixto,1),"algodon",5);
+		 boxerAzul = new Prenda("azul","",new TipoPrenda("boxer","parteinferior",telas,tipoEventoMixto,1),"algodon",5);
+		 boxerblanco = new Prenda("blanco","",new TipoPrenda("boxer","parteinferior",telas,tipoEventoMixto,1),"algodon",5);
+		 jean = new Prenda("azul","",new TipoPrenda("jeanMixto","parteinferior",telas,tipoEventoMixto,2),"gabardina",20);
+		 jogging = new Prenda("negro","rojo",new TipoPrenda("jogging","parteinferior",telas,tipoEventoInformal,2),"seda",20);
+		 jeanTrabajo = new Prenda("gris","",new TipoPrenda("jeanTrabajo","parteinferior",telas,tipoEventoFormal,2),"gabardina",20);
+		 zapatos = new Prenda("negro","",new TipoPrenda("zapatos","calzado",telas,tipoEventoFormal,2),"cuero",10);
+		 zapatillasCalle = new Prenda("rojo","negro",new TipoPrenda("zapatillas","calzado",telas,tipoEventoInformal,2),"cuero",10);
+		 medias1 = new Prenda("negro","",new TipoPrenda("medias","calzado",telas,tipoEventoMixto,1),"algodon",5);
+		 medias2 = new Prenda("rojo","negro",new TipoPrenda("medias","calzado",telas,tipoEventoMixto,1),"algodon",5);
 	
+		guardarropaTest1 = new Guardarropa();
+		guardarropaTest1.agregarPrenda(medias2);
+		guardarropaTest1.agregarPrenda(medias1);
+		guardarropaTest1.agregarPrenda(zapatillasCalle);
+		guardarropaTest1.agregarPrenda(zapatos);
+		guardarropaTest1.agregarPrenda(jeanTrabajo);
+		guardarropaTest1.agregarPrenda(jogging);
+		guardarropaTest1.agregarPrenda(jean);
+		guardarropaTest1.agregarPrenda(boxerblanco);
+		guardarropaTest1.agregarPrenda(shortNike);
+		guardarropaTest1.agregarPrenda(camisetaVerdeMixta);
+		guardarropaTest1.agregarPrenda(camisetaBlancaMixta);
+		guardarropaTest1.agregarPrenda(camisaMixta);
+		guardarropaTest1.agregarPrenda(remeraBlancaSport);
+		guardarropaTest1.agregarPrenda(remeraReunionNegra);
+		guardarropaTest1.agregarPrenda(remeraReunionGris);
+		
         guardarropa1 = new Guardarropa();
         guardarropa1.agregarPrenda(medias2);
         guardarropa1.agregarPrenda(medias1);
@@ -175,9 +196,6 @@ public class TestCombinaciones {
         guardarropa1.agregarPrenda(zapatos);
         guardarropa1.agregarPrenda(jeanTrabajo);
         guardarropa1.agregarPrenda(jogging);
-        guardarropa1.agregarPrenda(boxerblanco);
-        guardarropa1.agregarPrenda(boxerAzul);
-        guardarropa1.agregarPrenda(boxerNegro);
         guardarropa1.agregarPrenda(jean);
         guardarropa1.agregarPrenda(shortNike);
         guardarropa1.agregarPrenda(gorroRF);
@@ -256,7 +274,7 @@ public class TestCombinaciones {
 	        
 	        tipoDeUsuarioGratuito = new UsuarioGratuito(11);
 	        usuarioGratuito = new Persona("Guille",tipoDeUsuarioGratuito);
-	        
+	        usuarioGratuito.agregarGuardarropa(guardarropaTest1);
 	        usuarioGratuito.agregarGuardarropa(guardarropaUsuarioGratuito);
 	        
 	        ///////////////////////////Usuarios que comparten////////////////////
@@ -306,77 +324,111 @@ public class TestCombinaciones {
 	
 	
 	
-	@Test
-    public void verificarCargaImagen() {	
-		String path = "./src/main/java/imagenes/camisa_negra.jpg";
-		
-		File file = new File(path);
-		byte[] fileArray = new byte[(int) file.length()];
-		try {
-			FileInputStream fileInputStream = new FileInputStream(file);
-			fileInputStream.read(fileArray);
-			fileInputStream.close();
-		}
-		catch (Exception e) {
-			throw new RuntimeException();
-		}	
-		List<String> telas =  new ArrayList<String>();
-		telas.add("algodon");
-		List<String> tiposEvento =  new ArrayList<String>();
-		telas.add("FORMAL");
-	    Prenda prendaCamisa1 = new Prenda("negra","",new TipoPrenda("camisa","superior",telas,tiposEvento,1),"algodon",50);
-		try {
-			prendaCamisa1.cargarImagen(fileArray, "camisa_negra_redimensionado");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		byte[] bytesImagen = null;
-		try {
-			bytesImagen = prendaCamisa1.obtenerImagen();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Assert.assertTrue(bytesImagen.length != 0);
-    }
-	
-	
-	 @Test
-	    public void obtenerTemperaturaServicioImpostor() throws IOException, ApiException, InterruptedException {
-	        double temperatura;
-	        temperatura = servicioImpostor.obtenerTemperatura("Buenos Aires");
-	        Assert.assertEquals(14.0, temperatura, 0);
+//	@Test
+//    public void verificarCargaImagen() {	
+//		String path = "./src/main/java/imagenes/camisa_negra.jpg";
+//		
+//		File file = new File(path);
+//		byte[] fileArray = new byte[(int) file.length()];
+//		try {
+//			FileInputStream fileInputStream = new FileInputStream(file);
+//			fileInputStream.read(fileArray);
+//			fileInputStream.close();
+//		}
+//		catch (Exception e) {
+//			throw new RuntimeException();
+//		}	
+//		List<String> telas =  new ArrayList<String>();
+//		telas.add("algodon");
+//		List<String> tiposEvento =  new ArrayList<String>();
+//		telas.add("FORMAL");
+//	    Prenda prendaCamisa1 = new Prenda("negra","",new TipoPrenda("camisa","superior",telas,tiposEvento,1),"algodon",50);
+//		try {
+//			prendaCamisa1.cargarImagen(fileArray, "camisa_negra_redimensionado");
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		byte[] bytesImagen = null;
+//		try {
+//			bytesImagen = prendaCamisa1.obtenerImagen();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		Assert.assertTrue(bytesImagen.length != 0);
+//    }
+//	
+//	
+//	 @Test
+//	    public void obtenerTemperaturaServicioImpostor() throws IOException, ApiException, InterruptedException {
+//	        double temperatura;
+//	        temperatura = servicioImpostor.obtenerTemperatura("Buenos Aires");
+//	        Assert.assertEquals(14.0, temperatura, 0);
+//	    }
+//	    
+//	    @Test (expected = Exception.class)
+//	    public void fallaPorMaximoDePrendasAlcanzado() throws Exception{
+//	    	try {
+//				usuarioGratuito.agregarPrendaAGuardarropa(0,camperaInviernoMixta);
+//	    	}catch(RuntimeException re)
+//	        {
+//	            String message = "El guardarropas alcanzo el maximo de prendas permitido";          
+//	            Assert.assertEquals(message, re.getMessage());
+//	            throw re;
+//	        }
+//	    }
+//
+//	    @Test
+//	    public void esUnEventoProximo(){
+//	        Assert.assertTrue(evento1.estaProximo());
+//	    }
+//
+//	    @Test
+//	    public void esUnEventoLejano(){
+//	        Assert.assertFalse(evento2.estaProximo());
+//	    }
+//
+//	    @Test (expected = Exception.class)
+//	    public void fallaPorFechaAnterior() throws Exception{
+//	        usuario.agregarEvento("Ir a trabajar",new DateTime(2010,5,30,23,00),new DateTime(2010,5,30,23,10),"Buenos Aires","FORMAL");
+//	    }
+	    
+	    @Test
+	    public void comprobarGeneracionAtuendos1(){
+//	    	Set <Atuendo> atuendos = guardarropaTest1.sugerirAtuendos(18.00, "FORMAL", new DateTime(2010,5,30,23,00), new DateTime(2010,5,30,23,20));
+//	    	atuendos.stream().forEach(a -> a.mostrarPrendas());
+	    	
+	    	
+	    	Guardarropa guardarropaTest2 = new Guardarropa();
+//	    	guardarropaTest2.agregarPrenda(medias2);
+	    	guardarropaTest2.agregarPrenda(medias1);
+//	    	guardarropaTest2.agregarPrenda(zapatillasCalle);
+	    	guardarropaTest2.agregarPrenda(zapatos);
+	    	guardarropaTest2.agregarPrenda(jeanTrabajo);
+//	    	guardarropaTest2.agregarPrenda(jogging);
+	    	guardarropaTest2.agregarPrenda(jean);
+	    	guardarropaTest2.agregarPrenda(boxerblanco);
+//	    	guardarropaTest2.agregarPrenda(shortNike);
+//	    	guardarropaTest2.agregarPrenda(camisetaVerdeMixta);
+	    	guardarropaTest2.agregarPrenda(camisetaBlancaMixta);
+	    	guardarropaTest2.agregarPrenda(camisaMixta);
+//	    	guardarropaTest2.agregarPrenda(remeraBlancaSport);
+	    	guardarropaTest2.agregarPrenda(remeraReunionNegra);
+//	    	guardarropaTest2.agregarPrenda(remeraReunionGris);
+			
+	    	Set <Atuendo> atuendos2 = guardarropaTest2.sugerirAtuendos(18.00, "FORMAL", new DateTime(2010,5,30,23,00), new DateTime(2010,5,30,23,20));
+//	    	atuendos2.stream().forEach(a -> a.mostrarPrendas());
+	    	for (Atuendo a : atuendos2) {
+	    		System.out.println("Detalle Atuendo: ");
+	    		a.mostrarPrendas();
+	    		System.out.println("-------");
+	    	}
+	    	
 	    }
 	    
-	    @Test (expected = Exception.class)
-	    public void fallaPorMaximoDePrendasAlcanzado() throws Exception{
-	    	try {
-				usuarioGratuito.agregarPrendaAGuardarropa(0,camperaInviernoMixta);
-	    	}catch(RuntimeException re)
-	        {
-	            String message = "El guardarropas alcanzo el maximo de prendas permitido";          
-	            Assert.assertEquals(message, re.getMessage());
-	            throw re;
-	        }
-	    }
-
-	    @Test
-	    public void esUnEventoProximo(){
-	        Assert.assertTrue(evento1.estaProximo());
-	    }
-
-	    @Test
-	    public void esUnEventoLejano(){
-	        Assert.assertFalse(evento2.estaProximo());
-	    }
-
-	    @Test (expected = Exception.class)
-	    public void fallaPorFechaAnterior() throws Exception{
-	        usuario.agregarEvento("Ir a trabajar",new DateTime(2010,5,30,23,00),new DateTime(2010,5,30,23,10),"Buenos Aires","FORMAL");
-	    }
 	    
 //	    @Test
 //	    public void verificarTemperaturaFutura() throws IOException {

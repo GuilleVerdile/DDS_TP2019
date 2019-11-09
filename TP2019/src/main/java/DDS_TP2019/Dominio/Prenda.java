@@ -139,12 +139,12 @@ public class Prenda {
 		System.out.println("Detalle Prenda:");
 		System.out.println("Categoria: "+ tipoPrenda.getCategoria());
 		System.out.println("Tipo Prenda: "+ tipoPrenda.getDescripcion());
-		System.out.println("Tipo Tela: "+ tipoTela);
-		System.out.println("Color Primario: " + colorPrimario);
-		if(colorSecundario != "") {
-			System.out.println("Color Secundario: " + colorSecundario + "\n");
-		}
-		System.out.println("Calorias: " + calorias);
+//		System.out.println("Tipo Tela: "+ tipoTela);
+//		System.out.println("Color Primario: " + colorPrimario);
+//		if(colorSecundario != "") {
+//			System.out.println("Color Secundario: " + colorSecundario + "\n");
+//		}
+//		System.out.println("Calorias: " + calorias);
 		return;
 	}
 	
