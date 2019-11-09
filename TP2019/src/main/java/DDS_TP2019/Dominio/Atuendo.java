@@ -44,6 +44,7 @@ public class Atuendo {
 	}
 	
 	@OneToOne(mappedBy = "atuendoAceptado")
+    @JoinColumn(name = "eventoAceptado_id", nullable=true)
 	private Evento eventoAceptado;
 	
 	@ManyToOne

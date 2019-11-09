@@ -48,7 +48,7 @@ public class Persona {
 	private TipoDeUsuario tipoUsuario;
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy="personas",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Guardarropa> guardarropas;
-	@OneToMany(mappedBy="persona")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="persona",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Evento> eventos;
 	private String mail;
 	private String password;
@@ -202,6 +202,9 @@ public class Persona {
                     }
 			Set<Atuendo>atuendosSugeridosParaEvento = atuendosSugeridosPorDiferentesGuardarropas.stream().flatMap(atuendos -> atuendos.stream()).collect(Collectors.toSet());
 			evento.setAtuendosSugeridos(atuendosSugeridosParaEvento);
+			//LLamar a dao de eventos y atuendos y actualizar las entities.. (como en el controllerGuardarropa al construir y agregar una prenda)
+			//Actualizar el evento y hacer un foreach en atuendosSugeridosParaEvento.. en cada atuendo le seteas el evento, y le seteas el id al evento (igual q hice con la prenda)
+			//Hacer todo esto en una metodo aparte
 		});
 	}
 	

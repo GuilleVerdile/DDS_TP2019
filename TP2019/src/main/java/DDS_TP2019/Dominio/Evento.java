@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,14 +37,13 @@ public class Evento {
 	private String ubicacion;
 	private String tipoDeEvento;
 	private boolean poseeSugerencias;
-	@OneToMany(mappedBy="eventoSugerido")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="eventoSugerido",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Atuendo> atuendosSugeridos; // Los atuendos que se sugieren para los eventos proximos se guardaran en el evento. Esto se debe a que en un futuro el programa debe poder tener en cuenta que atuendos acepta y rechaza el usuario para cierto tipo de evento.
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "evento_id", referencedColumnName = "id")
+	@OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Atuendo atuendoAceptado;
-	@OneToMany(mappedBy="eventoRechazado")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="eventoRechazado",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Atuendo> atuendosRechazados;
-	@OneToMany(mappedBy="eventoCalificado")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="eventoCalificado",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Atuendo> atuendosCalificados; // Los atuendos calificados van a ir aca para poder acceder a la temperatura del evento
 	@ManyToOne
 	@JoinColumn(name="persona_id", nullable=false)
