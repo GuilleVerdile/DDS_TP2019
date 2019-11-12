@@ -40,7 +40,8 @@ public class EventoDAO {
 				e.printStackTrace();
 			}
         }
-
+        
+        entityManager.getTransaction().begin();
         entityManager.persist(evento);
         entityManager.getTransaction().commit();
         idEvento = evento.getId();
@@ -60,9 +61,10 @@ public class EventoDAO {
 				e.printStackTrace();
 			}
         }
-
+        
+        entityManager.getTransaction().begin();
         entityManager.remove(evento);
-        //entityManager.getTransaction().commit();
+        entityManager.getTransaction().commit();
         idEvento = evento.getId();
 
         return idEvento;
@@ -78,7 +80,8 @@ public class EventoDAO {
 				e.printStackTrace();
 			}
         }
-
+        entityManager.getTransaction().begin();
+		entityManager.merge(evento);
         entityManager.getTransaction().commit();
     }
 }

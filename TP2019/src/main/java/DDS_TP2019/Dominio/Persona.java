@@ -202,10 +202,15 @@ public class Persona {
                     }
 			Set<Atuendo>atuendosSugeridosParaEvento = atuendosSugeridosPorDiferentesGuardarropas.stream().flatMap(atuendos -> atuendos.stream()).collect(Collectors.toSet());
 			evento.setAtuendosSugeridos(atuendosSugeridosParaEvento);
-			//LLamar a dao de eventos y atuendos y actualizar las entities.. (como en el controllerGuardarropa al construir y agregar una prenda)
-			//Actualizar el evento y hacer un foreach en atuendosSugeridosParaEvento.. en cada atuendo le seteas el evento, y le seteas el id al evento (igual q hice con la prenda)
-			//Hacer todo esto en una metodo aparte
+			persistirAtuendosDelEvento(evento,atuendosSugeridosParaEvento);
 		});
+	}
+	
+	private void persistirAtuendosDelEvento(Evento evento, Set<Atuendo> atuendosSugeridosParaEvento) {
+		//LLamar a dao de eventos y atuendos y actualizar las entities.. (como en el controllerGuardarropa al construir y agregar una prenda)
+		//Actualizar el evento y hacer un foreach en atuendosSugeridosParaEvento.. en cada atuendo le seteas el evento, y le seteas el id al evento (igual q hice con la prenda)
+		//Hacer todo esto en una metodo aparte
+		
 	}
 	
 	public void calificarAtuendo(Atuendo atuendo, Evento evento, int calificacion) throws Exception {
