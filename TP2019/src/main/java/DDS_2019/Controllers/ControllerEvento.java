@@ -2,11 +2,15 @@ package DDS_2019.Controllers;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
+import DDS_2019.DAOs.AtuendoDAO;
 import DDS_2019.DAOs.EventoDAO;
 import DDS_2019.DAOs.GuardarropaDAO;
+import DDS_2019.DAOs.PersonaDAO;
 import DDS_2019.DAOs.PrendaDAO;
+import DDS_TP2019.Dominio.Atuendo;
 import DDS_TP2019.Dominio.Evento;
 import DDS_TP2019.Dominio.Guardarropa;
+import DDS_TP2019.Dominio.Persona;
 import DDS_TP2019.Dominio.Prenda;
 import db.EntityManagerHelper;
 import spark.ModelAndView;
@@ -29,29 +33,48 @@ public class ControllerEvento implements WithGlobalEntityManager{
          return new ModelAndView(evento, "listadoAtuendosSugeridosDeEvento.hbs");
     }
     
-    public ModelAndView eliminarPrenda(Request req, Response res){
-		 
-		 System.out.println("Eliminando prenda..");
-		 Long idPrendaAeliminar = Long.valueOf(req.params(":id"));
-		 System.out.println("idPrendaAeliminar: " + idPrendaAeliminar);
-		 
-		 Long idGuardarropa = Long.valueOf(req.session().attribute("guardarropaID"));
-	     System.out.println("cookie idGuardarropa : " + idGuardarropa);
-		 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
-		 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropa);
-		 
-		 guardarropa.eliminarPrendaConId(idPrendaAeliminar);
-		 
-		 System.out.println("Prenda eliminado del guardarropa en memoria..");
-		 
-		 PrendaDAO prendaDAO = new PrendaDAO(EntityManagerHelper.getEntityManager());
-		 Prenda prendaAEliminaar = prendaDAO.obtenerPrenda(idPrendaAeliminar);
-		 prendaDAO.eliminarPrenda(prendaAEliminaar);
-		 guardarropaDAO.actualizarGuardarropa(guardarropa);
-		 System.out.println("Prenda eliminado del guardarropa en BD..");
-		 
-		 res.redirect("/guardarropa/" + idGuardarropa + "/verPrendas");
+    public ModelAndView aceptarAtuendo(Request req, Response res){ 
+    	
+    	 System.out.println("Aceptando Atuendo..");
+		 Long idAtuendo = Long.valueOf(req.params(":id"));
+		 System.out.println("idAtuendo: " + idAtuendo);
+		 Long idEvento = Long.valueOf(req.session().attribute("eventoID"));
+	     System.out.println("cookie eventoID : " + idEvento);
+	     EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+	     Evento evento = eventoDAO.obtenerEvento(idEvento);
+		 AtuendoDAO atuendoDAO = new AtuendoDAO(EntityManagerHelper.getEntityManager());
+		 Atuendo atuendo = atuendoDAO.obtenerAtuendo(idAtuendo);
+		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
+		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
+		 persona.aceptarAtuendo(evento, atuendo);
+		 atuendo.setPersona(persona);
+		 atuendo.setEventoAceptado(evento);
+		 eventoDAO.actualizarEvento(evento);
+		 personaDAO.actualizarPersona(persona);
+		 atuendoDAO.actualizarAtuendo(atuendo);
+    	return null;
+    }
+    
+   public ModelAndView rechazarAtuendo(Request req, Response res){ 
+    	
+	     System.out.println("Aceptando Atuendo..");
+		 Long idAtuendo = Long.valueOf(req.params(":id"));
+		 System.out.println("idAtuendo: " + idAtuendo);
+		 Long idEvento = Long.valueOf(req.session().attribute("eventoID"));
+	     System.out.println("cookie eventoID : " + idEvento);
+	     EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+	     Evento evento = eventoDAO.obtenerEvento(idEvento);
+		 AtuendoDAO atuendoDAO = new AtuendoDAO(EntityManagerHelper.getEntityManager());
+		 Atuendo atuendo = atuendoDAO.obtenerAtuendo(idAtuendo);
+		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
+		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
+		 persona.rechazarAtuendo(evento, atuendo);
+		 atuendo.setPersona(persona);
+		 atuendo.setEventoAceptado(evento);
+		 eventoDAO.actualizarEvento(evento);
+		 personaDAO.actualizarPersona(persona);
+		 atuendoDAO.actualizarAtuendo(atuendo);
 		 return null;
-	    }
+    }
     
 }

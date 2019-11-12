@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ public class Atuendo {
 	public void setId(long _id) {
 		this.id=_id;
 	}
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Prenda> prendas;
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "estado_id", referencedColumnName = "id")

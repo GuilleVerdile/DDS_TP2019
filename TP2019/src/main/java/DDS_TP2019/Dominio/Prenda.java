@@ -45,12 +45,12 @@ public class Prenda {
 	@Transient
 	private BufferedImage imagen;
 	private String pathImagen;
-	@OneToMany(mappedBy="prenda")
+	@OneToMany(mappedBy="prenda",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Uso> usos;
 	@ManyToOne
 	@JoinColumn(name="guardarropa_id", nullable=false)
 	private Guardarropa guardarropa; 
-	@ManyToMany(mappedBy="prendas")
+	@ManyToMany(mappedBy="prendas",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Atuendo> atuendos;
 	
 	public Guardarropa getGuardarropa() {

@@ -51,6 +51,8 @@ public class Main {
 		Spark.post("guardarropa/:id/compartir",controllerPersona::compartirGuardarropa,transformer);
 		Spark.post("/agregarGuardarropaCompartido",controllerPersona::agregarGuardarropaCompartido,transformer);
 		Spark.get("/evento/:id/verAtuendosSugeridos",controllerEvento::verAtuendosSugeridos,transformer);
+		Spark.post("/evento/:id/aceptarAtuendo",controllerEvento::aceptarAtuendo,transformer);
+		Spark.post("/evento/:id/rechazarAtuendo",controllerEvento::rechazarAtuendo,transformer);
 		
 		/* String connectionUrl = "jdbc:mysql://localhost:3306/dds_2019;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
 

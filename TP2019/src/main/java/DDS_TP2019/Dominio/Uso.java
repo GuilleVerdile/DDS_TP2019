@@ -1,5 +1,6 @@
 package DDS_TP2019.Dominio;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class Uso {
 	}
 	private DateTime fechaInicio;
 	private DateTime fechaFin;
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="prenda_id", nullable=false)
 	private Prenda prenda;
 	
