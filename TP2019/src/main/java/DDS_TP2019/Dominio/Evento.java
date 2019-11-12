@@ -158,6 +158,10 @@ public class Evento {
 		this.atuendosCalificados.add(atuendo);
 	}
 	
+	public void agregarAtuendoSugerido(Atuendo atuendo) {
+		this.atuendosSugeridos.add(atuendo);
+	}
+	
 	public boolean getPoseeSugerencias() {
 		return this.atuendosSugeridos != null && !this.atuendosSugeridos.isEmpty();
 	}

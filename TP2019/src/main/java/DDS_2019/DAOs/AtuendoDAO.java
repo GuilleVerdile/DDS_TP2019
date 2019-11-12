@@ -80,4 +80,12 @@ public class AtuendoDAO{
 		entityManager.getTransaction().commit();
 	}
 	
+	public Long obtenerUltimoIDAtuendoInsertado() {
+		// TODO Auto-generated method stub
+		Query query = entityManager.createQuery("SELECT max(a.id) from Atuendo a");
+		Long idAtuendo = (Long)query.getSingleResult();
+		System.out.println("idAtuendo: " + idAtuendo);
+		return idAtuendo;
+	}
+	
 }

@@ -72,6 +72,36 @@ public class Atuendo {
 				this.contieneDeCategoria("calzado");
 	}
 	
+	public Persona getPersona() {
+		return persona;
+	}
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+	public Evento getEventoAceptado() {
+		return eventoAceptado;
+	}
+	public void setEventoAceptado(Evento eventoAceptado) {
+		this.eventoAceptado = eventoAceptado;
+	}
+	public Evento getEventoRechazado() {
+		return eventoRechazado;
+	}
+	public void setEventoRechazado(Evento eventoRechazado) {
+		this.eventoRechazado = eventoRechazado;
+	}
+	public Evento getEventoCalificado() {
+		return eventoCalificado;
+	}
+	public void setEventoCalificado(Evento eventoCalificado) {
+		this.eventoCalificado = eventoCalificado;
+	}
+	public Evento getEventoSugerido() {
+		return eventoSugerido;
+	}
+	public void setEventoSugerido(Evento eventoSugerido) {
+		this.eventoSugerido = eventoSugerido;
+	}
 	public boolean contieneDeCategoria(String unaCategoria) {
 		return this.prendas.stream().anyMatch(unaPrenda -> unaPrenda.getTipoPrenda().getCategoria() == unaCategoria);
 	}

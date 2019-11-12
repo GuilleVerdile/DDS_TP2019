@@ -24,11 +24,14 @@ import org.joda.time.DateTime;
 
 import com.google.maps.errors.ApiException;
 
+import DDS_2019.DAOs.AtuendoDAO;
+import DDS_2019.DAOs.EventoDAO;
 import DDS_TP2019.Clima.ServicioMeteorologico;
 import DDS_TP2019.Estados.Aceptar;
 import DDS_TP2019.Estados.Calificar;
 import DDS_TP2019.Estados.Rechazar;
 import DDS_TP2019.Notificaciones.Accion;
+import db.EntityManagerHelper;
 
 @Entity
 public class Persona {
@@ -207,10 +210,17 @@ public class Persona {
 	}
 	
 	private void persistirAtuendosDelEvento(Evento evento, Set<Atuendo> atuendosSugeridosParaEvento) {
-		//LLamar a dao de eventos y atuendos y actualizar las entities.. (como en el controllerGuardarropa al construir y agregar una prenda)
-		//Actualizar el evento y hacer un foreach en atuendosSugeridosParaEvento.. en cada atuendo le seteas el evento, y le seteas el id al evento (igual q hice con la prenda)
-		//Hacer todo esto en una metodo aparte
-		
+	    EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+	    AtuendoDAO atuendoDAO = new AtuendoDAO(EntityManagerHelper.getEntityManager());
+	    atuendosSugeridosParaEvento.stream().forEach(atuendoSugerido -> {
+		   	evento.agregarAtuendoSugerido(atuendoSugerido);
+		   	atuendoSugerido.setEventoSugerido(evento);
+		 	System.out.println("Se agrego la nueva prenda al guardarropa en memoria. " );
+		 	eventoDAO.actualizarEvento(evento);
+			Long idAtuendo = atuendoDAO.obtenerUltimoIDAtuendoInsertado();
+			atuendoSugerido.setId(idAtuendo);
+			System.out.println("id nuevo atuendo: " + atuendoSugerido.getId());
+	    });
 	}
 	
 	public void calificarAtuendo(Atuendo atuendo, Evento evento, int calificacion) throws Exception {
