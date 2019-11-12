@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.google.maps.errors.ApiException;
 
+import DDS_2019.Controllers.ControllerEvento;
 import DDS_2019.Controllers.ControllerGuardarropa;
 import DDS_2019.Controllers.ControllerLogin;
 import DDS_2019.Controllers.ControllerPersona;
@@ -30,6 +31,7 @@ public class Main {
         ControllerPersona controllerPersona = new ControllerPersona();
         ControllerLogin controllerLoggin = new ControllerLogin();
         ControllerGuardarropa controllerGuardarropa = new ControllerGuardarropa();
+        ControllerEvento controllerEvento = new ControllerEvento();
         HandlebarsTemplateEngine transformer = new HandlebarsTemplateEngine();
         
         Spark.get("/usuarioHome", controllerLoggin::login, transformer);		
@@ -48,6 +50,7 @@ public class Main {
 		Spark.post("/guardarropa/:id/eliminarPrenda",controllerGuardarropa::eliminarPrenda,transformer);
 		Spark.post("guardarropa/:id/compartir",controllerPersona::compartirGuardarropa,transformer);
 		Spark.post("/agregarGuardarropaCompartido",controllerPersona::agregarGuardarropaCompartido,transformer);
+		Spark.get("/evento/:id/verAtuendosSugeridos",controllerEvento::verAtuendosSugeridos,transformer);
 		
 		/* String connectionUrl = "jdbc:mysql://localhost:3306/dds_2019;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
 
