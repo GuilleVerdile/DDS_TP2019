@@ -10,6 +10,7 @@ import DDS_2019.DAOs.GuardarropaDAO;
 import DDS_2019.DAOs.PersonaDAO;
 import DDS_TP2019.Dominio.Guardarropa;
 import DDS_TP2019.Dominio.Persona;
+import DDS_TP2019.Dominio.Prenda;
 import DDS_TP2019.Dominio.Sistema;
 import db.EntityManagerHelper;
 import spark.ModelAndView;
@@ -112,7 +113,24 @@ public class ControllerPersona implements WithGlobalEntityManager {
 		 java.util.List<String> items = Arrays.asList(idUsuarioAcompartir.split("\\s*,\\s*"));
 		 java.util.List<Long> idPersonas = new ArrayList<Long>();
 		 items.stream().forEach(id -> idPersonas.add(Long.valueOf(id)));
-		 //al guardarropa de la session atribute, agregarle la persona , y a la persona agregarle este guardarropa
+		 
+		 Long idGuardarropa = Long.valueOf(req.session().attribute("guardarropaID"));
+			System.out.println(idGuardarropa);
+		 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
+	   	 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropa);
+	   	System.out.println(guardarropa.getId());
+	   	 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
+	   	 idPersonas.stream().forEach(idPersona -> {
+	   		 Persona p = personaDAO.obtenerPersona(idPersona);
+	   		 guardarropa.agregarPersona(p)  ;
+	   		 guardarropaDAO.actualizarGuardarropa(guardarropa); 
+		     p.agregarGuardarropa(guardarropa);
+			 personaDAO.actualizarPersona(p);
+	   	 });
+	   
+//	  	System.out.println(" idGuardarropa BD: " + guardarropa.getId());
+
+	  	//al guardarropa de la session atribute, agregarle la persona , y a la persona agregarle este guardarropa
 		 // despues peristir todo y volver
 		 
 //		 System.out.println("idGuardarropaAeliminar: " + idGuardarropaAeliminar);
