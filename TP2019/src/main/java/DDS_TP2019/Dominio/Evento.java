@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
@@ -32,23 +33,31 @@ public class Evento {
 		this.id=_id;
 	}
 	private String descripcionEvento; 
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime fechaInicioEvento;
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime fechaFinEvento;
 	private String ubicacion;
 	private String tipoDeEvento;
 	private boolean poseeSugerencias;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="eventoSugerido",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="eventoSugerido",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Atuendo> atuendosSugeridos; // Los atuendos que se sugieren para los eventos proximos se guardaran en el evento. Esto se debe a que en un futuro el programa debe poder tener en cuenta que atuendos acepta y rechaza el usuario para cierto tipo de evento.
-	@OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Atuendo atuendoAceptado;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="eventoRechazado",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="eventoRechazado",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Atuendo> atuendosRechazados;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="eventoCalificado",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="eventoCalificado",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Atuendo> atuendosCalificados; // Los atuendos calificados van a ir aca para poder acceder a la temperatura del evento
 	@ManyToOne
 	@JoinColumn(name="persona_id", nullable=false)
 	private Persona persona;
 	
+	public Persona getPersona() {
+		return persona;
+	}
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
 	public Evento() {};
 	public Evento(String descripcionEvento, DateTime fechaInicioEvento,DateTime fechaFinEvento, String ubicacion, String tipoDeEvento) throws Exception {
 		this.descripcionEvento = descripcionEvento;

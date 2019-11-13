@@ -51,7 +51,7 @@ public class Persona {
 	private TipoDeUsuario tipoUsuario;
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy="personas",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Guardarropa> guardarropas;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="persona",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="persona",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Evento> eventos;
 	private String mail;
 	private String password;
@@ -169,6 +169,10 @@ public class Persona {
 		this.eventos.add(evento);
 	}
 	
+	public void agregarEvento(Evento evento) {
+		this.eventos.add(evento);
+	}
+	
 	public List<Evento> eventosProximos() {
 		return eventos.stream().filter(unEvento -> unEvento.estaProximo()).collect(Collectors.toList());
 	}
@@ -274,6 +278,10 @@ public class Persona {
 	public boolean esUsuarioGratuito() {
 		// TODO Auto-generated method stub
 		return this.tipoUsuario.esGratuito();
+	}
+	public void eliminarEventoConId(Long idEventoAeliminar) {
+		// TODO Auto-generated method stub
+		this.eventos.removeIf(e -> e.getId() == idEventoAeliminar);
 	}
 	
 	

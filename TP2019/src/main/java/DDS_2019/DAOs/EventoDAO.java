@@ -1,6 +1,7 @@
 package DDS_2019.DAOs;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import DDS_TP2019.Dominio.Evento;
 
@@ -84,4 +85,17 @@ public class EventoDAO {
 		entityManager.merge(evento);
         entityManager.getTransaction().commit();
     }
+
+	public Long obtenerUltimoIDEventoInsertado() {
+		Query query = entityManager.createQuery("SELECT max(e.id) from Evento e");
+		Long idEvento = (Long)query.getSingleResult();
+		System.out.println("idEvento: " + idEvento);
+		return idEvento;
+	}
+
+	public void eliminarUltimoEventoInsertado() {
+		// TODO Auto-generated method stub
+		Query query = entityManager.createQuery("DELETE top 1 FROM Evento e order by e.id DESC");
+		query.executeUpdate();
+	}
 }

@@ -56,6 +56,12 @@ public class Main {
 		Spark.post("/atuendo/:id/aceptarAtuendo",controllerEvento::aceptarAtuendo,transformer);
 		Spark.post("/atuendo/:id/rechazarAtuendo",controllerEvento::rechazarAtuendo,transformer);
 		Spark.get("/atuendo/:id/verPrendas",controllerAtuendo::verPrendas,transformer);
+		Spark.get("/misEventos", controllerPersona::listarEventos,transformer);
+		Spark.post("/altaEvento", controllerPersona::altaEvento,transformer);
+		Spark.post("/eliminarEvento/:id",controllerPersona::eliminarEvento,transformer);
+		Spark.post("/evento/:id/modificarEvento",controllerPersona::modificarEvento,transformer);
+		Spark.post("/construirEvento",controllerPersona::construirEvento,transformer);
+		
 		
 		/* String connectionUrl = "jdbc:mysql://localhost:3306/dds_2019;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
 

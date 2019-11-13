@@ -1,17 +1,22 @@
 package DDS_2019.Controllers;
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import org.joda.time.DateTime;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
+import DDS_2019.DAOs.EventoDAO;
 import DDS_2019.DAOs.GuardarropaDAO;
 import DDS_2019.DAOs.PersonaDAO;
+import DDS_2019.DAOs.PrendaDAO;
+import DDS_2019.DAOs.TipoPrendaDAO;
+import DDS_TP2019.Dominio.Evento;
 import DDS_TP2019.Dominio.Guardarropa;
 import DDS_TP2019.Dominio.Persona;
 import DDS_TP2019.Dominio.Prenda;
 import DDS_TP2019.Dominio.Sistema;
+import DDS_TP2019.Dominio.TipoPrenda;
 import db.EntityManagerHelper;
 import spark.ModelAndView;
 import spark.Request;
@@ -144,5 +149,97 @@ public class ControllerPersona implements WithGlobalEntityManager {
 		 res.redirect("/misguardarropas");
 		 return null;
 	 }
+	
+	
+	 public ModelAndView listarEventos(Request req, Response res){
+		    
+//		 Persona persona = req.session().attribute("persona");
+		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.emf.createEntityManager());
+		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
+		
+	     return new ModelAndView(persona, "listadoEventos.hbs");
+	    }
  
+	  public ModelAndView eliminarEvento(Request req, Response res){
+			 
+		 System.out.println("Eliminando evento..");
+		 Long idEventoAeliminar = Long.valueOf(req.params(":id"));
+		 System.out.println("idEventoAeliminar: " + idEventoAeliminar);
+		 
+		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
+		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
+		 persona.eliminarEventoConId(idEventoAeliminar);
+		 
+		 System.out.println("Evento eliminado de la persona en memoria..");
+		 
+		 EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+		 Evento eventoAEliminar = eventoDAO.obtenerEvento(idEventoAeliminar);
+		 eventoDAO.eliminarEvento(eventoAEliminar);
+		 personaDAO.actualizarPersona(persona);
+		 System.out.println("Evento eliminado de la persona en BD..");
+		 
+		 res.redirect("/misEventos");
+		 return null;
+	    }
+	  
+	  public ModelAndView altaEvento(Request req, Response res) {
+		  res.cookie("operacionEvento", "ALTA");
+	        return new ModelAndView(null, "altaEvento.hbs");
+	    }
+	  
+	  public ModelAndView modificarEvento(Request req, Response res) {
+		  res.cookie("operacionEvento", "MODIFICACION");
+		  EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+		  Evento eventoAModificar = eventoDAO.obtenerEvento(Long.valueOf(req.params(":id")));
+	      return new ModelAndView(eventoAModificar, "altaEvento.hbs");
+	    }
+ 
+	  public ModelAndView construirEvento(Request req, Response res) throws Exception {
+	    
+		  PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
+		  Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
+		  EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+    	Evento evento = new Evento();
+    	
+    	if(req.cookie("operacionEvento") == "MODIFICACION")
+    	{
+    		Evento eventoAModificar = eventoDAO.obtenerEvento(Long.valueOf(req.queryParams("idEvento")));
+    		eventoDAO.actualizarEvento(eventoAModificar);
+    		res.redirect("/misEventos");
+    		return null;
+    	}
+    	
+    	//Atributos Evento
+    	String descripcion = req.queryParams("descripcionEvento");
+    	DateTime fechaInicio = DateTime.parse(req.queryParams("fechaInicioEvento"));
+    	DateTime fechaFin = DateTime.parse(req.queryParams("fechaFinEvento"));
+        String ubicacion = req.queryParams("ubicacionEvento");
+        String tipoDeEvento = req.queryParams("tipoDeEvento");
+        
+	    //Setteo del evento y creacion
+        evento.setDescripcionEvento(descripcion);
+        evento.setFechaInicioEvento(fechaInicio);
+        evento.setFechaFinEvento(fechaFin);
+        evento.setUbicacion(ubicacion);
+        evento.setTipoDeEvento(tipoDeEvento);
+	    
+       
+	   	 evento.setPersona(persona);
+	   	 eventoDAO.guardarEvento(evento);
+	 	System.out.println("Se agrego el nuevo evento al usuario en memoria. " );
+	 	 persona.agregarEvento(evento);
+	 	personaDAO.actualizarPersona(persona);
+	 	System.out.println("aaaaaaaaaaa");
+		Long idEvento = eventoDAO.obtenerUltimoIDEventoInsertado();
+//		System.out.println("eeeeeeeeeeeee");
+	   	evento.setId(idEvento);
+	   	
+	 	System.out.println("id nuevo evento: " + evento.getId());
+	 	System.out.println("cantidad de eventos de la persona: " + persona.getEventos().size());
+	   	
+	 	 res.redirect("/misEventos");
+		 return null;
+	 
+    }
+	  
 }

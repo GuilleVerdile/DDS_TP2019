@@ -1,57 +1,7 @@
 {{#partial "custom-body"}}
 <h1>Mi Perfil {{nombre}}</h1>
-        <div class="card border-dark mx-auto" style="max-width: 400px;">
-            <div class="card-header"></div>
-            <div class="card-body text-dark">
-                <form action="/misguardarropas" method="GET">
-                    <input type="submit" class="btn btn-success btn-block" value="Ver mis guardarropas">
-                </form>
-            </div>
-        </div>
-        
-        <br>
-        
-        <div class="card border-dark mx-auto" style="max-width: 400px;">
-            <div class="card-header"></div>
-            <div class="card-body text-dark">
-                <form action="/prendaPaso1" method="GET">
-                    <input type="submit" class="btn btn-success btn-block" value="Cargar nueva prenda">
-                </form>
-            </div>
-        </div>
-        
-        <br>
-        
-        <div class="card border-dark mx-auto" style="max-width: 400px;">
-            <div class="card-header"></div>
-            <div class="card-body text-dark">
-                <form action="/usuario/{{id}}/atuendosAceptados" method="GET">
-                    <input type="submit" class="btn btn-success btn-block" value="Calificar sugerencias aceptadas">
-                </form>
-            </div>
-        </div>
-        
-        <br>
-        
-        <div class="card border-dark mx-auto" style="max-width: 400px;">
-            <div class="card-header"></div>
-            <div class="card-body text-dark">
-                <form action="/usuario/{{Id}}/eventos" method="GET">
-                    <input type="submit" class="btn btn-success btn-block" value="Ver mis eventos">
-                </form>
-            </div>
-        </div>
-        
-        <br>
-        
-        <div class="card border-dark mx-auto" style="max-width: 400px;">
-            <div class="card-header"></div>
-            <div class="card-body text-dark">
-                <form action="/nuevoEvento" method="GET">
-                    <input type="submit" class="btn btn-success btn-block" value="Cargar nuevo evento">
-                </form>
-            </div>
-        </div>
+       
+    <h3>Bienvenido!</h3>
         
 {{/partial}}
 {{>layout.hbs}}
