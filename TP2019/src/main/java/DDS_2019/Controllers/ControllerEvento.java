@@ -52,7 +52,8 @@ public class ControllerEvento implements WithGlobalEntityManager{
 		 eventoDAO.actualizarEvento(evento);
 		 personaDAO.actualizarPersona(persona);
 		 atuendoDAO.actualizarAtuendo(atuendo);
-    	return null;
+		 res.redirect("/evento/" + idEvento + "/verAtuendosSugeridos"); 
+    	 return null;
     }
     
    public ModelAndView rechazarAtuendo(Request req, Response res){ 
@@ -74,6 +75,7 @@ public class ControllerEvento implements WithGlobalEntityManager{
 		 eventoDAO.actualizarEvento(evento);
 		 personaDAO.actualizarPersona(persona);
 		 atuendoDAO.actualizarAtuendo(atuendo);
+		 res.redirect("/evento/" + idEvento + "/verAtuendosSugeridos"); 
 		 return null;
     }
     

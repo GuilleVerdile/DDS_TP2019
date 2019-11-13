@@ -1,0 +1,37 @@
+{{#partial "custom-body"}}
+    <h1>
+       Listado de Atuendos Sugeridos
+    </h1>
+
+   <div class="card-deck">
+    {{#each atuendosSugeridos}}
+ 
+	            <div class="card h-70 bg-light text-dark ">
+	              <a href="#"><img class="card-img-top" src="/atuendos.jpg" height="150" width="80" alt="atuendo"></a>
+	              <div class="card-body">
+	                <h4 class="card-title">
+	                  <a href="#">Atuendo #{{id}}</a>
+	                </h4>
+	                 <form action="/atuendo/{{id}}/verPrendas" method="GET">
+                     	   <input type="submit" class="btn btn-success btn-block" value="Ver prendas">
+         			 </form>
+	                 <form action="/atuendo/{{id}}/aceptarAtuendo" method="POST">
+                     	   <input type="submit" class="btn btn-success btn-block" value="Aceptar Atuendo">
+         			 </form>
+	                 <form action="/atuendo/{{id}}/rechazarAtuendo" method="POST">
+                     	   <input type="submit" class="btn btn-success btn-block" value="Rechazar Atuendo">
+         			 </form>
+	              </div>
+	              <div class="card-footer">
+                    <h4 class="estado">
+	                  Estado: {{estado.estado}}
+	                </h4>
+	        	  </div>
+	            </div>
+	            
+    {{/each}}
+    
+    </div>
+
+{{/partial}}
+{{>layout.hbs}}

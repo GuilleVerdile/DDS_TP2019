@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.google.maps.errors.ApiException;
 
+import DDS_2019.Controllers.ControllerAtuendo;
 import DDS_2019.Controllers.ControllerEvento;
 import DDS_2019.Controllers.ControllerGuardarropa;
 import DDS_2019.Controllers.ControllerLogin;
@@ -32,6 +33,7 @@ public class Main {
         ControllerLogin controllerLoggin = new ControllerLogin();
         ControllerGuardarropa controllerGuardarropa = new ControllerGuardarropa();
         ControllerEvento controllerEvento = new ControllerEvento();
+        ControllerAtuendo controllerAtuendo = new ControllerAtuendo();
         HandlebarsTemplateEngine transformer = new HandlebarsTemplateEngine();
         
         Spark.get("/usuarioHome", controllerLoggin::login, transformer);		
@@ -51,8 +53,9 @@ public class Main {
 		Spark.post("guardarropa/:id/compartir",controllerPersona::compartirGuardarropa,transformer);
 		Spark.post("/agregarGuardarropaCompartido",controllerPersona::agregarGuardarropaCompartido,transformer);
 		Spark.get("/evento/:id/verAtuendosSugeridos",controllerEvento::verAtuendosSugeridos,transformer);
-		Spark.post("/evento/:id/aceptarAtuendo",controllerEvento::aceptarAtuendo,transformer);
-		Spark.post("/evento/:id/rechazarAtuendo",controllerEvento::rechazarAtuendo,transformer);
+		Spark.post("/atuendo/:id/aceptarAtuendo",controllerEvento::aceptarAtuendo,transformer);
+		Spark.post("/atuendo/:id/rechazarAtuendo",controllerEvento::rechazarAtuendo,transformer);
+		Spark.get("/atuendo/:id/verPrendas",controllerAtuendo::verPrendas,transformer);
 		
 		/* String connectionUrl = "jdbc:mysql://localhost:3306/dds_2019;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
 
