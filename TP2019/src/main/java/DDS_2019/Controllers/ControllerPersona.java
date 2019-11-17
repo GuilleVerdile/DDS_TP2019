@@ -184,30 +184,24 @@ public class ControllerPersona implements WithGlobalEntityManager {
 	  
 	  public ModelAndView altaEvento(Request req, Response res) {
 		  res.cookie("operacionEvento", "ALTA");
+		  System.out.println("operacionEvento recien seteada..: " + req.cookie("operacionEvento"));
 	        return new ModelAndView(null, "altaEvento.hbs");
 	    }
 	  
 	  public ModelAndView modificarEvento(Request req, Response res) {
 		  res.cookie("operacionEvento", "MODIFICACION");
+		  System.out.println("operacionEvento recien seteada..: " + req.cookie("operacionEvento"));
 		  EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
 		  Evento eventoAModificar = eventoDAO.obtenerEvento(Long.valueOf(req.params(":id")));
 	      return new ModelAndView(eventoAModificar, "altaEvento.hbs");
 	    }
  
 	  public ModelAndView construirEvento(Request req, Response res) throws Exception {
-	    
 		  PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
 		  Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
 		  EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
     	Evento evento = new Evento();
     	
-    	if(req.cookie("operacionEvento") == "MODIFICACION")
-    	{
-    		Evento eventoAModificar = eventoDAO.obtenerEvento(Long.valueOf(req.queryParams("idEvento")));
-    		eventoDAO.actualizarEvento(eventoAModificar);
-    		res.redirect("/misEventos");
-    		return null;
-    	}
     	
     	//Atributos Evento
     	String descripcion = req.queryParams("descripcionEvento");
@@ -215,6 +209,21 @@ public class ControllerPersona implements WithGlobalEntityManager {
     	DateTime fechaFin = DateTime.parse(req.queryParams("fechaFinEvento"));
         String ubicacion = req.queryParams("ubicacionEvento");
         String tipoDeEvento = req.queryParams("tipoDeEvento");
+       
+
+        if(req.queryParams("idEvento").length() > 0)
+    	{
+    		System.out.println("modificando evento en bd..: ");
+    		Evento eventoAModificar = eventoDAO.obtenerEvento(Long.valueOf(req.queryParams("idEvento")));
+    		eventoAModificar.setDescripcionEvento(descripcion);
+    		eventoAModificar.setFechaInicioEvento(fechaInicio);
+    		eventoAModificar.setFechaFinEvento(fechaFin);
+    		eventoAModificar.setUbicacion(ubicacion);
+    		eventoAModificar.setTipoDeEvento(tipoDeEvento);
+    		eventoDAO.actualizarEvento(eventoAModificar);
+    		res.redirect("/misEventos");
+    		return null;
+    	}
         
 	    //Setteo del evento y creacion
         evento.setDescripcionEvento(descripcion);
