@@ -1,4 +1,5 @@
 package DDS_2019.Controllers;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,14 +10,10 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import DDS_2019.DAOs.EventoDAO;
 import DDS_2019.DAOs.GuardarropaDAO;
 import DDS_2019.DAOs.PersonaDAO;
-import DDS_2019.DAOs.PrendaDAO;
-import DDS_2019.DAOs.TipoPrendaDAO;
 import DDS_TP2019.Dominio.Evento;
 import DDS_TP2019.Dominio.Guardarropa;
 import DDS_TP2019.Dominio.Persona;
-import DDS_TP2019.Dominio.Prenda;
 import DDS_TP2019.Dominio.Sistema;
-import DDS_TP2019.Dominio.TipoPrenda;
 import db.EntityManagerHelper;
 import spark.ModelAndView;
 import spark.Request;
@@ -191,9 +188,26 @@ public class ControllerPersona implements WithGlobalEntityManager {
 	  public ModelAndView modificarEvento(Request req, Response res) {
 		  res.cookie("operacionEvento", "MODIFICACION");
 		  System.out.println("operacionEvento recien seteada..: " + req.cookie("operacionEvento"));
-		  EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+		  EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.emf.createEntityManager());
 		  Evento eventoAModificar = eventoDAO.obtenerEvento(Long.valueOf(req.params(":id")));
-	      return new ModelAndView(eventoAModificar, "altaEvento.hbs");
+//		  eventoAModificar.setFechaInicioEvento(new SimpleDateFormat("MM/dd/yyyy").format(eventoAModificar.getFechaInicioEvento()));
+		 String fechaInicio =  eventoAModificar.getFechaInicioEvento().toString();
+		 System.out.println("tipoEvento: " + eventoAModificar.getTipoDeEvento());
+		 System.out.println("ubicacion: " + eventoAModificar.getUbicacion());
+		 String aux = eventoAModificar.getUbicacion().replace(' ', '_');
+		 String desc = eventoAModificar.getDescripcionEvento().replace(' ', '_');
+		  fechaInicio = fechaInicio.substring(0, 10);
+		  System.out.println("fechaInicio..: " + fechaInicio.substring(0, 10));
+		  String fechaFin =  eventoAModificar.getFechaFinEvento().toString();
+		  fechaFin = fechaFin.substring(0, 10);
+		  System.out.println("fechaFin..: " + fechaFin.substring(0, 10));  
+		  HashMap<String, Object> viewModel = new HashMap<>();
+		  viewModel.put("evento", eventoAModificar);
+		  viewModel.put("fechaInicioEvento", fechaInicio);
+		  viewModel.put("fechaFinEvento", fechaFin);
+		  viewModel.put("ubicacionEvento", aux);
+		  viewModel.put("descripcionEvento", desc);
+		  return new ModelAndView(viewModel, "altaEvento.hbs");
 	    }
  
 	  public ModelAndView construirEvento(Request req, Response res) throws Exception {

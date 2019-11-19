@@ -47,7 +47,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Ubicacion del Evento:</h5>
                     <div class="form-group">
-                        <input type="text" name="ubicacionEvento" id="ubicacionEvento" required="" value = {{ubicacion}}>
+                        <input type="text" name="ubicacionEvento" id="ubicacionEvento" required="" value = {{ubicacionEvento}}>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Tipo de Evento:</h5>
                     <div class="form-group">
-                        <select name="tipoDeEvento" class="form-control" id="tipoDeEvento" required="" value = {{tipoDeEvento}}>
+                        <select name="tipoDeEvento" class="form-control" id="tipoDeEvento" required="" value = {{evento.tipoDeEvento}}>
                             <option value="FORMAL">Formal</option>
                             <option value="INFORMAL">Informal</option>
                         </select>
@@ -69,10 +69,22 @@
 		
 			<br>
 			
+			<script>
+				$(document).ready(function(){
+				var aux = "{{ubicacionEvento}}"
+				$("#ubicacionEvento").val(aux.split('_').join(' '));
+				var desc = "{{descripcionEvento}}"
+				$("#descripcionEvento").val(desc.split('_').join(' '));
+				$("#tipoDeEvento option[value={{evento.tipoDeEvento}}]").attr('selected', 'selected');
+				$("#tipoDeEvento").val({{evento.tipoDeEvento}});
+				});
+			</script>
+			
         </div>
         <hr>
         <input type="submit" class="btn btn-success btn-block" value="Crear">
-        <input type="hidden" class="idEvento" name="idEvento" id="idEvento" value = {{id}}> 
+        <input type="hidden" class="idEvento" name="idEvento" id="idEvento" value = {{evento.id}}> 
     </form>
+        
 {{/partial}}
 {{>layout.hbs}}
