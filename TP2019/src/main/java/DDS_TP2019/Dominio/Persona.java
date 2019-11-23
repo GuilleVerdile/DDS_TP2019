@@ -195,25 +195,29 @@ public class Persona {
 	
 	public void sugerirAtuendosParaEventosProximos(ServicioMeteorologico servicioMeteorologico){
 		List<Evento> eventosProximos = this.eventosProximos();
-		eventosProximos.stream().forEach(evento -> {
-			Set<Set<Atuendo>> atuendosSugeridosPorDiferentesGuardarropas = null;
-			try {
-				atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(evento.temperatura(servicioMeteorologico),evento.getTipoEvento(),evento.getFechaInicioEvento(),evento.getFechaFinEvento());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ApiException ex) {
-                        Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-			Set<Atuendo>atuendosSugeridosParaEvento = atuendosSugeridosPorDiferentesGuardarropas.stream().flatMap(atuendos -> atuendos.stream()).collect(Collectors.toSet());
-			evento.setAtuendosSugeridos(atuendosSugeridosParaEvento);
-			persistirAtuendosDelEvento(evento,atuendosSugeridosParaEvento);
-		});
+		eventosProximos.stream().forEach(evento -> 
+			obtenerAtuendosParaEventoProximo(evento,servicioMeteorologico));
 	}
 	
-	private void persistirAtuendosDelEvento(Evento evento, Set<Atuendo> atuendosSugeridosParaEvento) {
+	public void obtenerAtuendosParaEventoProximo(Evento evento, ServicioMeteorologico servicioMeteorologico) {
+		Set<Set<Atuendo>> atuendosSugeridosPorDiferentesGuardarropas = null;
+		try {
+			atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(evento.temperatura(servicioMeteorologico),evento.getTipoEvento(),evento.getFechaInicioEvento(),evento.getFechaFinEvento());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApiException ex) {
+                    Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+                }
+		Set<Atuendo>atuendosSugeridosParaEvento = atuendosSugeridosPorDiferentesGuardarropas.stream().flatMap(atuendos -> atuendos.stream()).collect(Collectors.toSet());
+		evento.setAtuendosSugeridos(atuendosSugeridosParaEvento);
+		persistirAtuendosDelEvento(evento,atuendosSugeridosParaEvento);
+	}
+	
+	
+	public static void persistirAtuendosDelEvento(Evento evento, Set<Atuendo> atuendosSugeridosParaEvento) {
 	    EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
 	    AtuendoDAO atuendoDAO = new AtuendoDAO(EntityManagerHelper.getEntityManager());
 	    atuendosSugeridosParaEvento.stream().forEach(atuendoSugerido -> {

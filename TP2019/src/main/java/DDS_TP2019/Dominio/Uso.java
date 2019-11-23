@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 @Entity
@@ -21,10 +22,12 @@ public class Uso {
 	public void setId(long _id) {
 		this.id=_id;
 	}
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime fechaInicio;
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime fechaFin;
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name="prenda_id", nullable=false)
+	@JoinColumn(name="prenda_id", nullable=true)
 	private Prenda prenda;
 	
 	public DateTime getFechaInicio() {
@@ -38,6 +41,12 @@ public class Uso {
 	}
 	public void setFechaFin(DateTime fechaFin) {
 		this.fechaFin = fechaFin;
+	}
+	public Prenda getPrenda() {
+		return prenda;
+	}
+	public void setPrenda(Prenda prenda) {
+		this.prenda = prenda;
 	}
 	public Uso() {
 		super();

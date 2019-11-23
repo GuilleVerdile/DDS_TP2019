@@ -52,6 +52,15 @@ public class ControllerEvento implements WithGlobalEntityManager{
 		 eventoDAO.actualizarEvento(evento);
 		 personaDAO.actualizarPersona(persona);
 		 atuendoDAO.actualizarAtuendo(atuendo);
+		 evento.getAtuendosSugeridos().stream().forEach(atuendoSugerido -> {
+		   if(atuendoSugerido.getId() != evento.getAtuendoAceptado().getId()){
+			   System.out.println("id : " + atuendoSugerido.getId());
+			   persona.rechazarAtuendo(evento, atuendoSugerido);
+			   atuendoSugerido.setPersona(persona);
+			   atuendoSugerido.setEventoRechazado(evento);
+			   personaDAO.actualizarPersona(persona);
+		   }
+	     });
 		 res.redirect("/evento/" + idEvento + "/verAtuendosSugeridos"); 
     	 return null;
     }
@@ -71,7 +80,7 @@ public class ControllerEvento implements WithGlobalEntityManager{
 		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
 		 persona.rechazarAtuendo(evento, atuendo);
 		 atuendo.setPersona(persona);
-		 atuendo.setEventoAceptado(evento);
+		 atuendo.setEventoRechazado(evento);
 		 eventoDAO.actualizarEvento(evento);
 		 personaDAO.actualizarPersona(persona);
 		 atuendoDAO.actualizarAtuendo(atuendo);
