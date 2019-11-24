@@ -32,10 +32,11 @@ public class ServicioOpenWeather extends ServicioMeteorologico {
 
 	public double obtenerTemperaturaFutura(DateTime fecha, String ubicacion) throws IOException, ApiException, InterruptedException {
                 LatLng coords = GoogleAPI.obtenerCoordenadas(ubicacion + ", Argentina");
+                System.out.println((coords.lat + " ; " + coords.lng));
 		DateTime fechaRedondeada = redondearHorario(fecha);
 
 		long timestamp = this.obtenerTimestamp(fechaRedondeada);
-
+		System.out.println(timestamp);
 		URL url = new URL(
 				"http://api.openweathermap.org/data/2.5/forecast?lat="+coords.lat+"&lon="+coords.lng+"&appid=5d69aeb3fb117fa7e7db02e25e3eeb54&units=metric");
 

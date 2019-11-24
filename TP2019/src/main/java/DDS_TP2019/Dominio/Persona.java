@@ -212,7 +212,7 @@ public class Persona {
                     Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
                 }
 		Set<Atuendo>atuendosSugeridosParaEvento = atuendosSugeridosPorDiferentesGuardarropas.stream().flatMap(atuendos -> atuendos.stream()).collect(Collectors.toSet());
-		evento.setAtuendosSugeridos(atuendosSugeridosParaEvento);
+		System.out.println("Cantidad atuendos sugeridos..: " + atuendosSugeridosParaEvento.size());
 		persistirAtuendosDelEvento(evento,atuendosSugeridosParaEvento);
 	}
 	

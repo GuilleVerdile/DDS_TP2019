@@ -139,23 +139,23 @@ public class Atuendo {
 	}
 	
 	public boolean esMuyAbrigado() {
-		return this.sumaNivelDeAbrigo(90,100);
+		return this.sumaNivelDeAbrigo(140,300);
 	}
 	
 	public boolean esAbrigado() {
-		return this.sumaNivelDeAbrigo(75,90);
+		return this.sumaNivelDeAbrigo(90,140);
 	}
 	
 	public boolean esChill() {
-		return this.sumaNivelDeAbrigo(50,75);
+		return this.sumaNivelDeAbrigo(60,90);
 	}
 	
 	public boolean esTemplado() {
-		return this.sumaNivelDeAbrigo(35,50);
+		return this.sumaNivelDeAbrigo(45,60);
 	}
 	
 	public boolean esFresco() {
-		return this.sumaNivelDeAbrigo(10,35);
+		return this.sumaNivelDeAbrigo(30,45);
 	}
 	
 	public boolean sumaNivelDeAbrigo(int unMinimo,int unMaximo) {
@@ -210,6 +210,7 @@ public class Atuendo {
 		return this.prendas;
 	}
 	public void mostrarPrendas() {
+		System.out.println("Atuendo: ");
 		this.prendas.stream().forEach(p -> p.mostrarDetalles());
 	}
 	

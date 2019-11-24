@@ -2,6 +2,8 @@ package DDS_TP2019.Implementaciones;
 
 import java.io.IOException;
 
+import org.joda.time.DateTime;
+
 import com.google.maps.errors.ApiException;
 
 import DDS_2019.Controllers.ControllerAtuendo;
@@ -9,7 +11,12 @@ import DDS_2019.Controllers.ControllerEvento;
 import DDS_2019.Controllers.ControllerGuardarropa;
 import DDS_2019.Controllers.ControllerLogin;
 import DDS_2019.Controllers.ControllerPersona;
+import DDS_2019.DAOs.EventoDAO;
+import DDS_TP2019.Clima.GoogleAPI;
+import DDS_TP2019.Clima.ServicioOpenWeather;
+import DDS_TP2019.Dominio.Evento;
 import DDS_TP2019.Dominio.Sistema;
+import db.EntityManagerHelper;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -62,6 +69,18 @@ public class Main {
 		Spark.post("/evento/:id/modificarEvento",controllerPersona::modificarEvento,transformer);
 		Spark.post("/construirEvento",controllerPersona::construirEvento,transformer);
 		
+		Long idEvento = Long.valueOf(12);
+	     System.out.println("cookie eventoID : " + idEvento);
+	     EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+	     Evento evento = eventoDAO.obtenerEvento(idEvento);
+	     System.out.println(evento.getFechaInicioEvento());
+	     System.out.println(evento.getFechaInicioEvento().getHourOfDay());
+	     System.out.println(evento.getFechaFinEvento());
+//		String direccion = GoogleAPI.buscarDireccion("La Plata, Arg");
+//		System.out.println(direccion);
+//		System.out.println(new ServicioOpenWeather().obtenerTemperaturaFutura(new DateTime(2019,11,23,21,00), direccion));
+//		System.out.println(GoogleAPI.obtenerCoordenadas(direccion));
+//         System.out.println(GoogleAPI.obtenerCoordenadas("Buenos Aires, Argentina"));   
 		
 		/* String connectionUrl = "jdbc:mysql://localhost:3306/dds_2019;databaseName=DDS_2019;user=DDS_2019;password=DDS_2019";
 

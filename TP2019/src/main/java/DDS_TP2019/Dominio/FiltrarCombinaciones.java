@@ -17,6 +17,10 @@ public class FiltrarCombinaciones {
 	}
 	
 	public Set<Atuendo> ejecutar(Set<Atuendo> atuendosPosibles, Double temperatura,DateTime fechaInicioEvento, DateTime fechaFinEvento){	
+		
+//		Set<Atuendo> atuendosPosibles2 = atuendosPosibles.stream().filter(unAtuendo -> unAtuendo.esTemplado()).collect(Collectors.toSet());
+//		System.out.println("Cantidad atuendos posibles..: " + atuendosPosibles.size());
+//		atuendosPosibles2.stream().forEach(unAtuendo -> unAtuendo.mostrarPrendas());
 		Set<Atuendo> atuendosAEvaluar = atuendosPosibles.stream()
 										.filter(unAtuendo -> unAtuendo.cubreTodoElCuerpo())
 										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("parteinferior"))  
@@ -26,7 +30,7 @@ public class FiltrarCombinaciones {
 										.filter(unAtuendo -> unAtuendo.noRepiteNivelPorCategoria())
 										.filter(unAtuendo -> unAtuendo.estaDisponible(fechaInicioEvento,fechaFinEvento))
 										.collect(Collectors.toSet());
-				
+		System.out.println("Cantidad atuendos a evaluar..: " + atuendosAEvaluar.size());
 		if(temperatura >= 0 && temperatura < 10) {
 			return atuendosAEvaluar.stream().filter(unAtuendo -> unAtuendo.esMuyAbrigado()).collect(Collectors.toSet());
 		} else if(temperatura >= 10 && temperatura < 15) {

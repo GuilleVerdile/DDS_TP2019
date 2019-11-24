@@ -10,6 +10,7 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import DDS_2019.DAOs.EventoDAO;
 import DDS_2019.DAOs.GuardarropaDAO;
 import DDS_2019.DAOs.PersonaDAO;
+import DDS_TP2019.Clima.ServicioOpenWeather;
 import DDS_TP2019.Dominio.Evento;
 import DDS_TP2019.Dominio.Guardarropa;
 import DDS_TP2019.Dominio.Persona;
@@ -51,6 +52,7 @@ public class ControllerPersona implements WithGlobalEntityManager {
 		 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
 		 Persona persona = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
 		 Guardarropa guardarropa = new Guardarropa();
+		 guardarropa.setIdDuenio(persona.getId());
 		 System.out.println("Guardando nuevo guardarropa..");
 		 guardarropa.agregarPersona(persona);
 		 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
@@ -143,6 +145,29 @@ public class ControllerPersona implements WithGlobalEntityManager {
 //		 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropaAeliminar);
 //		 guardarropaDAO.eliminarGuardarropa(guardarropa);
 		 
+		 res.redirect("/misguardarropas");
+		 return null;
+	 }
+	
+	public ModelAndView dejarDeCompartirGuardarropa(Request req, Response res){
+		 
+		 System.out.println("Dejando de Compartir Guardarropa..");
+		 Long idGuardarropa = Long.valueOf(req.session().attribute("guardarropaID"));
+		 System.out.println(idGuardarropa);
+		 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
+	   	 Guardarropa guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropa);
+	   	System.out.println(guardarropa.getId());
+	   	
+	   	 PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
+	   	 Persona personaLoggeada = personaDAO.obtenerPersona(Long.valueOf(req.cookie("uid")));
+	   	guardarropa.getPersonas().stream().forEach(persona -> {
+	   		 Persona p = personaDAO.obtenerPersona(persona.getId());
+	   		 guardarropa.eliminarPersonaConId(p.getId())  ;
+	   		 guardarropaDAO.actualizarGuardarropa(guardarropa); 
+		     p.agregarGuardarropa(guardarropa);
+			 personaDAO.actualizarPersona(p);
+	   	 });
+	   
 		 res.redirect("/misguardarropas");
 		 return null;
 	 }
@@ -260,6 +285,8 @@ public class ControllerPersona implements WithGlobalEntityManager {
 	 	System.out.println("id nuevo evento: " + evento.getId());
 	 	System.out.println("cantidad de eventos de la persona: " + persona.getEventos().size());
 	   	
+	 	persona.obtenerAtuendosParaEventoProximo(evento, new ServicioOpenWeather());
+	 	
 	 	 res.redirect("/misEventos");
 		 return null;
 	 

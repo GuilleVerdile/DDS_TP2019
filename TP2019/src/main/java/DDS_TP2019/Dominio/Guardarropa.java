@@ -24,6 +24,14 @@ public class Guardarropa {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
+	private long idDuenio;
+	
+	public long getIdDuenio() {
+		return idDuenio;
+	}
+	public void setIdDuenio(long idDuenio) {
+		this.idDuenio = idDuenio;
+	}
 	public long getId() {
 		return id;
 	}
@@ -57,6 +65,10 @@ public class Guardarropa {
 	
 	public void agregarPersona(Persona p) {
 		this.personas.add(p);
+	}
+	public void eliminarPersonaConId(Long idPersonaAeliminar) {
+		// TODO Auto-generated method stub
+		this.personas.removeIf(p -> p.getId() == idPersonaAeliminar);
 	}
 	
 	public void eliminarPrendaConId(Long idPrendaAeliminar) {

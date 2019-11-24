@@ -18,6 +18,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
+import com.google.common.collect.Sets;
 import com.google.maps.errors.ApiException;
 
 import DDS_TP2019.Clima.ServicioMeteorologico;
@@ -68,6 +69,9 @@ public class Evento {
 		if(this.esFechaPasada()){
 			throw new Exception("La fecha introducida ya ha pasado");
 		}
+		this.atuendosSugeridos = Sets.newHashSet();
+		this.atuendosRechazados = Sets.newHashSet();
+		this.atuendosCalificados = Sets.newHashSet();
 	}
 	public void mostrarDetalles () {
 		System.out.println(this.descripcionEvento +", desde " + this.fechaInicioEvento.toString("dd/MM/yyyy hh:mm") +", hasta " + this.fechaFinEvento.toString("dd/MM/yyyy hh:mm") + " en " + this.ubicacion + " "  + tipoDeEvento);
@@ -89,7 +93,15 @@ public class Evento {
 	}
 	
 	public double temperatura(ServicioMeteorologico servicioMeteorologico) throws IOException, ApiException, InterruptedException{
-		return servicioMeteorologico.obtenerTemperaturaFutura(this.fechaInicioEvento, this.ubicacion);
+		double temperatura ;
+		if(this.diferenciaConHoy() == 0) {
+			temperatura = servicioMeteorologico.obtenerTemperatura(this.ubicacion);
+		}
+		else{
+			temperatura = servicioMeteorologico.obtenerTemperaturaFutura(this.fechaInicioEvento, this.ubicacion);
+			System.out.println("Temperatura Evento: " + temperatura );
+		}
+		return temperatura;
 	}
 
 	public String getTipoEvento(){
