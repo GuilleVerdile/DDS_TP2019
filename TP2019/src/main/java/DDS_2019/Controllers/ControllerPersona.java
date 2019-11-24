@@ -285,7 +285,9 @@ public class ControllerPersona implements WithGlobalEntityManager {
 	 	System.out.println("id nuevo evento: " + evento.getId());
 	 	System.out.println("cantidad de eventos de la persona: " + persona.getEventos().size());
 	   	
-	 	persona.obtenerAtuendosParaEventoProximo(evento, new ServicioOpenWeather());
+		Evento eventoTest = eventoDAO.obtenerEvento(idEvento);
+	 	
+	 	persona.obtenerAtuendosParaEventoProximo(eventoTest, new ServicioOpenWeather());
 	 	
 	 	 res.redirect("/misEventos");
 		 return null;

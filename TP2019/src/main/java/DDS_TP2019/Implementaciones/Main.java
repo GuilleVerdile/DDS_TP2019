@@ -11,6 +11,7 @@ import DDS_2019.Controllers.ControllerEvento;
 import DDS_2019.Controllers.ControllerGuardarropa;
 import DDS_2019.Controllers.ControllerLogin;
 import DDS_2019.Controllers.ControllerPersona;
+import DDS_2019.DAOs.AtuendoDAO;
 import DDS_2019.DAOs.EventoDAO;
 import DDS_TP2019.Clima.GoogleAPI;
 import DDS_TP2019.Clima.ServicioOpenWeather;
@@ -76,6 +77,10 @@ public class Main {
 	     System.out.println(evento.getFechaInicioEvento());
 	     System.out.println(evento.getFechaInicioEvento().getHourOfDay());
 	     System.out.println(evento.getFechaFinEvento());
+	     
+	     AtuendoDAO atuendoDAO = new AtuendoDAO(EntityManagerHelper.getEntityManager());
+	     atuendoDAO.obtenerAtuendo(5).mostrarPrendas();
+	     
 //		String direccion = GoogleAPI.buscarDireccion("La Plata, Arg");
 //		System.out.println(direccion);
 //		System.out.println(new ServicioOpenWeather().obtenerTemperaturaFutura(new DateTime(2019,11,23,21,00), direccion));

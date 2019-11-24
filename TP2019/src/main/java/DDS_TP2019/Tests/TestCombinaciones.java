@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 
 import DDS_2019.DAOs.EventoDAO;
 import DDS_2019.DAOs.GuardarropaDAO;
+import DDS_2019.DAOs.PersonaDAO;
 import DDS_TP2019.Clima.ServicioApixU;
 import DDS_TP2019.Clima.ServicioMeteorologico;
 import DDS_TP2019.Clima.ServicioMock;
@@ -445,49 +446,60 @@ public class TestCombinaciones {
 //	        usuario.agregarEvento("Ir a trabajar",new DateTime(2010,5,30,23,00),new DateTime(2010,5,30,23,10),"Buenos Aires","FORMAL");
 //	    }
 	    
-	    @Test
-	    public void comprobarGeneracionAtuendos1() throws Exception{
-//	    	Set <Atuendo> atuendos = guardarropaTest1.sugerirAtuendos(18.00, "FORMAL", new DateTime(2010,5,30,23,00), new DateTime(2010,5,30,23,20));
-//	    	atuendos.stream().forEach(a -> a.mostrarPrendas());
-	    	
+//	    @Test
+//	    public void comprobarGeneracionAtuendos1() throws Exception{
+////	    	Set <Atuendo> atuendos = guardarropaTest1.sugerirAtuendos(18.00, "FORMAL", new DateTime(2010,5,30,23,00), new DateTime(2010,5,30,23,20));
+////	    	atuendos.stream().forEach(a -> a.mostrarPrendas());
 //	    	
-//	    	Guardarropa guardarropaTest2 = new Guardarropa();
-////	    	guardarropaTest2.agregarPrenda(medias2);
-//	    	guardarropaTest2.agregarPrenda(medias1);
-////	    	guardarropaTest2.agregarPrenda(zapatillasCalle);
-//	    	guardarropaTest2.agregarPrenda(zapatos);
-//	    	guardarropaTest2.agregarPrenda(jeanTrabajo);
-////	    	guardarropaTest2.agregarPrenda(jogging);
-//	    	guardarropaTest2.agregarPrenda(jean);
-//	    	guardarropaTest2.agregarPrenda(boxerblanco);
-////	    	guardarropaTest2.agregarPrenda(shortNike);
-////	    	guardarropaTest2.agregarPrenda(camisetaVerdeMixta);
-//	    	guardarropaTest2.agregarPrenda(camisetaBlancaMixta);
-//	    	guardarropaTest2.agregarPrenda(camisaMixta);
-////	    	guardarropaTest2.agregarPrenda(remeraBlancaSport);
-//	    	guardarropaTest2.agregarPrenda(remeraReunionNegra);
-//	    	guardarropaTest2.agregarPrenda(remeraReunionGris);
-			
-//	    	Evento evento = new Evento("prueba",new DateTime(2010,5,30,23,00), new DateTime(2010,5,30,23,20),"Buenos Aires","FORMAL");
-	    	  Long idGuardarropa = Long.valueOf(231);
-		       	 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
-		       	 guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropa);
-	    	Set <Atuendo> atuendos2 = guardarropa.sugerirAtuendos(21.00, "FORMAL", new DateTime(2010,5,30,23,00), new DateTime(2010,5,30,23,20));
-//	    	atuendos2.stream().forEach(a -> a.mostrarPrendas());
-//	    	for (Atuendo a : atuendos2) {
-//	    		System.out.println("Detalle Atuendo: ");
-//	    		a.mostrarPrendas();
-//	    		System.out.println("-------");
-//	    	}
-	    	
-//	    	usuarioGratuito.agregarGuardarropa(guardarropaTest2);
-	    	
-//	    	usuarioGratuito.obtenerAtuendosParaEventoProximo(evento, servicioMeteorologico);
-	    	 EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
-	    	Evento evento = eventoDAO.obtenerEvento(35);
-	    	Persona.persistirAtuendosDelEvento(evento, atuendos2);
-	    	System.out.println("Termine de persistir los atuendos. ");
+////	    	
+////	    	Guardarropa guardarropaTest2 = new Guardarropa();
+//////	    	guardarropaTest2.agregarPrenda(medias2);
+////	    	guardarropaTest2.agregarPrenda(medias1);
+//////	    	guardarropaTest2.agregarPrenda(zapatillasCalle);
+////	    	guardarropaTest2.agregarPrenda(zapatos);
+////	    	guardarropaTest2.agregarPrenda(jeanTrabajo);
+//////	    	guardarropaTest2.agregarPrenda(jogging);
+////	    	guardarropaTest2.agregarPrenda(jean);
+////	    	guardarropaTest2.agregarPrenda(boxerblanco);
+//////	    	guardarropaTest2.agregarPrenda(shortNike);
+//////	    	guardarropaTest2.agregarPrenda(camisetaVerdeMixta);
+////	    	guardarropaTest2.agregarPrenda(camisetaBlancaMixta);
+////	    	guardarropaTest2.agregarPrenda(camisaMixta);
+//////	    	guardarropaTest2.agregarPrenda(remeraBlancaSport);
+////	    	guardarropaTest2.agregarPrenda(remeraReunionNegra);
+////	    	guardarropaTest2.agregarPrenda(remeraReunionGris);
+//			
+////	    	Evento evento = new Evento("prueba",new DateTime(2010,5,30,23,00), new DateTime(2010,5,30,23,20),"Buenos Aires","FORMAL");
+//	    	  Long idGuardarropa = Long.valueOf(231);
+//		       	 GuardarropaDAO guardarropaDAO = new GuardarropaDAO(EntityManagerHelper.getEntityManager());
+//		       	 guardarropa = guardarropaDAO.obtenerGuardarropa(idGuardarropa);
+//	    	Set <Atuendo> atuendos2 = guardarropa.sugerirAtuendos(21.00, "FORMAL", new DateTime(2010,5,30,23,00), new DateTime(2010,5,30,23,20));
+////	    	atuendos2.stream().forEach(a -> a.mostrarPrendas());
+////	    	for (Atuendo a : atuendos2) {
+////	    		System.out.println("Detalle Atuendo: ");
+////	    		a.mostrarPrendas();
+////	    		System.out.println("-------");
+////	    	}
+//	    	
+////	    	usuarioGratuito.agregarGuardarropa(guardarropaTest2);
+//	    	
+////	    	usuarioGratuito.obtenerAtuendosParaEventoProximo(evento, servicioMeteorologico);
+//	    	 EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+//	    	Evento evento = eventoDAO.obtenerEvento(35);
+//	    	Persona.persistirAtuendosDelEvento(evento, atuendos2);
+//	    	System.out.println("Termine de persistir los atuendos. ");
+//	    }
+//	    
+	    
+	    @Test
+	    public void comprobarGeneracionAtuendos2() throws Exception{
+	    	  PersonaDAO personaDAO = new PersonaDAO(EntityManagerHelper.getEntityManager());
+			  Persona persona = personaDAO.obtenerPersona(Long.valueOf(4));
+			  EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+			  Evento evento = eventoDAO.obtenerEvento(Long.valueOf(42));
+			  persona.obtenerAtuendosParaEventoProximo(evento, new ServicioOpenWeather());
 	    }
+	    
 	    
 //	    @Test
 //	    public void aceptarAtuendoEvento() throws IOException {

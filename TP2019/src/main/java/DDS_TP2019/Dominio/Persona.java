@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 
 import org.joda.time.DateTime;
 
+import com.google.common.collect.Sets;
 import com.google.maps.errors.ApiException;
 
 import DDS_2019.DAOs.AtuendoDAO;
@@ -200,28 +201,41 @@ public class Persona {
 	}
 	
 	public void obtenerAtuendosParaEventoProximo(Evento evento, ServicioMeteorologico servicioMeteorologico) {
-		Set<Set<Atuendo>> atuendosSugeridosPorDiferentesGuardarropas = null;
-		try {
-			atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(evento.temperatura(servicioMeteorologico),evento.getTipoEvento(),evento.getFechaInicioEvento(),evento.getFechaFinEvento());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ApiException ex) {
-                    Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
-                }
-		Set<Atuendo>atuendosSugeridosParaEvento = atuendosSugeridosPorDiferentesGuardarropas.stream().flatMap(atuendos -> atuendos.stream()).collect(Collectors.toSet());
-		System.out.println("Cantidad atuendos sugeridos..: " + atuendosSugeridosParaEvento.size());
+		Set<Set<Atuendo>> atuendosSugeridosPorDiferentesGuardarropas = null ;
+//		try {
+//			atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(evento.temperatura(servicioMeteorologico),evento.getTipoEvento(),evento.getFechaInicioEvento(),evento.getFechaFinEvento());
+			atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(21.0,evento.getTipoEvento(),evento.getFechaInicioEvento(),evento.getFechaFinEvento());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ApiException ex) {
+//                    Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+		Set<Atuendo>atuendosSugeridosParaEvento = Sets.newHashSet();
+//		Set<Atuendo>atuendosSugeridosParaEvento = atuendosSugeridosPorDiferentesGuardarropas.stream().flatMap(atuendos -> atuendos.stream()).collect(Collectors.toSet());
+		
+		 AtuendoDAO atuendoDAO = new AtuendoDAO(EntityManagerHelper.getEntityManager());
+		 Atuendo atuendo = new Atuendo(atuendoDAO.obtenerAtuendo(5).getPrendas());
+		 atuendosSugeridosParaEvento.add(atuendo);
+		 System.out.println("Cantidad atuendos sugeridos..: " + atuendosSugeridosParaEvento.size());
 		persistirAtuendosDelEvento(evento,atuendosSugeridosParaEvento);
 	}
 	
 	
-	public static void persistirAtuendosDelEvento(Evento evento, Set<Atuendo> atuendosSugeridosParaEvento) {
+	public static void persistirAtuendosDelEvento(Evento eventoT, Set<Atuendo> atuendosSugeridosParaEvento) {
 	    EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+	    Evento evento = eventoDAO.obtenerEvento(eventoT.getId());
+	    System.out.println(evento.getId());
+	    evento.setAtuendosSugeridos(Sets.newHashSet());
 	    AtuendoDAO atuendoDAO = new AtuendoDAO(EntityManagerHelper.getEntityManager());
+	    System.out.println("Arranco a persistir..");
 	    atuendosSugeridosParaEvento.stream().forEach(atuendoSugerido -> {
-		   	evento.agregarAtuendoSugerido(atuendoSugerido);
+	    	atuendoSugerido.mostrarPrendas();
+	    	System.out.println(" agregarAtuendoSugerido..");
+	    	evento.agregarAtuendoSugerido(atuendoSugerido);
+	    	System.out.println(" setEventoSugerido..");
 		   	atuendoSugerido.setEventoSugerido(evento);
 		 	System.out.println("Se agrego la nueva prenda al guardarropa en memoria. " );
 		 	eventoDAO.actualizarEvento(evento);
