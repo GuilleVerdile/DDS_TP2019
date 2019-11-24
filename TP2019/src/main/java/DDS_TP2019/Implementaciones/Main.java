@@ -70,16 +70,16 @@ public class Main {
 		Spark.post("/evento/:id/modificarEvento",controllerPersona::modificarEvento,transformer);
 		Spark.post("/construirEvento",controllerPersona::construirEvento,transformer);
 		
-		Long idEvento = Long.valueOf(12);
-	     System.out.println("cookie eventoID : " + idEvento);
-	     EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
-	     Evento evento = eventoDAO.obtenerEvento(idEvento);
-	     System.out.println(evento.getFechaInicioEvento());
-	     System.out.println(evento.getFechaInicioEvento().getHourOfDay());
-	     System.out.println(evento.getFechaFinEvento());
-	     
-	     AtuendoDAO atuendoDAO = new AtuendoDAO(EntityManagerHelper.getEntityManager());
-	     atuendoDAO.obtenerAtuendo(5).mostrarPrendas();
+//		Long idEvento = Long.valueOf(12);
+//	     System.out.println("cookie eventoID : " + idEvento);
+//	     EventoDAO eventoDAO = new EventoDAO(EntityManagerHelper.getEntityManager());
+//	     Evento evento = eventoDAO.obtenerEvento(idEvento);
+//	     System.out.println(evento.getFechaInicioEvento());
+//	     System.out.println(evento.getFechaInicioEvento().getHourOfDay());
+//	     System.out.println(evento.getFechaFinEvento());
+//	     
+//	     AtuendoDAO atuendoDAO = new AtuendoDAO(EntityManagerHelper.getEntityManager());
+//	     atuendoDAO.obtenerAtuendo(5).mostrarPrendas();
 	     
 //		String direccion = GoogleAPI.buscarDireccion("La Plata, Arg");
 //		System.out.println(direccion);

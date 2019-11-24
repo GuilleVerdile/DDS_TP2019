@@ -214,12 +214,13 @@ public class Persona {
 //                    Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
 //                }
 		Set<Atuendo>atuendosSugeridosParaEvento = Sets.newHashSet();
-//		Set<Atuendo>atuendosSugeridosParaEvento = atuendosSugeridosPorDiferentesGuardarropas.stream().flatMap(atuendos -> atuendos.stream()).collect(Collectors.toSet());
+		atuendosSugeridosParaEvento = atuendosSugeridosPorDiferentesGuardarropas.stream().flatMap(atuendos -> atuendos.stream()).collect(Collectors.toSet());
+		System.out.println("Cantidad atuendos sugeridos..: " + atuendosSugeridosParaEvento.size());
 		
-		 AtuendoDAO atuendoDAO = new AtuendoDAO(EntityManagerHelper.getEntityManager());
-		 Atuendo atuendo = new Atuendo(atuendoDAO.obtenerAtuendo(5).getPrendas());
-		 atuendosSugeridosParaEvento.add(atuendo);
-		 System.out.println("Cantidad atuendos sugeridos..: " + atuendosSugeridosParaEvento.size());
+//		 AtuendoDAO atuendoDAO = new AtuendoDAO(EntityManagerHelper.getEntityManager());
+//		 Atuendo atuendo = new Atuendo(atuendoDAO.obtenerAtuendo(5).getPrendas());
+//		 atuendosSugeridosParaEvento.add(atuendo);
+//		 System.out.println("Cantidad atuendos sugeridos..: " + atuendosSugeridosParaEvento.size());
 		persistirAtuendosDelEvento(evento,atuendosSugeridosParaEvento);
 	}
 	
