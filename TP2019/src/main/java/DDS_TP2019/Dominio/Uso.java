@@ -29,7 +29,16 @@ public class Uso {
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="prenda_id", nullable=true)
 	private Prenda prenda;
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name="evento_id", nullable=true)
+	private Evento evento;
 	
+	public Evento getEvento() {
+		return evento;
+	}
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
 	public DateTime getFechaInicio() {
 		return fechaInicio;
 	}

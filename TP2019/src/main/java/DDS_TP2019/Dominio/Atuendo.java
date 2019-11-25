@@ -216,8 +216,8 @@ public class Atuendo {
 		this.prendas.stream().forEach(p -> p.mostrarDetalles());
 	}
 	
-	public void agregarUso(DateTime fechaInicioEvento, DateTime fechaFinEvento) {
-		this.prendas.forEach(unaPrenda -> unaPrenda.agregarUso(fechaInicioEvento,fechaFinEvento));
+	public void agregarUso(Evento evento) {
+		this.prendas.forEach(unaPrenda -> unaPrenda.agregarUso(evento));
 	}
 	
 	public boolean estaDisponible(DateTime fechaInicioEvento, DateTime fechaFinEvento) {

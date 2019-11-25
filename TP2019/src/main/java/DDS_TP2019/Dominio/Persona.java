@@ -257,7 +257,7 @@ public class Persona {
 		atuendo.setEstado(new Aceptar("ACEPTADO"));
 		historialAtuendos.add(atuendo);
 		evento.agregarAtuendoAceptado(atuendo);
-		atuendo.agregarUso(evento.getFechaInicioEvento(),evento.getFechaFinEvento());
+		atuendo.agregarUso(evento);
 	}
 	
 	public void rechazarAtuendo(Evento evento, Atuendo atuendo) {

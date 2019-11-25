@@ -49,10 +49,21 @@ public class Evento {
 	private Set<Atuendo> atuendosRechazados;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="eventoCalificado",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private Set<Atuendo> atuendosCalificados; // Los atuendos calificados van a ir aca para poder acceder a la temperatura del evento
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="evento",cascade = {CascadeType.REMOVE})
+	private Set<Uso> usosDePrendas;
 	@ManyToOne
 	@JoinColumn(name="persona_id", nullable=false)
 	private Persona persona;
 	
+	public Set<Uso> getUsosDePrendas() {
+		return usosDePrendas;
+	}
+	public void setUsosDePrendas(Set<Uso> usosDePrendas) {
+		this.usosDePrendas = usosDePrendas;
+	}
+	public void agregarUsoDePrenda(Uso usoDePrenda) {
+		this.usosDePrendas.add(usoDePrenda);
+	}
 	public Persona getPersona() {
 		return persona;
 	}
@@ -72,6 +83,7 @@ public class Evento {
 		this.atuendosSugeridos = Sets.newHashSet();
 		this.atuendosRechazados = Sets.newHashSet();
 		this.atuendosCalificados = Sets.newHashSet();
+		this.usosDePrendas = Sets.newHashSet();
 	}
 	public void mostrarDetalles () {
 		System.out.println(this.descripcionEvento +", desde " + this.fechaInicioEvento.toString("dd/MM/yyyy hh:mm") +", hasta " + this.fechaFinEvento.toString("dd/MM/yyyy hh:mm") + " en " + this.ubicacion + " "  + tipoDeEvento);

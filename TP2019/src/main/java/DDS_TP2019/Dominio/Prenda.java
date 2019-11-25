@@ -117,9 +117,11 @@ public class Prenda {
 	public void setUsos(Set<Uso> usos) {
 		this.usos = usos;
 	}
-	public void agregarUso(DateTime fechaInicioEvento, DateTime fechaFinEvento) {
-		Uso uso = new Uso(fechaInicioEvento,fechaFinEvento);
+	public void agregarUso(Evento evento) {
+		Uso uso = new Uso(evento.getFechaInicioEvento(),evento.getFechaFinEvento());
+		uso.setEvento(evento);
 		this.usos.add(uso);
+		evento.agregarUsoDePrenda(uso);
 		uso.setPrenda(this);
 	}
 	
