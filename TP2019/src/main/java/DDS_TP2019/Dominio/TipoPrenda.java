@@ -31,6 +31,8 @@ public class TipoPrenda {
 	private int nivel;
 	
 	public int getNivel() {
+//		System.out.println("nivel tipoPrenda: " + nivel);
+//		System.out.println(" tipo DeEvento: "  + tiposDeEvento.get(0));
 		return nivel;
 	}
 	public void setNivel(int nivel) {

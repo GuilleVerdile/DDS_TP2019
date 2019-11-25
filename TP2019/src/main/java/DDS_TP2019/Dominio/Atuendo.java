@@ -68,6 +68,8 @@ public class Atuendo {
 	}*/
 	
 	public boolean cubreTodoElCuerpo() {
+//		System.out.println("cat atuendo..-----------........");
+//		this.getPrendas().stream().forEach(unaPrenda -> System.out.println(unaPrenda.getTipoPrenda().getCategoria()));
 		return this.contieneDeCategoria("partesuperior") &&
 				this.contieneDeCategoria("parteinferior") &&
 				this.contieneDeCategoria("calzado");
@@ -104,7 +106,7 @@ public class Atuendo {
 		this.eventoSugerido = eventoSugerido;
 	}
 	public boolean contieneDeCategoria(String unaCategoria) {
-		return this.prendas.stream().anyMatch(unaPrenda -> unaPrenda.getTipoPrenda().getCategoria() == unaCategoria);
+		return this.prendas.stream().anyMatch(unaPrenda -> unaPrenda.getTipoPrenda().getCategoria().equalsIgnoreCase(unaCategoria));
 	}
 
 	public Estado getEstado() {
@@ -164,7 +166,7 @@ public class Atuendo {
 	}
 	
 	public Set<Prenda> filtrarPorCategoria(String unaCategoria) {
-		return this.prendas.stream().filter(unaPrenda -> unaPrenda.getTipoPrenda().getCategoria() == unaCategoria).collect(Collectors.toSet());
+		return this.prendas.stream().filter(unaPrenda -> unaPrenda.getTipoPrenda().getCategoria().equalsIgnoreCase(unaCategoria)).collect(Collectors.toSet());
 	}
 	
 	public boolean noHayMasDe3DelTipo(String categoria) {
@@ -197,7 +199,7 @@ public class Atuendo {
 		}
 	}
 	private Set<Prenda> filtrarPrendasCategoria(String categoria) {
-		return this.prendas.stream().filter(prenda -> prenda.getTipoPrenda().getCategoria() == categoria).collect(Collectors.toSet());
+		return this.prendas.stream().filter(prenda -> prenda.getTipoPrenda().getCategoria().equalsIgnoreCase(categoria)).collect(Collectors.toSet());
 	}
 	private boolean noRepiteNivel(Set<Prenda> prendaXCategoria) {    // en ninguna parte del cuerpo puede haber dos prendas del mismo nivel
 		return ((prendaXCategoria.stream().filter(prenda -> prenda.getTipoPrenda().getNivel() == 0).collect(Collectors.toSet()).size()  <= 1) &&    //prenda nivel 0 es optativa          

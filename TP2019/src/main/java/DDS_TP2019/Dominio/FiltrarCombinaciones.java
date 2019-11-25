@@ -37,16 +37,38 @@ public class FiltrarCombinaciones {
 //		atuendosPosibles2.stream().forEach(unAtuendo -> unAtuendo.mostrarPrendas());
 		System.out.println("Cantidad atuendos posibles..: " + atuendosPosibles.size());
 		Set<Atuendo> atuendosAEvaluar = Sets.newHashSet();
-		 atuendosAEvaluar = atuendosPosibles.stream()
-										.filter(unAtuendo -> unAtuendo.cubreTodoElCuerpo())
-										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("parteinferior"))  
-										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("partesuperior"))  
-										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("calzado")) 
-										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("accesorio"))
-										.filter(unAtuendo -> unAtuendo.noRepiteNivelPorCategoria())
-										.filter(unAtuendo -> unAtuendo.estaDisponible(fechaInicioEvento,fechaFinEvento))
-										.collect(Collectors.toSet());
+//		 atuendosAEvaluar = atuendosPosibles.stream()
+//										.filter(unAtuendo -> unAtuendo.cubreTodoElCuerpo())
+//										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("parteinferior"))  
+//										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("partesuperior"))  
+//										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("calzado")) 
+//										.filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("accesorio"))
+//										.filter(unAtuendo -> unAtuendo.noRepiteNivelPorCategoria())
+//										.filter(unAtuendo -> unAtuendo.estaDisponible(fechaInicioEvento,fechaFinEvento))
+//										.collect(Collectors.toSet());
+
+		atuendosPosibles = atuendosPosibles.stream()
+					.filter(unAtuendo -> unAtuendo.cubreTodoElCuerpo()).collect(Collectors.toSet());;
+		System.out.println("Cantidad atuendos q cubren todo el cuerpo..: " + atuendosPosibles.size());
+					
+		atuendosPosibles = atuendosPosibles.stream().filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("parteinferior")).collect(Collectors.toSet()); ; 
+		System.out.println("Cantidad atuendos q noHayMasDe3DelTipo parteinferior..: " + atuendosPosibles.size());			
+		
+		atuendosPosibles = atuendosPosibles.stream().filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("partesuperior")).collect(Collectors.toSet());  ;
+		System.out.println("Cantidad atuendos q noHayMasDe3DelTipo partesuperior..: " + atuendosPosibles.size());			
+		atuendosPosibles = atuendosPosibles.stream().filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("calzado")).collect(Collectors.toSet()); ;
+		System.out.println("Cantidad atuendos q noHayMasDe3DelTipo calzado..: " + atuendosPosibles.size());			
+		atuendosPosibles = atuendosPosibles.stream().filter(unAtuendo -> unAtuendo.noHayMasDe3DelTipo("accesorio")).collect(Collectors.toSet());;
+		System.out.println("Cantidad atuendos q noHayMasDe3DelTipo accesorio..: " + atuendosPosibles.size());			
+		atuendosPosibles = atuendosPosibles.stream().filter(unAtuendo -> unAtuendo.noRepiteNivelPorCategoria()).collect(Collectors.toSet());;
+		System.out.println("Cantidad atuendos q noRepiteNivelPorCategoria..: " + atuendosPosibles.size());			
+		atuendosPosibles = atuendosPosibles.stream().filter(unAtuendo -> unAtuendo.estaDisponible(fechaInicioEvento,fechaFinEvento)).collect(Collectors.toSet());;
+		System.out.println("Cantidad atuendos q estaDisponible..: " + atuendosPosibles.size());
+		atuendosAEvaluar = atuendosPosibles;
+		//					.collect(Collectors.toSet());
+		
 		System.out.println("Cantidad atuendos a evaluar..: " + atuendosAEvaluar.size());
+		
 		if(temperatura >= 0 && temperatura < 10) {
 			return atuendosAEvaluar.stream().filter(unAtuendo -> unAtuendo.esMuyAbrigado()).collect(Collectors.toSet());
 		} else if(temperatura >= 10 && temperatura < 15) {
