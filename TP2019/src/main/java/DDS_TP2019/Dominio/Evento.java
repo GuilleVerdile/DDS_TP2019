@@ -41,13 +41,13 @@ public class Evento {
 	private String ubicacion;
 	private String tipoDeEvento;
 	private boolean poseeSugerencias;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="eventoSugerido",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="eventoSugerido",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private Set<Atuendo> atuendosSugeridos; // Los atuendos que se sugieren para los eventos proximos se guardaran en el evento. Esto se debe a que en un futuro el programa debe poder tener en cuenta que atuendos acepta y rechaza el usuario para cierto tipo de evento.
-	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private Atuendo atuendoAceptado;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="eventoRechazado",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="eventoRechazado",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private Set<Atuendo> atuendosRechazados;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="eventoCalificado",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="eventoCalificado",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private Set<Atuendo> atuendosCalificados; // Los atuendos calificados van a ir aca para poder acceder a la temperatura del evento
 	@ManyToOne
 	@JoinColumn(name="persona_id", nullable=false)

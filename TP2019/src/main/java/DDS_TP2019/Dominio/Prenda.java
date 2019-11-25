@@ -45,7 +45,7 @@ public class Prenda {
 	@Transient
 	private BufferedImage imagen;
 	private String pathImagen;
-	@OneToMany(mappedBy="prenda",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(mappedBy="prenda",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private Set<Uso> usos;
 	@ManyToOne
 	@JoinColumn(name="guardarropa_id", nullable=false)
