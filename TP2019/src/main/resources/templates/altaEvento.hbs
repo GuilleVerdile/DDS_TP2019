@@ -3,6 +3,13 @@
     <h1>
         Alta de Evento
     </h1>
+    
+    <form action="/misEventos" method="GET">	
+		<button type="submit" class="btn btn-danger" style="background-color: #ffc400;">
+			  <span class="glyphicon glyphicon-minus"></span> Volver
+	   </button>
+	</form>
+    
     <hr>
     <form action="/construirEvento" method="POST">
         <div class="row mt-7 ">
@@ -78,7 +85,7 @@
 			
         </div>
         <hr>
-        <input type="submit" class="btn btn-success btn-block" value="Crear">
+        <input type="submit" class="btn btn-success btn-block" value="Continuar">
         <input type="hidden" class="idEvento" name="idEvento" id="idEvento" value = {{evento.id}}> 
     </form>
         
