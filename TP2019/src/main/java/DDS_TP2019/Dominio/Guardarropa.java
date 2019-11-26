@@ -38,7 +38,7 @@ public class Guardarropa {
 	public void setId(long _id) {
 		this.id=_id;
 	}
-	@OneToMany(fetch = FetchType.LAZY,mappedBy="guardarropa",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="guardarropa",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private Set<Prenda> prendas;
 
 	public Set<Prenda> getPrendas() {
