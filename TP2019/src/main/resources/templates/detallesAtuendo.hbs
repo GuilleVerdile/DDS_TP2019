@@ -3,13 +3,13 @@
        Listado de Prendas
     </h1>
 
-   <div class="card-deck">
+   <div class="row mt-7 ">
     {{#each prendas}}
  
-	            <div class="card h-70 bg-light text-dark ">
+	            <div class="card h-70 bg-light text-dark mx-2 mb-3">
 	              <div class="card-body">
 	                <h4 class="card-title">
-	                  <a href="#">Prenda #{{tipoPrenda.descripcion}}</a>
+	                  <a>Prenda #{{tipoPrenda.descripcion}}</a>
 	                </h4>
 	                    <p class="card-text"> {{tipoTela}} - {{colorPrimario}} - {{colorSecundario}} </p>
 	              </div>
