@@ -28,23 +28,23 @@
   </div>
 </div>
 	
-   <div class="card-deck">
+   <div class="row mt-7 ">
     {{#each guardarropas}}
  
-	            <div class="card h-70 bg-light text-dark ">
-	              <a href="#"><img class="card-img-top" src="/guardarropa.png" height="150" width="80" alt="guardarropa"></a>
+	            <div class="card h-70 bg-light text-dark mx-2 mb-3">
+	              <a><img class="card-img-top" src="/guardarropa.png" style="width:246px; height:203px;" alt="guardarropa"></a>
 	              <div class="card-body">
 	                <h4 class="card-title">
-	                  <a href="#">Guardarropa #{{id}}</a>
+	                  <a>Guardarropa #{{id}}</a>
 	                </h4>
 	                 <form action="/guardarropa/{{id}}/verPrendas" method="GET">
-                     	   <input type="submit" class="btn btn-success btn-block" value="Ver prendas">
+                     	   <input type="submit" class="btn btn-success btn-block" value="Ver prendas" style="background-color: #faa400;">
          			 </form>
 	                 <form action="/guardarropa/{{id}}/agregarPrenda" method="POST">
-                     	   <input type="submit" class="btn btn-success btn-block" value="Agregar Nueva Prenda">
+                     	   <input type="submit" class="btn btn-success btn-block" value="Agregar Nueva Prenda" style="background-color: #faa400;">
          			 </form>
 	                 <form action="/eliminarGuardarropa/{{id}}" method="POST">
-                     	   <input type="submit" class="btn btn-success btn-block" value="Eliminar">
+                     	   <input type="submit" class="btn btn-success btn-block" value="Eliminar" style="background-color: #e91e63;">
          			 </form>
 	              </div>
 	              <div class="card-footer">
