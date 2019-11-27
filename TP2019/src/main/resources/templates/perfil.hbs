@@ -1,7 +1,42 @@
 {{#partial "custom-body"}}
-<h1>Mi Perfil {{nombre}}</h1>
-       
-    <h3>Bienvenido!</h3>
-        
+
+	<section class="text-center">
+	
+	    <!--Section heading-->
+	    <h2 class="h1 pt-4">Mi perfil</h2>
+	    <!--Section description-->
+	    <p class="grey-text mb-5 mt-5 px-3"> Bienvenido/a tu perfil de Qu&eacute Me Pongo!</p>
+	
+	    <div class="row">
+	        <div class="col-lg-4 col-md-12 mb-4">
+	        </div>
+	
+	        <div class="col-lg-4 col-md-12 mb-4">
+	
+	            <!--Card-->
+	            <div class="card testimonial-card">
+	
+	                <!--Background color-->
+	                <div class="card-up rainy-ashville-gradient">
+	                </div>
+	
+	                <!--Avatar-->
+	                <div class="avatar mx-auto"><img src="/persona.jpg" class="rounded-circle img-responsive" alt="Example photo" style="width:200px; height:180px;">
+	                </div>
+	
+	                <div class="card-body">
+	                    <!--Name-->
+	                    <h4 class="card-title mt-1">{{nombre}}</h4>
+	                    <hr>
+	                </div>
+	
+	            </div>
+	            <!--Card-->
+	
+	        </div>
+	    </div>
+	
+	</section>  
+	  
 {{/partial}}
 {{>layout.hbs}}
