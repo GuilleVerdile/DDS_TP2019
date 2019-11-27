@@ -202,17 +202,17 @@ public class Persona {
 	
 	public void obtenerAtuendosParaEventoProximo(Evento evento, ServicioMeteorologico servicioMeteorologico) {
 		Set<Set<Atuendo>> atuendosSugeridosPorDiferentesGuardarropas = null ;
-//		try {
-//			atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(evento.temperatura(servicioMeteorologico),evento.getTipoEvento(),evento.getFechaInicioEvento(),evento.getFechaFinEvento());
-			atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(21.0,evento.getTipoEvento(),evento.getFechaInicioEvento(),evento.getFechaFinEvento());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ApiException ex) {
-//                    Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (InterruptedException ex) {
-//                    Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+		try {
+			atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(evento.temperatura(servicioMeteorologico),evento.getTipoEvento(),evento.getFechaInicioEvento(),evento.getFechaFinEvento());
+//			atuendosSugeridosPorDiferentesGuardarropas = this.sugerirATodosLosGuardarropas(21.0,evento.getTipoEvento(),evento.getFechaInicioEvento(),evento.getFechaFinEvento());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApiException ex) {
+                    Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+                }
 		Set<Atuendo>atuendosSugeridosParaEvento = Sets.newHashSet();
 		atuendosSugeridosParaEvento = atuendosSugeridosPorDiferentesGuardarropas.stream().flatMap(atuendos -> atuendos.stream()).collect(Collectors.toSet());
 		System.out.println("Cantidad atuendos sugeridos..: " + atuendosSugeridosParaEvento.size());

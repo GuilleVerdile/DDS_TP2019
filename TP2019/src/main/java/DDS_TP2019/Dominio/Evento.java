@@ -111,8 +111,8 @@ public class Evento {
 		}
 		else{
 			temperatura = servicioMeteorologico.obtenerTemperaturaFutura(this.fechaInicioEvento, this.ubicacion);
-			System.out.println("Temperatura Evento: " + temperatura );
 		}
+		System.out.println("Temperatura Evento: " + temperatura );
 		return temperatura;
 	}
 
