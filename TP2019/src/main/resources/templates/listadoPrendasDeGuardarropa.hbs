@@ -5,9 +5,16 @@
 
 	<!-- Button trigger modal -->
 <form action="/guardarropa/{{id}}/agregarPrenda" method="POST">	
-	<input type="submit" class="btn btn-primary" value = "+ Nuevo">
+	<button type="submit" class="btn btn-primary" style="background-color: #e91e63;">
+	 	 <span class="glyphicon glyphicon-plus"></span> Nueva Prenda
+	 </button>
 </form>
 
+<form action="/misguardarropas" method="GET">	
+	<button type="submit" class="btn btn-danger">
+	  <span class="glyphicon glyphicon-minus"></span> Volver
+	  </button>
+</form>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -36,10 +43,17 @@
  
 	             <div class="card h-70 bg-light text-dark mx-2 mb-3">
 	              <div class="card-body">
-	                <h4 class="card-title">
-	                  <a>Prenda #{{tipoPrenda.descripcion}}</a>
-	                </h4>
-	                    <p class="card-text"> {{tipoTela}} - {{colorPrimario}} - {{colorSecundario}} - {{tipoPrenda.nivel}} - {{calorias}}</p>
+	                <h3 class="card-title">
+	                  <a>Prenda: {{tipoPrenda.descripcion}}</a>
+	                </h3>
+	                    <p class="card-text"> 
+	                    	<a><b>Tela: {{tipoTela}} </b>  -
+	                    	Color primario: {{colorPrimario}}   -
+	                    	<b>Color Secundario: {{colorSecundario}} </b>  -
+	                    	Nivel: {{tipoPrenda.nivel}}   -
+	                    	<b>Calorias: {{calorias}} </b>
+	                    	</a> 
+						</p>
 	                     <form action="/guardarropa/{{id}}/eliminarPrenda" method="POST">
                      		 <input type="submit" class="btn btn-success btn-block" value="Eliminar">
 	             		 </form>
